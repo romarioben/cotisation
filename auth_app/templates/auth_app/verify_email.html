@@ -1,0 +1,10 @@
+{% autoescape off%}
+
+Hi {{user.username}}
+please click this link below to verify your email address
+
+http://{{domain}}{% url 'verify-email' uid token %}
+
+
+
+{% endautoescape %}

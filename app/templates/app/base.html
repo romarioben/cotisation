@@ -1,0 +1,302 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Meta -->
+		<meta name="description" content="Gestion de la présence">
+		<meta name="author" content="Romarioben">
+		<link rel="shortcut icon" href="img/favicon.svg" />
+
+		<!-- Title -->
+		<title>GesPres || {% block title %}{% endblock title %}</title>
+
+
+		<!-- *************
+			************ Common Css Files *************
+		************ -->
+		<!-- Bootstrap css -->
+		<link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
+		<!-- Icomoon Font Icons css -->
+        <link rel="stylesheet" href="{% static 'app/fonts/style.css' %}">
+		<!-- Main css -->
+        <link rel="stylesheet" href="{% static 'app/css/main.min.css' %}">
+
+		<!-- *************
+			************ Vendor Css Files *************
+		************ -->
+
+	</head>
+
+	<body>
+
+		<!-- Loading starts -->
+		<div id="loading-wrapper">
+			<div class="spinner-border" role="status">
+			</div>
+		</div>
+		<!-- Loading ends -->
+
+		<!-- Page wrapper start -->
+		<div class="page-wrapper">
+
+			<!-- Sidebar wrapper start -->
+			<nav id="sidebar" class="sidebar-wrapper">
+
+				<!-- Sidebar brand start  -->
+				<div class="sidebar-brand">
+					<a href="index.html" class="logo">
+						<img src="{% static 'app/img/logo.svg' %}" alt="Admin Dashboards" />
+					</a>
+				</div>
+				<!-- Sidebar brand end  -->
+
+				<!-- User profile start -->
+				<div class="sidebar-user-details">
+					<div class="user-profile">
+						<img src="{% static 'app/img/user2.png' %}" class="profile-thumb" alt="Admin Dashboards">
+						<h6 class="profile-name">Yuki Hayashi</h6>
+						<ul class="profile-actions">
+							<li>
+								<a href="javascript:void(0)">
+									<i class="icon-gitlab"></i>
+									<span class="count-label green"></span>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)">
+									<i class="icon-twitter1"></i>
+								</a>
+							</li>
+							<li>
+								<a href="login.html">
+									<i class="icon-exit_to_app"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- User profile end -->
+
+				<!-- Sidebar content start -->
+				<div class="sidebar-content">
+
+					<!-- sidebar menu start -->
+					<div class="sidebar-menu">
+						<ul>
+							<li class="active">
+								<a href="dashboard" class="current-page">
+									<i class="icon-home2"></i>
+									<span class="menu-text">Dashboard</span>
+								</a>
+							</li>
+							<li>
+								<a href="{% url "membre" %}">
+									<i class="icon-users"></i>
+									<span class="menu-text">Membres</span>
+								</a>
+							</li>
+							<li>
+								<a href="table-widgets.html">
+									<i class="icon-triangle"></i>
+									<span class="menu-text">Table Widgets</span>
+								</a>
+							</li>
+		
+							
+						</ul>
+					</div>
+					<!-- sidebar menu end -->
+
+				</div>
+				<!-- Sidebar content end -->
+
+			</nav>
+			<!-- Sidebar wrapper end -->
+
+			<!-- Page content start  -->
+			<div class="page-content">
+
+				<!-- Main container start -->
+				<div class="main-container">
+
+					<!-- Header start -->
+					<header class="header">
+						<div class="toggle-btns">
+							<a id="toggle-sidebar" href="#">
+								<i class="icon-list"></i>
+							</a>
+							<a id="pin-sidebar" href="#">
+								<i class="icon-list"></i>
+							</a>
+						</div>
+						<div class="header-items">
+							<!-- Custom search start -->
+							<div class="custom-search">
+								<input type="text" class="search-query" placeholder="Search here ...">
+								<i class="icon-search1"></i>
+							</div>
+							<!-- Custom search end -->
+
+							<!-- Header actions start -->
+							<ul class="header-actions">
+								<li class="dropdown">
+									{% comment %} <a href="#" id="notifications" data-toggle="dropdown" aria-haspopup="true">
+										<i class="icon-bell"></i>
+										<span class="count-label">8</span>
+									</a> {% endcomment %}
+									<div class="dropdown-menu dropdown-menu-right lrg" aria-labelledby="notifications">
+										<div class="dropdown-menu-header">
+											Notifications (40)
+										</div>
+										<ul class="header-notifications">
+											<li>
+												<a href="#">
+													<div class="user-img away">
+														<img src="{% static 'img/user10.png' %}" alt="Bootstrap Admin Panel">
+													</div>
+													<div class="details">
+														<div class="user-title">Abbott</div>
+														<div class="noti-details">Membership has been ended.</div>
+														<div class="noti-date">Today, 07:30 pm</div>
+													</div>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<div class="user-img busy">
+														<img src="{% static 'img/user10.png' %}" alt="Admin Panel">
+													</div>
+													<div class="details">
+														<div class="user-title">Braxten</div>
+														<div class="noti-details">Approved new design.</div>
+														<div class="noti-date">Today, 12:00 am</div>
+													</div>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<div class="user-img online">
+														<img src="img/user6.png" alt="Admin Template">
+													</div>
+													<div class="details">
+														<div class="user-title">Larkyn</div>
+														<div class="noti-details">Check out every table in detail.</div>
+														<div class="noti-date">Today, 04:00 pm</div>
+													</div>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="dropdown selected">
+									<a href="#" id="userSettings" data-toggle="dropdown" aria-haspopup="true">
+										<i class="icon-user1"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userSettings">
+										<div class="header-profile-actions">
+											<div class="header-user-profile">
+												<div class="header-user">
+													<img src="img/user2.png" alt="Admin Template">
+												</div>
+												<h5>Yuki Hayashi</h5>
+												<p>Super User</p>
+											</div>
+											<a href="user-profile.html"><i class="icon-user1"></i> My Profile</a>
+											<a href="account-settings.html"><i class="icon-settings1"></i> Account Settings</a>
+											<a href="login.html"><i class="icon-log-out1"></i> Sign Out</a>
+										</div>
+									</div>
+								</li>
+								<li class="balance">
+									<h6>Balance</h6>
+									<h3>$25,700</h3>
+								</li>
+							</ul>
+							<!-- Header actions end -->
+						</div>
+					</header>
+					<!-- Header end -->
+
+					<!-- Page header start -->
+					<div class="page-header">
+
+						<!-- Breadcrumb start -->
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">{{ page_name }}</li>
+						</ol>
+						<!-- Breadcrumb end -->
+
+						<!-- App actions start -->
+						<ul class="app-actions">
+							<li>
+								<a href="#">
+									<i class="icon-export"></i> Export
+								</a>
+							</li>
+						</ul>
+						<!-- App actions end -->
+
+					</div>
+					<!-- Page header end -->
+
+					<!-- Row start -->
+					{% block main-content %}
+                    {% endblock main-content %}
+				</div>
+				<!-- Main container end -->
+
+			</div>
+			<!-- Page content end -->
+
+		</div>
+		<!-- Page wrapper end -->
+
+		<!--**************************
+			**************************
+				**************************
+							Required JavaScript Files
+				**************************
+			**************************
+		**************************-->
+		<!-- Required jQuery first, then Bootstrap Bundle JS -->
+		<script src="{% static 'app/js/jquery.min.js' %}"></script>
+        <script src="{% static 'app/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'app/js/moment.js' %}"></script>
+
+
+		<!-- *************
+			************ Vendor Js Files *************
+		************* -->
+		<!-- Slimscroll JS -->
+        <script src="{% static 'app/vendor/slimscroll/slimscroll.min.js' %}"></script>
+        <script src="{% static 'app/vendor/slimscroll/slimscroll.min.js' %}"></script>
+        <script src="{% static 'app/vendor/slimscroll/custom-scrollbar.js' %}"></script>
+
+
+		<!-- Polyfill JS -->
+        <script src="{% static 'app/vendor/polyfill/polyfill.min.js' %}"></script>
+
+		<!-- Apex Charts -->
+        <script src="{% static 'app/vendor/apex/apexcharts.min.js' %}"></script>
+        <script src="{% static 'app/vendor/apex/custom/home/lineRevenueGradientGraph.js' %}"></script>
+        <script src="{% static 'app/vendor/apex/custom/home/radialTasks.js' %}"></script>
+        <script src="{% static 'app/vendor/apex/custom/home/line-graph1.js' %}"></script>
+        <script src="{% static 'app/vendor/apex/custom/home/line-graph2.js' %}"></script>
+
+
+		<!-- Peity Charts -->
+        <script src="{% static 'app/vendor/peity/peity.min.js' %}"></script>
+        <script src="{% static 'app/vendor/peity/custom-peity.js' %}"></script>
+
+
+		<!-- Main JS -->
+        <script src="{% static 'app/js/main.js' %}"></script>
+
+	</body>
+
+</html>

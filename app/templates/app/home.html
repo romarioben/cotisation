@@ -1,0 +1,611 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block main-content %}
+<div class="row gutters">
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="info-stats2">
+            <div class="info-icon">
+                <i class="icon-eye1"></i>
+            </div>
+            <div class="sale-num">
+                <h2>5289</h2>
+                <p>Visitors</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="info-stats2">
+            <div class="info-icon">
+                <i class="icon-shopping-cart1"></i>
+            </div>
+            <div class="sale-num">
+                <h2>3765</h2>
+                <p>Orders</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="info-stats2">
+            <div class="info-icon">
+                <i class="icon-shopping-bag1"></i>
+            </div>
+            <div class="sale-num">
+                <h2>8423</h2>
+                <p>Sales</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+        <div class="info-stats2">
+            <div class="info-icon">
+                <i class="icon-activity"></i>
+            </div>
+            <div class="sale-num">
+                <h2>2619</h2>
+                <p>Expenses</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row end -->
+
+<!-- Row start -->
+<div class="row gutters">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Revenue</div>
+            </div>
+            <div class="card-body">
+                <div class="graph-status-right">
+                    <div class="graph-status primary">
+                        <div class="status-icon">
+                            <i class="icon-arrow-down"></i>
+                        </div>
+                        <div class="status-info">
+                            <div class="status-title">Today's Income</div>
+                            <div class="percentage">$4575.00</div>
+                        </div>
+                    </div>
+                    <div class="graph-status secondary">
+                        <div class="status-icon">
+                            <i class="icon-arrow-up"></i>
+                        </div>
+                        <div class="status-info">
+                            <div class="status-title">Last Week Income</div>
+                            <div class="percentage">+20.50%</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="lineRevenueGraph"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row end -->
+
+<!-- Row start -->
+<div class="row gutters">
+    <div class="col-xl-8 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Team Activity</div>
+            </div>
+            <div class="card-body">
+                <ul class="team-activity">
+                    <li class="product-list clearfix">
+                        <div class="product-time">
+                            <p class="date center-text">02:30 pm</p>
+                            <span class="badge badge-primary">New</span>
+                        </div>
+                        <div class="product-info">
+                            <div class="activity">
+                                <h6>Unify - Admin Dashboard</h6>
+                                <p>by Luke Etheridge</p>
+                            </div>
+                            <div class="status">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="49"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 49%">
+                                        <span class="sr-only">49% Complete (success)</span>
+                                    </div>
+                                </div>
+                                <p>(225 of 700gb)</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="product-list clearfix">
+                        <div class="product-time">
+                            <p class="date center-text">11:30 am</p>
+                            <span class="badge badge-primary">Task</span>
+                        </div>
+                        <div class="product-info">
+                            <div class="activity">
+                                <h6>User_Profile.php</h6>
+                                <p>by Rovane Durso</p>
+                            </div>
+                            <div class="status">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                        <span class="sr-only">60% Complete (success)</span>
+                                    </div>
+                                </div>
+                                <p>(485 of 850gb)</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="product-list clearfix">
+                        <div class="product-time">
+                            <p class="date center-text">12:50 pm</p>
+                            <span class="badge badge-primary">Closed</span>
+                        </div>
+                        <div class="product-info">
+                            <div class="activity">
+                                <h6>Material Design Kit</h6>
+                                <p>by Cosmin Capitanu</p>
+                            </div>
+                            <div class="status">
+                                <span class="line-seven">5,3,9,6,5,9,7,3,5,7</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Tasks</div>
+            </div>
+            <div class="card-body pt-0">
+                <div id="radialTasks"></div>
+                <ul class="task-list-container">
+                    <li class="task-list-item primary">
+                        <div class="task-icon">
+                            <i class="icon-clipboard"></i>
+                        </div>
+                        <div class="task-info">
+                            <h6 class="task-title">New</h6>
+                            <p class="amount-spend">12</p>
+                        </div>
+                    </li>
+                    <li class="task-list-item secondary">
+                        <div class="task-icon">
+                            <i class="icon-clipboard"></i>
+                        </div>
+                        <div class="task-info">
+                            <h6 class="task-title">Done</h6>
+                            <p class="amount-spend">15</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row end -->
+
+<!-- Row start -->
+<div class="row gutters">
+    <div class="col-lg-6 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Order History</div>
+            </div>
+            <div class="card-body">
+                <div class="customScroll5">
+                    <ul class="recent-orders">
+                        <li>
+                            <div class="order-img">
+                                <img src="img/orders/order5.png" alt="Smart Dashboards">
+                                <span class="badge badge-success">Delivered</span>
+                            </div>
+                            <div class="order-details">
+                                <h5 class="order-title">The Original Cake</h5>
+                                <p class="order-desc">Wedding cake with macarons.</p>
+                                <span class="order-date">21 mins ago</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="order-img">
+                                <img src="img/orders/order6.png" alt="Smart Dashboards">
+                                <span class="badge badge-danger">On Hold</span>
+                            </div>
+                            <div class="order-details">
+                                <h5 class="order-title">Classic Sandwich</h5>
+                                <p class="order-desc">Creamy Sandwich with pie.</p>
+                                <span class="order-date">32 mins ago</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="order-img">
+                                <img src="img/orders/order3.png" alt="Smart Dashboards">
+                                <span class="badge badge-danger">On Hold</span>
+                            </div>
+                            <div class="order-details">
+                                <h5 class="order-title">Strawberry Pecan</h5>
+                                <p class="order-desc">Homemade cheese Pecan with berries.</p>
+                                <span class="order-date">15 mins ago</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="order-img">
+                                <img src="img/orders/order1.png" alt="Smart Dashboards">
+                                <span class="badge badge-info">Processing</span>
+                            </div>
+                            <div class="order-details">
+                                <h5 class="order-title">Double Stacker</h5>
+                                <p class="order-desc">Homemade cheese cake with berries.</p>
+                                <span class="order-date">10 mins ago</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="order-img">
+                                <img src="img/orders/order4.png" alt="Smart Dashboards">
+                                <span class="badge badge-success">Delivered</span>
+                            </div>
+                            <div class="order-details">
+                                <h5 class="order-title">Veggie Burger</h5>
+                                <p class="order-desc">Homemade cheese cake with berries.</p>
+                                <span class="order-date">17 mins ago</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="order-img">
+                                <img src="img/orders/order2.png" alt="Smart Dashboards">
+                                <span class="badge badge-danger">On Hold</span>
+                            </div>
+                            <div class="order-details">
+                                <h5 class="order-title">Teriyaki Cheese Balls</h5>
+                                <p class="order-desc">Chocolate cake with mascarpone.</p>
+                                <span class="order-date">12 mins ago</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Activity</div>
+            </div>
+            <div class="card-body">
+                <div class="customScroll5">
+                    <div class="timeline-activity">
+                        <div class="activity-log">
+                            <p class="log-name">Corey Haggard<small class="log-time">- 9 mins ago</small></p>
+                            <div class="log-details">GoldFinch dashboard has been created<span
+                                    class="text-success ml-1">#New</span></div>
+                        </div>
+                        <div class="activity-log">
+                            <p class="log-name">Gleb Kuznetsov<small class="log-time">- 4 hrs ago</small></p>
+                            <div class="log-details">
+                                Farewell day photos uploaded.
+                                <div class="stacked-images mt-1">
+                                    <img class="sm" src="{% static 'app/img/user.png' %}" alt="Admin Panel Website Templates">
+                                    <img class="sm" src="{% static 'app/img/user2.png' %}" alt="Admin Panel Website Templates">
+                                    <img class="sm" src="{% static 'app/img/user3.png' %}" alt="Admin Panel Website Templates">
+                                    <img class="sm" src="{% static 'app/img/user4.png' %}" alt="Admin Panel Website Templates">
+                                    <span class="plus sm">+5</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="activity-log">
+                            <p class="log-name">Yuki Hayashi<small class="log-time">- 7 hrs ago</small></p>
+                            <div class="log-details">Developed 30 multipurpose Bootstrap 4 Admin Templates</div>
+                        </div>
+                        <div class="activity-log">
+                            <p class="log-name">Nathan James<small class="log-time">- 9 hrs ago</small></p>
+                            <div class="log-details">Best Design Award</div>
+                        </div>
+                        <div class="activity-log">
+                            <p class="log-name">Elon Musk<small class="log-time">- 4 hrs ago</small></p>
+                            <div class="log-details">
+                                Farewell day photos uploaded.
+                                <div class="stacked-images mt-1">
+                                    <img class="sm" src="{% static 'app/img/user5.png' %}"  alt="Admin Panel Website Templates">
+                                    <img class="sm" src="{% static 'app/img/user22.png' %}" alt="Admin Panel Website Templates">
+                                    <span class="plus sm">+7</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="activity-log">
+                            <p class="log-name">Nkio Toyoda<small class="log-time">- 3 hrs ago</small></p>
+                            <div class="log-details">Developed 30 multipurpose Bootstrap 4 Admin Templates</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row end -->
+
+<!-- Row start -->
+<div class="row gutters">
+    <div class="col-lg-6 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Sales</div>
+            </div>
+            <div class="card-body">
+                <a href="#" class="graph-notify" data-toggle="tooltip" data-placement="left" title=""
+                    data-original-title="5 new orders placed">
+                    <i class="icon-alert-circle"></i>
+                </a>
+                <div id="lineGraph1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Income</div>
+            </div>
+            <div class="card-body">
+                <a href="#" class="graph-notify" data-toggle="tooltip" data-placement="left" title=""
+                    data-original-title="5 payment errors">
+                    <i class="icon-alert-circle"></i>
+                </a>
+                <div id="lineGraph2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row end -->
+
+<!-- Row start -->
+<div class="row gutters">
+    <div class="col-lg-4 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Stats</div>
+            </div>
+            <div class="card-body">
+                <div class="customScroll5">
+                    <ul class="statistics">
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-eye1"></i>
+                            </span>
+                            A new ticket opened.
+                        </li>
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-thumbs-up1"></i>
+                            </span>
+                            That's A great idea!
+                        </li>
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-star2"></i>
+                            </span>
+                            Tell us what you think.
+                        </li>
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-shopping-bag1"></i>
+                            </span>
+                            A new item sold.
+                        </li>
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-check-circle"></i>
+                            </span>
+                            Design approved.
+                        </li>
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-clipboard"></i>
+                            </span>
+                            Assigned new task to Zyan.
+                        </li>
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-eye1"></i>
+                            </span>
+                            A new ticket opened.
+                        </li>
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-thumbs-up1"></i>
+                            </span>
+                            That's A great idea!
+                        </li>
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-star2"></i>
+                            </span>
+                            Tell us what you think.
+                        </li>
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-shopping-bag1"></i>
+                            </span>
+                            A new item sold.
+                        </li>
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-check-circle"></i>
+                            </span>
+                            Design approved.
+                        </li>
+                        <li>
+                            <span class="stat-icon">
+                                <i class="icon-clipboard"></i>
+                            </span>
+                            Assigned new task to Zyan.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Top Links</div>
+            </div>
+            <div class="card-body">
+                <div class="customScroll5">
+                    <ul class="recent-links">
+                        <li>
+                            <a href="#">Bootstrap admin template</a>
+                        </li>
+                        <li>
+                            <a href="#">Images resources</a>
+                        </li>
+                        <li>
+                            <a href="#">Best admin templates 2020</a>
+                        </li>
+                        <li>
+                            <a href="#">Javascript libraries</a>
+                        </li>
+                        <li>
+                            <a href="#">Angular widgets</a>
+                        </li>
+                        <li>
+                            <a href="#">UX library</a>
+                        </li>
+                        <li>
+                            <a href="#">Bootstrap admin template</a>
+                        </li>
+                        <li>
+                            <a href="#">Images resources</a>
+                        </li>
+                        <li>
+                            <a href="#">Best admin templates 2020</a>
+                        </li>
+                        <li>
+                            <a href="#">Javascript libraries</a>
+                        </li>
+                        <li>
+                            <a href="#">Angular widgets</a>
+                        </li>
+                        <li>
+                            <a href="#">UX library</a>
+                        </li>
+                        <li>
+                            <a href="#">Bootstrap admin template</a>
+                        </li>
+                        <li>
+                            <a href="#">Images resources</a>
+                        </li>
+                        <li>
+                            <a href="#">Best admin templates 2020</a>
+                        </li>
+                        <li>
+                            <a href="#">Javascript libraries</a>
+                        </li>
+                        <li>
+                            <a href="#">Angular widgets</a>
+                        </li>
+                        <li>
+                            <a href="#">UX library</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-6 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Top Customers</div>
+            </div>
+            <div class="card-body">
+                <div class="customScroll5">
+                    <div class="top-agents-container">
+                        <div class="top-agent">
+                            <img src="{% static 'app/img/user.png' %}" class="avatar" alt="Agent" />
+                            <div class="agent-details">
+                                <h6>Amy Diaz</h6>
+                                <div class="agent-score">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 87%"
+                                            aria-valuenow="87" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="points">
+                                        <div class="left">Rank #1</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-agent">
+                            <img src="{% static 'app/img/user22.png' %}"  class="avatar" alt="Agent" />
+                            <div class="agent-details">
+                                <h6>Lily Jordan</h6>
+                                <div class="agent-score">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 76%"
+                                            aria-valuenow="76" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="points">
+                                        <div class="left">Rank #2</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-agent">
+                            <img src="{% static 'app/img/user6.png' %}"  class="avatar" alt="Agent" />
+                            <div class="agent-details">
+                                <h6>Shawn Mark</h6>
+                                <div class="agent-score">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 65%"
+                                            aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="points">
+                                        <div class="left">Rank #3</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-agent">
+                            <img src="{% static 'app/img/user20.png' %}"  class="avatar" alt="Agent" />
+                            <div class="agent-details">
+                                <h6>Ryan Collins</h6>
+                                <div class="agent-score">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 58%"
+                                            aria-valuenow="58" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="points">
+                                        <div class="left">Rank #4</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-agent">
+                            <img src="{% static 'app/img/user13.png' %}" class="avatar" alt="Agent" />
+                            <div class="agent-details">
+                                <h6>Joyce Roy</h6>
+                                <div class="agent-score">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 40%"
+                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="points">
+                                        <div class="left">Rank #5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row end -->
+
+{% endblock main-content %}

@@ -1,0 +1,57 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Meta -->
+		<meta name="description" content="Django-Auth-app">
+		<meta name="author" content="Romarioben">
+		<link rel="shortcut icon" href="{% static 'app/img/favicon.svg' %}" />
+
+		<!-- Title -->
+		<title>Authentification || {% block title %}{% endblock title %}</title>
+
+		<!-- *************
+			************ Common Css Files *************
+		************ -->
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
+
+		<!-- Master CSS -->
+		<link rel="stylesheet" href="{% static 'app/css/main.min.css' %}">
+
+		
+		<!-- Icomoon Font Icons css -->
+        <link rel="stylesheet" href="{% static 'app/fonts/style.css' %}">
+		<!-- Main css -->
+        
+
+	</head>
+
+	<body class="authentication">
+
+		<!-- Container start -->
+		<div class="container">
+
+			<form action="" method="post">
+				<div class="row justify-content-md-center">
+					<div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+						<div class="login-screen">
+							{% block main-content %}
+							
+							{% endblock main-content %}
+						</div>
+					</div>
+				</div>
+			</form>
+
+		</div>
+		<!-- Container end -->
+
+	</body>
+
+</html>

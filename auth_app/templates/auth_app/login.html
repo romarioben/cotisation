@@ -1,0 +1,56 @@
+{% extends "auth_app/base.html" %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block main-content %}
+<div class="login-box">
+    {% csrf_token %}
+    <a href="#" class="login-logo">
+        <img src="{% static 'app/img/logo.svg' %}" alt="Admin Dashboards" />
+    </a>
+    <h5>Bienvenu(e)<br />Connectez-vous à votre compte.</h5>
+    <div class="form-group">
+        {{ form.username }} <small class="text-danger"> {{ form.username.errors|striptags }}</small> <br>
+    </div>
+    <div class="form-group">
+        {{ form.password }}<a id='togglePassword' class="m-1"><i id='icone' class='bx bx-lock-alt'></i> </a> <small class="text-danger"> {{ form.password.errors|striptags }}</small> <br>
+    </div>
+    <div class="actions mb-4">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="remember_pwd">
+            <label class="custom-control-label" for="remember_pwd">Se rappeler de moi</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+    </div>
+
+    {% if form.non_field_errors %}
+
+        {% for error in form.non_field_errors %}
+            <p class="alert alert-danger my-3">{{ error }}</p>
+        {% endfor %}
+            
+    {% endif %} 
+
+    {% if messages %}
+            
+        {% for msg in messages %}
+            <div class="alert alert-{{ msg.tags }}" role="alert"> {{ msg }}</div>
+        {% endfor %}
+            
+    {% endif %}
+    <div class="forgot-pwd">
+        <a class="link" href="{% url "password_reset" %}">Mot de passe oublié?</a>
+    </div>
+    <hr>
+    <div class="actions align-left">
+        <span class="additional-link">Voulez-vous enregistrer votre?</span>
+        <a href="{% url "registration" %}" class="btn btn-secondary">Créer un compte</a>
+    </div>
+    
+</div>
+{% endblock main-content %}
+
+

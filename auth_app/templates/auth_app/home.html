@@ -1,0 +1,22 @@
+{% extends "auth_app/base.html" %}
+
+{% block title %}
+home page
+{% endblock title %}
+
+
+{% block main-content %}
+<h1>Welcome to the home page<h1>
+<div>
+    <h1>Logout</h1>
+    <form method="post" action={% url "logout" %}>
+        {% csrf_token %}
+        <input type="submit" value="se déconnecter" />
+    </form>
+
+    {% if not request.user.is_email_verified %}
+    <h1>Verifier email</h1>
+    <a href="{% url 'verify-email-send' %}">Verifier votre email</a>
+    {% endif %}
+</div>
+{% endblock main-content %}
