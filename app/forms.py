@@ -50,3 +50,15 @@ class CotisationForm(forms.ModelForm):
             'nom' : forms.TextInput(attrs={'class':'form-control'}),
         }
         
+class PromesseForm(forms.ModelForm):
+    
+    class Meta:
+        model = models.Promesse
+        fields = ["date_echeance", "type_promesse", "unite", "quantite"]
+        widgets = {
+            'date_echeance' : forms.DateInput(attrs={'class':'form-control', 'type': "date"}),
+            'type_promesse' : forms.Select(attrs={'class':'form-select', 'type': "date"}),
+            'unite' : forms.TextInput(attrs={'class':'form-control'}),
+            'quantite' : forms.NumberInput(attrs={'class':'form-select'}),
+        }
+        

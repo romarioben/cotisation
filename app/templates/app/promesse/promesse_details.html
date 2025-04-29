@@ -1,0 +1,13 @@
+
+{% for promesse in promesses %}
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ promesse.date_promesse }}</td>
+        <td>{{ promesse.date_echeance }}</td>
+        <td>{{ promesse.membre }}</td>
+        <td>{{ promesse.quantite }} {{ promesse.unite}}</td>
+        <td>{{ promesse.get_status }}</td>
+        <td>{{ promesse.cree_par }}</td>
+    </tr>
+{% endfor %}
+ 

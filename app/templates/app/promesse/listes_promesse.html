@@ -1,0 +1,77 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+Liste des promesses
+{% endblock title %}
+
+{% block main-content %}
+
+<form class="row shadow py-2" method="get" action="{% url "promesse-prendre" %}" hx-target="#table-body">
+    {% csrf_token %}
+    <div class="col-xl-4 col-sm-12 my-2 ">
+        <p>Choississez une cotisation </p>
+    </div>
+    <div class="col-xl-4 col-sm-12 my-2 ">
+        <select name="cotisation_id" class="form-select" required>
+            <option value="">Séléctionner une cotisation</option>
+            {% for cotisation in cotisations %}
+            <option value="{{cotisation.id}}">{{cotisation}}</option>
+            {% endfor %}
+        <select>
+    </div>
+    <div class="col-xl-4 col-sm-12 my-2 ">
+        <input type="submit" value="Prendre les promesses" class="btn btn-primary col">
+    </div>
+</form>
+
+<form class="row shadow py-2"hx-post="{% url "promesse-details"  %}" hx-target="#table-body">
+    {% csrf_token %}
+    <div class="col-xl-4 col-sm-12 my-2 ">
+        <p>Choississez une cotisation </p>
+    </div>
+    <div class="col-xl-4 col-sm-12 my-2 ">
+        <select name="cotisation_id" class="form-select" required>
+            <option value="">Séléctionner une cotisation</option>
+            {% for cotisation in cotisations %}
+            <option value="{{cotisation.id}}">{{cotisation}}</option>
+            {% endfor %}
+        <select>
+    </div>
+    <div class="col-xl-4 col-sm-12 my-2 ">
+        <input type="submit" value="Submit" class="btn btn-primary col">
+    </div>
+</form>
+
+
+<table class="table table-striped my-2" id="table_presence_details">
+    <thead>
+        <tr>
+            <th scope="col"> # </th>
+            <th scope="col">Date</th>
+            <th scope="col">Date d'échéance</th>
+            <th scope="col">Membre</th>
+            <th scope="col">Objet</th>
+            <th scope="col">Status</th>
+            <th scope="col">Fait par</th>
+            
+        </tr>
+    </thead>
+    <tbody id="table-body">
+
+        {% include "app/promesse/promesse_details.html" %}
+        
+    </tbody>
+</table>
+{% endblock main-content %}
+
+{% block script %}
+<script>
+    $(document).ready(function() {
+        $("#table_presence_details").DataTable({
+            autoWidth: false,
+            
+        });
+    });
+</script>
+
+{% endblock script %}

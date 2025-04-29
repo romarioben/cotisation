@@ -1,0 +1,19 @@
+
+{% for presence in presences %}
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ presence.date_presence }}</td>
+        <td>{{ presence.membre }}</td>
+        {% if presence.presence == "présent" %}
+            <td ><span class="text-success">{{ presence.presence }}</span></td>
+        {% elif presence.presence == "absent"%}
+            <td ><span class="text-danger">{{ presence.presence }}</span></td>
+        {% elif presence.presence == "retard"%}
+            <td ><span class="text-primary">{{ presence.presence }}</span></td>
+        {% else %}
+            <td ><span class="text-secondary">{{ presence.presence }}</span></td>
+        {% endif %}
+        <td>{{ presence.cree_par }}</td>
+    </tr>
+{% endfor %}
+ 

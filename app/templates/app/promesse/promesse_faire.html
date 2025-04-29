@@ -1,0 +1,31 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+Prendre des promesses
+{% endblock title %}
+
+{% block main-content %}
+<div class="row">
+    {% for promesse in promesse_membres %}
+    <div class="col-xl-4 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">{{promesse.0}}</div>
+            </div>
+            <div class="card-body">
+                {% comment %} <p class="card-text">Vous pouvez collecter une cotisation en cliquant sur le bouton Ajouter ci-dessous.</p> {% endcomment %}
+                {% if promesse.1 %}
+                {% include "app/promesse/promesse.html" with promesse=promesse.1 %}
+                {% else %}
+                {% include "app/forms/promesse.html" with membre=promesse.0 %}
+                {% endif %}
+                
+            </div>
+            {% comment %} <div class="card-footer text-right">
+                <a hx-get="{% url "cotisation-ajouter-form" promesse.0.id %}" hx-target="closest .card-footer" hx-swap="beforebegin" class="btn btn-primary btn-sm">Ajouter</a>
+            </div> {% endcomment %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock main-content %}

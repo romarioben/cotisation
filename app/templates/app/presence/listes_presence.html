@@ -5,5 +5,57 @@ Liste de présence
 {% endblock title %}
 
 {% block main-content %}
-La liste de présence
+<div class="row">
+    <div class="col" >
+        <a href="{% url "presence-ajouter" %}" class="button dt-button p-2 m-2" >Ajouter une nouvelle liste de présence</a>
+    </div>
+</div>
+<form class="row shadow p-2"hx-post="{% url "presence-details"  %}" hx-target="#table-body">
+    {% csrf_token %}
+    <div class="col-xl-2 col-sm-12 my-2 ">
+        <p>Choississez une liste </p>
+    </div>
+    <div class="col-xl-6 col-sm-12 my-2 ">
+        <select name="liste_presence" class="form-select" required>
+            <option value="">Séléctionner une liste</option>
+            {% for liste in listes_presences %}
+            <option value="{{liste.id}}">{{liste}}</option>
+            {% endfor %}
+        <select>
+    </div>
+    <div class="col-xl-4 col-sm-12 my-2 ">
+        <input type="submit" value="Submit" class="btn btn-primary col">
+    </div>
+</form>
+
+
+<table class="table table-striped my-2" id="table_presence_details">
+    <thead>
+        <tr>
+            <th scope="col"> # </th>
+            <th scope="col">Date</th>
+            <th scope="col">Membre</th>
+            <th scope="col">Status</th>
+            <th scope="col">Fait par</th>
+            
+        </tr>
+    </thead>
+    <tbody id="table-body">
+
+        {% include "app/presence/presence_details.html" %}
+        
+    </tbody>
+</table>
 {% endblock main-content %}
+
+{% block script %}
+<script>
+    $(document).ready(function() {
+        $("#table_presence_details").DataTable({
+            autoWidth: false,
+            
+        });
+    });
+</script>
+
+{% endblock script %}

@@ -25,3 +25,19 @@ class PresenceModelAdmin(admin.ModelAdmin):
 @admin.register(models.ListPresence)
 class ListePresenceModelAdmin(admin.ModelAdmin):
     list_display = ['id','date_presence']
+
+# @admin.register(models.Presence)
+# class PresenceModelAdmin(admin.ModelAdmin):
+#     list_display = ['id','date_presence', 'membre', 'cree_par']
+
+
+@admin.register(models.Cotisation)
+class CotisationModelAdmin(admin.ModelAdmin):
+    list_display = ['id','date_creation','groupe', 'ouverte', 'cree_par']
+    
+@admin.register(models.CotisationItem)
+class CotisationItemModelAdmin(admin.ModelAdmin):
+    list_display = ['id','date_cotisation', 'membre', 'cotisation', 'cree_par']
+
+
+

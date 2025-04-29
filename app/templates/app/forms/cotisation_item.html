@@ -1,0 +1,42 @@
+<form 
+    hx-post="{% url "cotisation-item-gerer" membre.id %}" 
+    hx-trigger="submit" 
+    hx-swap="outerHTML" 
+    hx-confirm="Avant de soumettre vérifier les données entrées. Elles ne pourront plus être modifiées." 
+    class="shadow row p-1 justify-content-between"
+
+>
+    {% csrf_token %}
+    
+    
+    {% comment %} <div  class="col-sm-2">
+        {{ fm.label_tag }}
+    </div> {% endcomment %}
+    {% comment %} <input name="membre_id" class="form-control" type="hidden" min="0" value="{{membre.id}}" /> {% endcomment %}
+    <div class="col-12 my-2">
+        <select name="cotisation_id" class="form-select w-100" required />
+            <option value="">Choisir une cotisation</option>
+            {% for cotisation in cotisations %}
+            <option value="{{cotisation.id}}">{{ cotisation }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-5">
+        <input name="montant" class="" type="number" min="0" placeholder="Entrer le montant" required  />
+    </div>
+    <div class="col-5">
+        <input type="submit" value="Submit" class="btn btn-primary col">
+    </div>
+
+    
+    
+    {% if form.non_field_errors %}
+
+        {% for error in form.non_field_errors %}
+            <p class="alert alert-danger my-3">{{ error }}</p>
+        {% endfor %}
+            
+    {% endif %} 
+
+</form>

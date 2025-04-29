@@ -22,7 +22,7 @@ Faire présence
                 
             </div>
             <div class="card-footer text-right">
-                <a href="#" class="btn btn-primary btn-sm">Ajouer</a>
+                <a hx-get="{% url "cotisation-ajouter-form" presence.0.id %}" hx-target="closest .card-footer" hx-swap="beforebegin" class="btn btn-primary btn-sm">Ajouter</a>
             </div>
         </div>
     </div>

@@ -5,9 +5,11 @@ Cotisations
 {% endblock title %}
 
 {% block main-content %}
-<div>
-    <button class="button dt-button p-2 m-2" data-bs-toggle="modal" data-bs-target="#exampleModal-enreg">Enregistrer une nouvelle cotisation</button>
-<div>
+<div class="row">
+    <div class="col" >
+        <button class="button dt-button p-2 m-2" data-bs-toggle="modal" data-bs-target="#exampleModal-enreg">Enregistrer une nouvelle cotisation</button>
+    </div>
+</div>
 
 {% if messages %}
                         
@@ -24,6 +26,7 @@ Cotisations
             <th scope="col">Nom</th>
             <th scope="col">Date de création</th>
             <th scope="col">Etat</th>
+            <th scope="col">Voir évolution</th>
             <th scope="col"> <i class='icon-edit'></i> </th>
             <th scope="col"> <i class="icon-close btn btn-danger"></i> </th>
         </tr>
@@ -36,8 +39,10 @@ Cotisations
                 <td>{{ cotisation.nom }}</td>
                 <td>{{ cotisation.date_creation }}</td>
                 <td> {% if cotisation.ouverte %}<span id="fermer-ouvrir-{{cotisation.id}}" class="text-success">Ouverte</span>{% else %}<span id="fermer-ouvrir-{{cotisation.id}}" class="text-danger">Fermée</span>{% endif %}</td>
+                <td><a class="btn btn-outline-info" href="{% url "cotisation-evolution" cotisation.id %}"><i class="icon-eye1" type="solid"></i></a></td>
                 <td><button hx-get="{% url "cotisation-update" cotisation.id %}" hx-target="#modal-cotisation-editer"
-                    hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button></td>
+                    hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button>
+                </td>
                 <td>
                     
                         <a 

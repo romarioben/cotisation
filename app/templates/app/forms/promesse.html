@@ -1,25 +1,25 @@
 <form 
-    hx-post="{% url "presence-gerer" membre.id %}" 
+    hx-post="{% url "promesse-gerer" membre_id=membre.id cotisation_id=cotisation.id%}"
     hx-trigger="submit" 
     hx-swap="outerHTML" 
     hx-confirm="Avant de soumettre vérifier les données entrées. Elles ne pourront plus être modifiées." 
-    class="shadow row p-1"
+    class="row p-1"
 >
     {% csrf_token %}
     
     {% for fm in form %}
-    
-        {% comment %} <div  class="col-sm-2">
+    <div class="form-group row my-2">
+        <div  class="col-12">
             {{ fm.label_tag }}
-        </div> {% endcomment %}
-        <div class="col-6">
+        </div>
+        <div class="col-12">
             {{ fm }} <small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
         </div>
-        <div class="col-6">
-            <input type="submit" value="Submit" class="btn btn-primary col">
-        </div>
+    </div>
     {% endfor %}
-    
+    <div class="col-6">
+        <input type="submit" value="Submit" class="btn btn-primary col">
+    </div>
     
     {% if form.non_field_errors %}
 

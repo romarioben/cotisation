@@ -1,0 +1,57 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+Evolution cotisation
+{% endblock title %}
+
+{% block main-content %}
+<div class="row">
+{% for donnee in donnees_membres %}
+<div class="col-xl-4 col-md-6 col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">{{donnee.0}}</div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Vous pouvez collecter une cotisation en cliquant sur le bouton Ajouter ci-dessous.</p>
+
+            <div class="row">
+                <div class="col-6">Montant</div>
+                <div class="col-6">{{ donnee.1 }}</div>
+            </div>
+        </div>
+        <div class="card-footer text-right">
+            <a hx-get="{% url "cotisation-details" cotisation_id=cotisation.id membre_id=donnee.0.id %}" 
+                hx-target="#modal-cotisation-detail" 
+                hx-swap="innerHTML" 
+                class="btn btn-primary btn-sm"
+                data-bs-toggle="modal" 
+                data-bs-target="#exampleModal-detail"
+            >
+                Voir détails
+            </a>
+            <a hx-get="{% url "cotisation-ajouter-form" donnee.0.id %}" hx-target="closest .card-footer" hx-swap="beforebegin" class="btn btn-primary btn-sm">Ajouter</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+
+<div class="modal fade" id="exampleModal-detail" tabindex="-1" aria-labelledby="examleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Détail d'une cotisation</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-cotisation-detail">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                {% comment %} <button type="button" class="btn btn-primary">Save change</button> {% endcomment %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

@@ -76,7 +76,35 @@ class CotisationItem(SoftDeleteModel):
 class Depense(SoftDeleteModel):
     date_depense = models.DateTimeField(verbose_name="Date", default=now)
     montant = models.PositiveIntegerField(verbose_name="Montant")
+    groupe = models.ForeignKey(Groupe, on_delete=models.CASCADE)
     motif = models.TextField()
+    
+class Promesse(SoftDeleteModel):
+    types_choices = (
+        ("Espèce" , "Espèce"),
+        ("Nature" , "Nature")
+    )
+    date_promesse = models.DateTimeField(verbose_name="Date", default=now)
+    date_echeance = models.DateTimeField(verbose_name="Date d'échéance", default=now)
+    membre = models.ForeignKey(Membre, on_delete=models.CASCADE, verbose_name="Membre")
+    cotisation = models.ForeignKey(Cotisation, on_delete=models.CASCADE)
+    type_promesse = models.CharField(max_length=20, choices=types_choices, default='Espèce', null=True, blank=True)
+    unite =  models.CharField(max_length=100,  default='Francs CFA', null=True, blank=True)
+    quantite = models.PositiveIntegerField(verbose_name='Quantité')
+    cree_par = models.ForeignKey(User,on_delete=models.CASCADE, verbose_name='Créé par', null=True, blank=True, related_name="promesse_cree_par")
+    
+    def get_status(self):
+        """Une fonction pour avoir le status cotisation, est-ce que c'est soldé ou pas et le reste du montant"""
+        if self.type_promesse == "Nature":
+            return "Promesse en nature non gérable"
+        cotisation_items = CotisationItem.objects.filter(membre=self.membre, cotisation=self.cotisation)
+        montant_total = 0
+        for item in cotisation_items:
+            montant_total += item.montant
+        if montant_total - self.quantite >= 0:
+            return f'Soldée  surplus {montant_total - self.quantite}'
+        else:
+            return f'Non soldée  restant { -montant_total + self.quantite}'
     
 def getMembres(user:User):
     "Une fonction qui permet de récupérer des membres selon l'utilisateur"

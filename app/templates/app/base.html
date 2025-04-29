@@ -99,13 +99,19 @@
 								</a>
 							</li>
 							<li>
+								<a href="{% url "sous-groupe" %}">
+									<i class="icon-users"></i>
+									<span class="menu-text">Sous groupe</span>
+								</a>
+							</li>
+							<li>
 								<a href="{% url "membre" %}">
 									<i class="icon-users"></i>
 									<span class="menu-text">Membres</span>
 								</a>
 							</li>
 							<li>
-								<a href="table-widgets.html">
+								<a href="{% url "presence-liste" %}">
 									<i class="icon-account_circle"></i>
 									<span class="menu-text">Présences</span>
 								</a>
@@ -114,6 +120,13 @@
 								<a href="{% url "cotisation" %}">
 									<i class="icon-triangle"></i>
 									<span class="menu-text">Cotisations</span>
+								</a>
+							</li>
+
+							<li>
+								<a href="{% url "promesse-liste" %}">
+									<i class="icon-add-to-list"></i>
+									<span class="menu-text">Promesses</span>
 								</a>
 							</li>
 							

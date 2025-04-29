@@ -89,6 +89,11 @@ class UpdateMembre(View, LoginRequiredMixin):
             membre.save()
         return redirect('membre')
             
+@login_required
+def presence_ajouter(request):
+    user = request.user
+    models.ListPresence.objects.create(groupe=user.groupe)
+    return redirect('presence-liste')
 
 @login_required  
 def presence_faire(request):
@@ -98,9 +103,12 @@ def presence_faire(request):
     membres = models.getMembres(request.user)
     presence_membres = []
     
+    #Avoir la dernière liste de présence
+    liste_presence = models.ListPresence.objects.filter(date_presence__date=today, groupe=groupe).order_by('-id')[0]
+    
     for membre in membres:
-        if models.Presence.objects.filter(date_presence__date=today, membre=membre, liste_presence__groupe=groupe):
-            presence = models.Presence.objects.filter(date_presence__date=today, membre=membre, liste_presence__groupe=groupe)[0]
+        if models.Presence.objects.filter(date_presence__date=today, membre=membre, liste_presence=liste_presence):
+            presence = models.Presence.objects.filter(date_presence__date=today, membre=membre, liste_presence__groupe=groupe).order_by('-id')[0]
         else:
             presence = None
         presence_membres.append((membre, presence))
@@ -110,10 +118,19 @@ def presence_faire(request):
 
 @login_required
 def presence_liste(request):
-    page_name = "Présence"
+    page_name = "Liste de Présences"
     user = request.user
-    listes_presences = models.ListPresence.objects.all()
+    groupe = user.groupe
+    listes_presences = models.ListPresence.objects.filter(groupe=groupe).order_by('-date_presence')
+    liste_presence = models.ListPresence.objects.filter(groupe=groupe).order_by('-date_presence')[0]
+    presences = models.Presence.objects.filter(liste_presence=liste_presence).order_by('membre__nom', 'membre__prenom')
+    return render(request, 'app/presence/listes_presence.html', locals())
 
+def presence_details(request):
+    id = int(request.POST.get('liste_presence'))
+    liste_presence = get_object_or_404(models.ListPresence, id=id)
+    presences = models.Presence.objects.filter(liste_presence=liste_presence).order_by('membre__nom', 'membre__prenom')
+    return render(request, 'app/presence/presence_details.html', locals())
 
 @login_required
 def presence_gerer(request, id):
@@ -122,9 +139,9 @@ def presence_gerer(request, id):
     groupe = user.groupe
     today = datetime.datetime.today().strftime("%Y-%m-%d")
     if models.ListPresence.objects.filter(date_presence__date=today, groupe = groupe):
-        liste_presence = models.ListPresence.objects.filter(date_presence__date=today, groupe = groupe)[0]
+        liste_presence = models.ListPresence.objects.filter(date_presence__date=today, groupe = groupe).order_by('-id')[0]
     else:
-        liste_presence = models.ListPresence.objects.create()
+        liste_presence = models.ListPresence.objects.create(groupe=groupe)
     membre = models.Membre.objects.get(id=id)
     presence = models.Presence(presence=request.POST.get('presence', 'Absent'))
     presence.membre = membre
@@ -177,5 +194,108 @@ def cotisation_fermer_ouvrir(request, id):
     else:
         response = f"""<span id="fermer-ouvrir-{id}" class="text-danger">Fermée</span>"""
     return HttpResponse(response)
-def ajouter_cotisation_form(request, id):
-    pass
+
+@login_required
+def ajouter_cotisation_form(request, membre_id):
+    user = request.user
+    groupe = user.groupe
+    page_name = "Cotisations"
+    cotisations = models.Cotisation.objects.filter(groupe=groupe, ouverte=True)
+    membre = get_object_or_404(models.Membre, id=membre_id)
+    return render(request, "app/forms/cotisation_item.html", locals())
+    
+@login_required  
+def cotisation_item_gerer(request, membre_id):
+    user = request.user
+    groupe = user.groupe
+    if request.method == "POST" and request.POST['cotisation_id'] and request.POST['montant']:
+        membre = get_object_or_404(models.Membre, id=membre_id)
+        cotisation=int(request.POST['cotisation_id'])
+        cotisation = models.Cotisation.objects.get(id=cotisation)
+        montant = int(request.POST['montant'])
+        cotisation_item = models.CotisationItem(membre=membre, cree_par=user, cotisation=cotisation, montant=montant)
+        cotisation_item.save()
+        return render(request, "app/cotisation/cotisation_item.html", locals())
+    else:
+        return render(request, "app/cotisation/cotisation_item.html", locals())
+    
+@login_required
+def cotisation_evolution(request, cotisation_id):
+    cotisation = get_object_or_404(models.Cotisation, id=cotisation_id)
+    page_name = f"Cotisation/Evolution {cotisation}"
+    user = request.user
+    today = datetime.datetime.today()
+    groupe = user.groupe
+    membres = models.getMembres(user=user)
+    donnees_membres  = []
+    for membre in membres:
+        montant_total = 0
+        cotisation_items = models.CotisationItem.objects.filter(membre=membre, cotisation=cotisation)
+        for cotisation_item in cotisation_items:
+            montant_total += cotisation_item.montant
+        donnees_membres.append((membre, montant_total))
+    return render(request, "app/cotisation/cotisation_evolution.html", locals())
+
+def cotisation_details(request, membre_id, cotisation_id):
+    membre = get_object_or_404(models.Membre, id=membre_id)
+    cotisation = get_object_or_404(models.Cotisation, id=cotisation_id)
+    cotisation_items = models.CotisationItem.objects.filter(cotisation=cotisation, membre=membre).order_by('-date_cotisation')
+    montant_total = sum([item.montant for item in cotisation_items])
+    return render(request, "app/cotisation/cotisation_details.html", locals())
+
+
+
+@login_required  
+def promesse_faire(request):
+    
+    groupe = request.user.groupe
+    membres = models.getMembres(request.user)
+    promesse_membres = []
+    
+    cotisation_id = int(request.GET.get('cotisation_id', 1))
+    #Avoir la dernière liste de présence
+    cotisation = models.Cotisation.objects.get(id=cotisation_id)
+    page_name = f"Promesse de Cotisation {cotisation}"
+    
+    for membre in membres:
+        if models.Promesse.objects.filter(cotisation=cotisation, membre=membre):
+            promesse = models.Promesse.objects.filter(membre=membre, cotisation=cotisation).order_by('-id')[0]
+        else:
+            promesse = None
+        promesse_membres.append((membre, promesse))
+    form = forms.PromesseForm()
+    return render(request, 'app/promesse/promesse_faire.html', locals())
+
+
+@login_required
+def promesse_liste(request):
+    page_name = "Liste des Promesses"
+    user = request.user
+    groupe = user.groupe
+    cotisations = models.Cotisation.objects.filter(groupe=groupe).order_by('-date_creation')
+    cotisation = models.Cotisation.objects.filter(groupe=groupe, ouverte=True).order_by('-date_creation')[0]
+    promesses = models.Promesse.objects.filter(cotisation=cotisation).order_by('membre__nom', 'membre__prenom')
+    return render(request, 'app/promesse/listes_promesse.html', locals())
+
+def promesse_details(request):
+    cotisation_id = int(request.POST.get('cotisation_id'))
+    cotisation = get_object_or_404(models.Cotisation, id=cotisation_id)
+    promesses = models.Promesse.objects.filter(cotisation=cotisation).order_by('membre__nom', 'membre__prenom')
+    return render(request, 'app/promesse/promesse_details.html', locals())
+
+@login_required
+def promesse_gerer(request, membre_id, cotisation_id):
+    user = request.user
+    groupe = user.groupe
+    today = datetime.datetime.today().strftime("%Y-%m-%d")
+    cotisation = models.Cotisation.objects.get(id=cotisation_id)
+    membre = models.Membre.objects.get(id=membre_id)
+    promesse = models.Promesse(date_echeance=request.POST.get('date_echeance'))
+    promesse.membre = membre
+    promesse.unite = request.POST.get('unite')
+    promesse.quantite = request.POST.get('quantite')
+    promesse.type_promesse = request.POST.get('type_promesse')
+    promesse.cotisation = cotisation
+    promesse.cree_par = request.user
+    promesse.save()
+    return render(request, 'app/promesse/promesse.html', locals())
