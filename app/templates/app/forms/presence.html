@@ -1,0 +1,31 @@
+<form 
+    hx-post="{% url "presence-gerer" membre.id %}" 
+    hx-trigger="submit" 
+    hx-swap="outerHTML" 
+    class="shadow row p-1"
+>
+    {% csrf_token %}
+    
+    {% for fm in form %}
+    
+        {% comment %} <div  class="col-sm-2">
+            {{ fm.label_tag }}
+        </div> {% endcomment %}
+        <div class="col-6">
+            {{ fm }} <small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
+        </div>
+        <div class="col-6">
+            <input type="submit" value="Submit" class="btn btn-primary col">
+        </div>
+    {% endfor %}
+    
+    
+    {% if form.non_field_errors %}
+
+        {% for error in form.non_field_errors %}
+            <p class="alert alert-danger my-3">{{ error }}</p>
+        {% endfor %}
+            
+    {% endif %} 
+
+</form>

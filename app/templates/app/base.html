@@ -26,6 +26,10 @@
 		<!-- Main css -->
         <link rel="stylesheet" href="{% static 'app/css/main.min.css' %}">
 
+		<!-- DataTable css -->
+        <link rel="stylesheet" href="{% static 'app/vendor/datatables/dataTables.bs4.css' %}">
+
+
 		<!-- *************
 			************ Vendor Css Files *************
 		************ -->
@@ -89,7 +93,7 @@
 					<div class="sidebar-menu">
 						<ul>
 							<li class="active">
-								<a href="dashboard" class="current-page">
+								<a href="{% url "dashboard" %}" class="current-page">
 									<i class="icon-home2"></i>
 									<span class="menu-text">Dashboard</span>
 								</a>
@@ -102,11 +106,16 @@
 							</li>
 							<li>
 								<a href="table-widgets.html">
-									<i class="icon-triangle"></i>
-									<span class="menu-text">Table Widgets</span>
+									<i class="icon-account_circle"></i>
+									<span class="menu-text">Présences</span>
 								</a>
 							</li>
-		
+							<li>
+								<a href="{% url "cotisation" %}">
+									<i class="icon-triangle"></i>
+									<span class="menu-text">Cotisations</span>
+								</a>
+							</li>
 							
 						</ul>
 					</div>
@@ -234,8 +243,8 @@
 						<!-- App actions start -->
 						<ul class="app-actions">
 							<li>
-								<a href="#">
-									<i class="icon-export"></i> Export
+								<a href="{% url "presence-faire" %}">
+									<i class="icon-export"></i> Faire une présence
 								</a>
 							</li>
 						</ul>
@@ -255,6 +264,8 @@
 
 		</div>
 		<!-- Page wrapper end -->
+
+		
 
 		<!--**************************
 			**************************
@@ -276,6 +287,8 @@
         <script src="{% static 'app/vendor/slimscroll/slimscroll.min.js' %}"></script>
         <script src="{% static 'app/vendor/slimscroll/slimscroll.min.js' %}"></script>
         <script src="{% static 'app/vendor/slimscroll/custom-scrollbar.js' %}"></script>
+		<script src="{% static 'app/js/bootstrap.bundle.js' %}"></script>
+		<script src="{% static 'app/js/htmx.min.js' %}"></script>
 
 
 		<!-- Polyfill JS -->
@@ -294,9 +307,15 @@
         <script src="{% static 'app/vendor/peity/custom-peity.js' %}"></script>
 
 
+		<!-- DataTable -->
+		<script src="{% static 'app/vendor/datatables/dataTables.min.js' %}"></script>
+
+
 		<!-- Main JS -->
         <script src="{% static 'app/js/main.js' %}"></script>
-
+		{% block script %}
+		
+		{% endblock script %}
 	</body>
 
 </html>

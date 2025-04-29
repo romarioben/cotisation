@@ -25,7 +25,7 @@ class User(AbstractUser, SoftDeleteModel):
     numero = models.PositiveSmallIntegerField(verbose_name="Numéro de téléphone", null=True, blank=True)
     poste = models.CharField(max_length=100, null=True, blank=True, verbose_name="Poste")
     groupe = models.ForeignKey(Groupe, on_delete=models.CASCADE, related_name="user_groupe", null=True)
-    sous_groupe = models.ForeignKey(SousGroupe, on_delete=models.CASCADE, verbose_name="Sous groupe", related_name="user_sous_groupe", null=True)
+    sous_groupe = models.ForeignKey(SousGroupe, on_delete=models.CASCADE, verbose_name="Sous groupe", related_name="user_sous_groupe", null=True, blank=True)
     email = models.EmailField(verbose_name='Email', null=True, blank=True, unique=True)
     is_email_verified = models.BooleanField(default=False)
     photo_profl = models.ImageField(verbose_name="Photo de profil", null=True, blank=True, upload_to=nom_photo_profil)

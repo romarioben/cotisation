@@ -1,0 +1,31 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+Faire présence
+{% endblock title %}
+
+{% block main-content %}
+<div class="row">
+    {% for presence in presence_membres %}
+    <div class="col-xl-4 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">{{presence.0}}</div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Vous pouvez collecter une cotisation en cliquant sur le bouton Ajouter ci-dessous.</p>
+                {% if presence.1 %}
+                {% include "app/presence/presence.html" with presence=presence.1 %}
+                {% else %}
+                {% include "app/forms/presence.html" with membre=presence.0 %}
+                {% endif %}
+                
+            </div>
+            <div class="card-footer text-right">
+                <a href="#" class="btn btn-primary btn-sm">Ajouer</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock main-content %}
