@@ -49,15 +49,22 @@ def registration(request):
 def membre(request):
     user = request.user
     groupe = user.groupe
+    sous_groupes = models.SousGroupe.objects.filter(groupe=groupe)
     page_name = "Membres"
     form = forms.MembreForm()
     membres = models.getMembres(user)
     if request.method == "POST":
         form = forms.MembreForm(request.POST)
+        sous_groupe_id = request.POST.get("sous_groupe_id")
+        if sous_groupe_id:
+            sous_groupe = models.SousGroupe.objects.get(id=sous_groupe_id)
+        else:
+            sous_groupe = None
         if form.is_valid():
             membre = form.save()
             membre.groupe = groupe
             membre.cree_par = user
+            membre.sous_groupe = sous_groupe
             membre.save()
             messages.success(request, "Un membre ajouté avec succès")
             form = forms.MembreForm()
@@ -66,7 +73,10 @@ def membre(request):
 
 class UpdateMembre(View, LoginRequiredMixin):
     def get(self, request, id):
+        user = request.user
+        groupe = user.groupe
         membre = get_object_or_404(models.Membre, id=id)
+        sous_groupes = models.SousGroupe.objects.filter(groupe=groupe)
         form = forms.MembreForm(instance=membre)
         return render(request, "app/membre/update_membre.html", locals())
     
@@ -74,6 +84,11 @@ class UpdateMembre(View, LoginRequiredMixin):
         page_name = "Membres"
         membre = get_object_or_404(models.Membre, id=id)
         form = forms.MembreForm(request.POST)
+        sous_groupe_id = request.POST.get("sous_groupe_id")
+        if sous_groupe_id:
+            sous_groupe = models.SousGroupe.objects.get(id=sous_groupe_id)
+        else:
+            sous_groupe = None
         if form.is_valid():
             membre.nom = form.cleaned_data["nom"]
             membre.prenom = form.cleaned_data["prenom"]
@@ -84,8 +99,8 @@ class UpdateMembre(View, LoginRequiredMixin):
             membre.sexe = form.cleaned_data["sexe"]
             membre.email = form.cleaned_data["email"]
             membre.profession = form.cleaned_data["profession"]
-            membre.sous_groupe = form.cleaned_data["sous_groupe"]
             membre.modifie_par = request.user
+            membre.sous_groupe = sous_groupe
             membre.save()
         return redirect('membre')
             
@@ -299,3 +314,38 @@ def promesse_gerer(request, membre_id, cotisation_id):
     promesse.cree_par = request.user
     promesse.save()
     return render(request, 'app/promesse/promesse.html', locals())
+
+
+@login_required
+def sous_groupe(request):
+    groupe = request.user.groupe
+    page_name = "Sous groupe"
+    sous_groupes = models.SousGroupe.objects.filter(groupe=groupe).order_by('nom')
+    
+    if request.method == "POST":
+        form = forms.SousGroupeForm(request.POST)
+        if form.is_valid():
+            sous_groupe = models.SousGroupe(nom=request.POST['nom'])
+            sous_groupe.groupe = groupe
+            sous_groupe.save()
+            messages.success(request, "Un sous-groupe ajouté avec succès")
+            form = forms.SousGroupeForm()
+            return redirect('sous-groupe')
+    form = forms.SousGroupeForm()
+    return render(request, "app/sous_groupe/sous_groupe.html", locals())
+
+
+class UpdateSousGroupe(LoginRequiredMixin, View):
+    def get(self, request, id):
+        sous_groupe = models.SousGroupe.objects.get(id=id)
+        form = forms.SousGroupeForm(instance=sous_groupe)
+        return render(request, "app/sous_groupe/update_sous_groupe.html", locals())
+    
+    def post(self, request, id):
+        sous_groupe = models.SousGroupe.objects.get(id=id)
+        form = forms.SousGroupeForm(request.POST)
+        if form.is_valid():
+            sous_groupe.nom = form.cleaned_data['nom']
+            sous_groupe.save()
+        return redirect("sous-groupe")
+    

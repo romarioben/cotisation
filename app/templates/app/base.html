@@ -53,8 +53,8 @@
 
 				<!-- Sidebar brand start  -->
 				<div class="sidebar-brand">
-					<a href="index.html" class="logo">
-						<img src="{% static 'app/img/logo.svg' %}" alt="Admin Dashboards" />
+					<a href="{% url "dashboard" %}" class="logo">
+						<img src="{% static 'app/img/logo.svg' %}" alt="logi" />
 					</a>
 				</div>
 				<!-- Sidebar brand end  -->
@@ -62,8 +62,8 @@
 				<!-- User profile start -->
 				<div class="sidebar-user-details">
 					<div class="user-profile">
-						<img src="{% static 'app/img/user2.png' %}" class="profile-thumb" alt="Admin Dashboards">
-						<h6 class="profile-name">Yuki Hayashi</h6>
+						<img src="{% static 'app/img/user2.png' %}" class="profile-thumb" alt="{{ request.user }}">
+						<h6 class="profile-name">{{ request.user }}</h6>
 						<ul class="profile-actions">
 							<li>
 								<a href="javascript:void(0)">

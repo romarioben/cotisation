@@ -29,4 +29,7 @@ urlpatterns = [
     path("promesse/gerer/<int:membre_id>/<int:cotisation_id>", views.promesse_gerer, name='promesse-gerer'),
     path("promesse/details/", views.promesse_details, name='promesse-details'),
     
+    
+    path("sous-groupe/", views.sous_groupe, name='sous-groupe'),
+    path("sous-groupe/update/<int:id>/", views.UpdateSousGroupe.as_view(), name='update-sous-groupe'),
 ]

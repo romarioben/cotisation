@@ -1,5 +1,5 @@
-<div class="text-center">Modifer {{ membre }}</div>
-<form action="{% url "update-membre" membre.id %}" method="post" class="shadow p-5">
+<div class="text-center">Modifer {{ sous_groupe }}</div>
+<form action="{% url "update-sous-groupe" sous_groupe.id %}" method="post" class="shadow p-5">
     {% csrf_token %}
     
     {% for fm in form %}
@@ -12,19 +12,7 @@
         </div>
     </div>
     {% endfor %}
-    <div class="form-group row my-2">
-        <div  class="col-sm-2 ">
-            Sous-groupe
-        </div>
-        <div class="col-sm-10">
-            <select name="sous_groupe_id" class="form-select">
-                <option value="">Choisir le sous groupe</option>
-                {% for sous_groupe in sous_groupes %}
-                <option value="{{sous_groupe.id}}">{{ sous_groupe.nom }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
+    
     <div class="row mb-2">
         <input type="submit" value="Submit" class="btn btn-primary col">
     </div>

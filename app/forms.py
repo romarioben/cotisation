@@ -17,7 +17,7 @@ class MembreForm(forms.ModelForm):
     
     class Meta:
         model = models.Membre
-        fields = ["nom", "prenom", "sexe", "profession", "numero", "email", "nationalite", "sous_groupe", "date_naissance"]
+        fields = ["nom", "prenom", "sexe", "profession", "numero", "email", "nationalite", "date_naissance"]
         widgets = {
             'nom' : forms.TextInput(attrs={'class':'form-control', 'placeholder':'Nom'}),
             'prenom' : forms.TextInput(attrs={'class':'form-control', 'placeholder':'Prénom'}),
@@ -26,7 +26,6 @@ class MembreForm(forms.ModelForm):
             'numero' : forms.TextInput(attrs={'class':'form-control', 'placeholder':'Numéro'}),
             'email' : forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Email'}),
             'nationalite' : forms.TextInput(attrs={'class':'form-control', 'placeholder':'Nationalité'}),
-            'sous_groupe' : forms.Select(attrs={'class':'form-select'}),
             'date_naissance' : forms.DateInput(attrs={'class':'form-select', 'type':'date'}),
         }
         
@@ -62,3 +61,11 @@ class PromesseForm(forms.ModelForm):
             'quantite' : forms.NumberInput(attrs={'class':'form-select'}),
         }
         
+class SousGroupeForm(forms.ModelForm):
+    
+    class Meta:
+        model = models.SousGroupe
+        fields = ["nom"]
+        widgets = {
+            'nom' : forms.TextInput(attrs={'class':'form-control'}),
+        }
