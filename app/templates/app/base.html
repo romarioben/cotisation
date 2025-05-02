@@ -92,41 +92,48 @@
 					<!-- sidebar menu start -->
 					<div class="sidebar-menu">
 						<ul>
-							<li class="active">
-								<a href="{% url "dashboard" %}" class="current-page">
+							<li {% if page_name == "Dashboard" %}class="active"{% endif %}>
+								<a href="{% url "dashboard" %}" {% if page_name == "Dashboard" %}class="current-page"{% endif %} >
 									<i class="icon-home2"></i>
 									<span class="menu-text">Dashboard</span>
 								</a>
 							</li>
-							<li>
-								<a href="{% url "sous-groupe" %}">
+							<li {% if page_name == "Sous groupe" %}class="active"{% endif %}>
+								<a href="{% url "sous-groupe" %}" {% if page_name == "Sous groupe" %}class="current-page"{% endif %}>
 									<i class="icon-users"></i>
 									<span class="menu-text">Sous groupe</span>
 								</a>
 							</li>
-							<li>
-								<a href="{% url "membre" %}">
+							<li {% if page_name == "Membres" %}class="active"{% endif %}>
+								<a href="{% url "membre" %}" {% if page_name == "Membres" %}class="current-page"{% endif %}>
 									<i class="icon-users"></i>
 									<span class="menu-text">Membres</span>
 								</a>
 							</li>
-							<li>
-								<a href="{% url "presence-liste" %}">
+							<li {% if page_name == "Liste de Présences" or page_name == "Présence" %}class="active"{% endif %}>
+								<a href="{% url "presence-liste" %}" {% if page_name == "Liste de Présences" %}class="current-page"{% endif %}>
 									<i class="icon-account_circle"></i>
 									<span class="menu-text">Présences</span>
 								</a>
 							</li>
-							<li>
-								<a href="{% url "cotisation" %}">
+							<li {% if page_name == "Cotisations" %}class="active"{% endif %}>
+								<a href="{% url "cotisation" %}" {% if page_name == "Cotisations" %}class="current-page"{% endif %}>
 									<i class="icon-triangle"></i>
 									<span class="menu-text">Cotisations</span>
 								</a>
 							</li>
 
-							<li>
-								<a href="{% url "promesse-liste" %}">
+							<li {% if page_name == "Liste des Promesses" %}class="active"{% endif %}>
+								<a href="{% url "promesse-liste" %}" {% if page_name == "Liste des Promesses" %}class="current-page"{% endif %}>
 									<i class="icon-add-to-list"></i>
 									<span class="menu-text">Promesses</span>
+								</a>
+							</li>
+
+							<li {% if page_name == "Dépenses" %}class="active"{% endif %}>
+								<a href="{% url "depense" %}" {% if page_name == "Dépenses" %}class="current-page"{% endif %}>
+									<i class="icon-wallet"></i>
+									<span class="menu-text">Dépenses</span>
 								</a>
 							</li>
 							

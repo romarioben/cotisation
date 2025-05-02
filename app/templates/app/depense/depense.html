@@ -1,13 +1,14 @@
 {% extends "app/base.html" %}
 
 {% block title %}
-Cotisations
+Dépenses
 {% endblock title %}
+
 
 {% block main-content %}
 <div class="row">
     <div class="col" >
-        <button class="button dt-button p-2 m-2" data-bs-toggle="modal" data-bs-target="#exampleModal-enreg">Enregistrer une nouvelle cotisation</button>
+        <button class="button dt-button p-2 m-2" data-bs-toggle="modal" data-bs-target="#exampleModal-enreg">Enregistrer une nouvelle dépense</button>
     </div>
 </div>
 
@@ -19,63 +20,50 @@ Cotisations
             
 {% endif %}
 
+
 <table class="table table-striped" id="table_cotisations">
     <thead>
         <tr>
             <th scope="col"> # </th>
-            <th scope="col">Nom</th>
-            <th scope="col">Date de création</th>
-            <th scope="col">Etat</th>
-            <th scope="col">Membre</th>
+            <th scope="col">Date</th>
+            <th scope="col">Motif</th>
+            <th scope="col">Montant</th>
             <th scope="col">Sous-groupe</th>
             <th scope="col"> <i class='icon-edit'></i> </th>
-            <th scope="col"> <i class="icon-close btn btn-danger"></i> </th>
         </tr>
     </thead>
     <tbody>
         
-        {% for cotisation in cotisations %}
+        {% for depense in depenses %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ cotisation.nom }}</td>
-                <td>{{ cotisation.date_creation }}</td>
-                <td> {% if cotisation.ouverte %}<span id="fermer-ouvrir-{{cotisation.id}}" class="text-success">Ouverte</span>{% else %}<span id="fermer-ouvrir-{{cotisation.id}}" class="text-danger">Fermée</span>{% endif %}</td>
-                <td><a title="Voir l'évolution de {{ cotisation }} par membre" class="btn btn-outline-info" href="{% url "cotisation-evolution" cotisation.id %}"><i class="icon-eye1" type="solid"></i></a></td>
-                <td><a title="Voir l'évolution de {{ cotisation }} par sous-groupe" class="btn btn-outline-info" href="{% url "cotisation-evolution-sous" cotisation.id %}"><i class="icon-eye" type="solid"></i></a></td>
-                <td><button hx-get="{% url "cotisation-update" cotisation.id %}" hx-target="#modal-cotisation-editer"
+                <td>{{ depense.date_depense }}</td>
+                <td>{{ depense.motif }}</td>
+                <td>{{ depense.montant }}</td>
+                <td> {% if cotisation.sous_groupe %}<span id="fermer-ouvrir-{{cotisation.id}}">{{ depense.sous_groupe}}</span>{% else %}<span id="fermer-ouvrir-{{cotisation.id}}">Néant</span>{% endif %}</td>
+                <td><button hx-get="{% url "depense-update" depense.id %}" hx-target="#modal-depense-editer"
                     hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button>
                 </td>
-                <td>
-                    
-                        <a 
-                            title="Fermer {{ cotisation}}"
-                            hx-get="{% url "cotisation-fermer-ouvrir" cotisation.id %}" 
-                            hx-target="#fermer-ouvrir-{{cotisation.id}}"
-                            hx-swap="outerHTML"
-                            {% if cotisation.ouverte %}hx-confirm="Voulez vous vraiment Fermer cette cotisation?"{% else %}hx-confirm="Voulez vous vraiment ouvrir cette cotisation?"{% endif %}
-
-                        >
-                            {% if cotisation.ouverte %}<i class="icon-close btn btn-danger"></i>{% else %}<i class="icon-close btn btn-success"></i>{% endif %}
-                        </a>
-                </td> 
             </tr>
         {% endfor %}
             
     </tbody>
 </table>
 
-<!-- Modal -->
+
+
+
 <div class="modal fade" id="exampleModal-enreg" tabindex="-1" aria-labelledby="examleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Enregistrer une cotisation</h5>
+                <h3 class="modal-title" id="exampleModalLabel">Enregistrer une dépense</h5>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modal-patient-ajouter">
                 <form action="" method="post" class="shadow p-5">
                     {% csrf_token %}
-                    <h5 class="text-center m-auto my-3">Assurer avant de créer une cotisation, une fois créée, elle ne sera plus supprimée<h5>
+                    {% comment %} <h5 class="text-center m-auto my-3">Assurer avant de créer une cotisation, une fois créée, elle ne sera plus supprimée<h5> {% endcomment %}
                     {% for fm in form %}
                     <div class="form-group row my-2">
                         <div  class="col-sm-2 ">
@@ -86,6 +74,20 @@ Cotisations
                         </div>
                     </div>
                     {% endfor %}
+
+                    <div class="form-group row my-2">
+                        <div  class="col-sm-2 ">
+                            Sous-groupe
+                        </div>
+                        <div class="col-sm-10">
+                            <select name="sous_groupe_id" class="form-select">
+                                <option value="">Choisir le sous groupe</option>
+                                {% for sous_groupe in sous_groupes %}
+                                <option value="{{sous_groupe.id}}">{{ sous_groupe.nom }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
                     <div class="row mb-2">
                         <input type="submit" value="Submit" class="btn btn-primary col">
                     </div>
@@ -119,10 +121,10 @@ Cotisations
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Modifier une cotisation</h5>
+                <h3 class="modal-title" id="exampleModalLabel">Modifier une dépense</h5>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="modal-cotisation-editer">
+            <div class="modal-body" id="modal-depense-editer">
                 
             </div>
             <div class="modal-footer">
@@ -133,19 +135,4 @@ Cotisations
     </div>
 </div>
 
-
-
-
 {% endblock main-content %}
-
-{% block script %}
-<script>
-    $(document).ready(function() {
-        $("#table_cotisations").DataTable({
-            autoWidth: false,
-            
-        });
-    });
-</script>
-
-{% endblock script %}

@@ -69,3 +69,14 @@ class SousGroupeForm(forms.ModelForm):
         widgets = {
             'nom' : forms.TextInput(attrs={'class':'form-control'}),
         }
+        
+        
+class DepenseForm(forms.ModelForm):
+    
+    class Meta:
+        model = models.Depense
+        fields = ['motif', 'montant']
+        widgets = {
+            'motif' : forms.TextInput(attrs={'class':'form-control'}),
+            'montant' : forms.NumberInput(attrs={'class':'form-control'}),
+        }

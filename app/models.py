@@ -35,6 +35,8 @@ class Membre(SoftDeleteModel):
     def __str__(self):
         return f"{self.nom} {self.prenom}"
     
+        
+    
 class ListPresence(SoftDeleteModel):
     date_presence = models.DateTimeField("Date de la présence", default=now)
     groupe = models.ForeignKey(Groupe, on_delete=models.CASCADE, )
@@ -65,6 +67,11 @@ class Cotisation(SoftDeleteModel):
     def __str__(self):
         return self.nom
     
+    def get_membre_total(self, membre:Membre):
+        cotisation_items = self.cotisationitem_set.filter(membre=membre)
+        somme_total = sum([item.montant for item in cotisation_items])
+        return somme_total
+    
 class CotisationItem(SoftDeleteModel):
     membre = models.ForeignKey(Membre, on_delete=models.CASCADE, verbose_name="Membre")
     date_cotisation = models.DateTimeField("Date de la cotisation", default=now)
@@ -77,7 +84,9 @@ class Depense(SoftDeleteModel):
     date_depense = models.DateTimeField(verbose_name="Date", default=now)
     montant = models.PositiveIntegerField(verbose_name="Montant")
     groupe = models.ForeignKey(Groupe, on_delete=models.CASCADE)
+    sous_groupe = models.ForeignKey(SousGroupe, on_delete=models.SET_NULL, verbose_name='Sous groupe', null=True, blank=True, related_name='depensesousgroupe')
     motif = models.TextField()
+    cree_par = models.ForeignKey(User,on_delete=models.CASCADE, verbose_name='Créé par', null=True, blank=True)
     
 class Promesse(SoftDeleteModel):
     types_choices = (

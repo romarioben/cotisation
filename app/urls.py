@@ -22,6 +22,7 @@ urlpatterns = [
     path("cotisation/item/<int:membre_id>/gerer", views.cotisation_item_gerer, name='cotisation-item-gerer'),
     path("cotisation/evolution/<int:cotisation_id>/", views.cotisation_evolution, name='cotisation-evolution'),
     path("cotisation/details/<int:cotisation_id>/<int:membre_id>", views.cotisation_details, name='cotisation-details'),
+    path("cotisation/evolution-sous/<int:cotisation_id>/", views.cotisation_evolution_sous, name='cotisation-evolution-sous'),
     
     
     path("promesse/prendre/", views.promesse_faire, name='promesse-prendre'),
@@ -32,4 +33,8 @@ urlpatterns = [
     
     path("sous-groupe/", views.sous_groupe, name='sous-groupe'),
     path("sous-groupe/update/<int:id>/", views.UpdateSousGroupe.as_view(), name='update-sous-groupe'),
+    
+    path("depense", views.depense, name='depense'),
+    path("depense/update/<int:id>/", views.UpdateDepense.as_view(), name='depense-update'),
+    
 ]

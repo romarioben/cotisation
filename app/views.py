@@ -19,7 +19,7 @@ import pandas as pd
 import numpy as np
 from django.core.paginator import Paginator
 from auth_app.forms import SignupForm
-from . import forms
+from . import forms, models0
 # Create your views here.
 
 @login_required
@@ -119,7 +119,10 @@ def presence_faire(request):
     presence_membres = []
     
     #Avoir la dernière liste de présence
-    liste_presence = models.ListPresence.objects.filter(date_presence__date=today, groupe=groupe).order_by('-id')[0]
+    if   models.ListPresence.objects.filter(date_presence__date=today, groupe=groupe).order_by('-id'):
+        liste_presence = models.ListPresence.objects.filter(date_presence__date=today, groupe=groupe).order_by('-id')[0]
+    else:
+        liste_presence = models.ListPresence.objects.create(groupe=groupe)
     
     for membre in membres:
         if models.Presence.objects.filter(date_presence__date=today, membre=membre, liste_presence=liste_presence):
@@ -237,19 +240,49 @@ def cotisation_item_gerer(request, membre_id):
 @login_required
 def cotisation_evolution(request, cotisation_id):
     cotisation = get_object_or_404(models.Cotisation, id=cotisation_id)
-    page_name = f"Cotisation/Evolution {cotisation}"
+    
     user = request.user
-    today = datetime.datetime.today()
+    # today = datetime.datetime.today()
     groupe = user.groupe
     membres = models.getMembres(user=user)
+    montant = 0
     donnees_membres  = []
     for membre in membres:
         montant_total = 0
         cotisation_items = models.CotisationItem.objects.filter(membre=membre, cotisation=cotisation)
         for cotisation_item in cotisation_items:
             montant_total += cotisation_item.montant
+            montant += cotisation_item.montant
         donnees_membres.append((membre, montant_total))
+        
+    page_name = f"Cotisation/Evolution {cotisation}. Montant Total = {montant}"
     return render(request, "app/cotisation/cotisation_evolution.html", locals())
+
+@login_required
+def cotisation_evolution_sous(request, cotisation_id):
+    user = request.user
+    groupe = user.groupe
+    cotisation  = models.Cotisation.objects.get(id=cotisation_id)
+    sous_groupes = models0.SousGroupe.objects.filter(groupe=groupe)
+    sous_groupes_dict = {}
+    montant_total = 0
+    for sous_groupe in sous_groupes:
+        sous_groupes_dict[sous_groupe] = 0
+    sous_groupes_dict["Sans sous groupe"] = 0
+    
+    membres = groupe.membre_set.all()
+    for membre in membres:
+        sous_groupe = membre.sous_groupe
+        if sous_groupe:
+            sous_groupes_dict[sous_groupe] += cotisation.get_membre_total(membre)
+        else:
+            sous_groupes_dict['Sans sous groupe'] += cotisation.get_membre_total(membre)
+            
+        montant_total += cotisation.get_membre_total(membre)
+        
+    
+    page_name = f"Evolution par sous groupe {cotisation}. Montant total = {montant_total}"
+    return render(request, 'app/cotisation/cotisation_evoution_sous.html', locals())
 
 def cotisation_details(request, membre_id, cotisation_id):
     membre = get_object_or_404(models.Membre, id=membre_id)
@@ -348,4 +381,58 @@ class UpdateSousGroupe(LoginRequiredMixin, View):
             sous_groupe.nom = form.cleaned_data['nom']
             sous_groupe.save()
         return redirect("sous-groupe")
+
+def depense(request):
+    groupe = request.user.groupe
+    page_name = "Dépenses"
+    sous_groupes = models.SousGroupe.objects.filter(groupe=groupe).order_by('nom')
+    depenses = models.Depense.objects.filter(groupe=groupe)
+    if request.method == "POST":
+        form = forms.DepenseForm(request.POST)
+        sous_groupe_id = request.POST.get("sous_groupe_id")
+        if sous_groupe_id:
+            sous_groupe = models.SousGroupe.objects.get(id=sous_groupe_id)
+        else:
+            sous_groupe = None
+        if request.user. sous_groupe:
+            sous_groupe = request.user.sous_groupe
+        if form.is_valid():
+            depense = models.Depense(groupe=groupe)
+            depense.motif = form.cleaned_data['motif']
+            depense.montant = form.cleaned_data['montant']
+            depense.groupe = groupe
+            depense.sous_groupe = sous_groupe
+            depense.cree_par = request.user
+            depense.save()
+            return redirect("depense")
+    form = forms.DepenseForm()
+    return render(request, "app/depense/depense.html", locals())
+
+class UpdateDepense(LoginRequiredMixin, View):
+    def get(self, request, id):
+        TIME_LIMIT = 1
+        depense = models.Depense.objects.get(id=id)
+        if now().timestamp() - depense.date_depense.timestamp() > 3600*TIME_LIMIT:
+            return HttpResponse(f'''<div class="text-danger">Délai de modification d'une heure dépassé. Impossible de modifier cette dépense</div>''')
+        sous_groupe_id = request.POST.get("sous_groupe_id")
+        form = forms.DepenseForm(instance=depense)
+        return render(request, "app/depense/update_depense.html", locals())
     
+    def post(self, request, id):
+        depense = models.Depense.objects.get(id=id)
+        if now - depense.date_depense > 3600:
+            return redirect("depense")
+        form = forms.DepenseForm(request.POST)
+        sous_groupe_id = request.POST.get("sous_groupe_id")
+        if sous_groupe_id:
+            sous_groupe = models.SousGroupe.objects.get(id=sous_groupe_id)
+        else:
+            sous_groupe = None
+        if request.user. sous_groupe:
+            sous_groupe = request.user.sous_groupe
+        if form.is_valid():
+            depense.montant = form.cleaned_data['montant']
+            depense.motif = form.cleaned_data['motif']
+            depense.sous_groupe = sous_groupe
+            depense.save()
+        return redirect("depense")

@@ -15,4 +15,4 @@ class Groupe(SoftDeleteModel):
 class SousGroupe(Groupe, SoftDeleteModel):
     groupe = models.ForeignKey(Groupe, on_delete=models.CASCADE, related_name="groupe_sous_groupe")
     def __str__(self):
-        return f'Sous groupe {self.nom}'
+        return f'{self.nom}'

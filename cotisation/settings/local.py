@@ -130,7 +130,6 @@ LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'Africa/Porto-Novo'
 
-TIME_ZONE = 'UTC'
 
 USE_I18N = True
 

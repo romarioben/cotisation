@@ -40,4 +40,9 @@ class CotisationItemModelAdmin(admin.ModelAdmin):
     list_display = ['id','date_cotisation', 'membre', 'cotisation', 'cree_par']
 
 
+@admin.register(models.Depense)
+class DepenseModelAdmin(admin.ModelAdmin):
+    list_display = ['id','date_depense', 'motif', 'montant', 'cree_par']
+
+
 

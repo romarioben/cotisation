@@ -9,6 +9,9 @@ Liste de présence
     <div class="col" >
         <a href="{% url "presence-ajouter" %}" class="button dt-button p-2 m-2" >Ajouter une nouvelle liste de présence</a>
     </div>
+    <div class="col" >
+        <a href="{% url "presence-faire" %}" class="button dt-button p-2 m-2" >Faire une présence</a>
+    </div>
 </div>
 <form class="row shadow p-2"hx-post="{% url "presence-details"  %}" hx-target="#table-body">
     {% csrf_token %}
