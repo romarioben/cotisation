@@ -60,3 +60,19 @@ class MySetPasswordForm(SetPasswordForm):
     {'autocomplete':'current-password', 'class':'form-control', 'placeholder': 'Votre mot de passe'}))
     new_password2 = forms.CharField(label='Confirm Password', widget = forms.PasswordInput(attrs=
     {'autocomplete':'current-password', 'class':'form-control', 'placeholder': 'Confirmer le mot de passe'}))
+
+
+class UserChangeForm(forms.ModelForm):
+    
+    class Meta:
+        model = User
+        fields = ["last_name", "first_name", "email", "numero", "sexe", "poste", "date_naissance"]
+        widgets = {
+            'last_name' : forms.TextInput(attrs={'class':'form-control', 'placeholder':'Votre nom ici'}),
+            'first_name' : forms.TextInput(attrs={'class':'form-control', 'placeholder':'Vos prénoms ici'}),
+            'email' : forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Votre email ici'}),
+            'numero' : forms.TextInput(attrs={'class':'form-control', 'placeholder':'Votre contact ici'}),
+            'sexe' : forms.Select(attrs={'class':'form-select', 'placeholder':'Votre sexe'}),
+            'poste' : forms.TextInput(attrs={'class':'form-control', 'placeholder':'Votre poste ici'}),
+            'date_naissance' : forms.DateInput(attrs={'class':'form-control', 'placeholder':'Votre poste ici', 'type':'date'}),
+        }

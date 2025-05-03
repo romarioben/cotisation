@@ -1,9 +1,17 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path("", views.app_home, name='dashboard'),
     path("registration", views.registration, name='registration'),
+    path("users", views.users, name='users'),
+    path("user-update/<int:id>", views.UpdateUser.as_view(), name='user-update'),
+    
+    path('changer-mot-de-passe/', views.PassWordChangeView.as_view(), name='changePass'),
+    path('profile/', views.profile, name='profile'),
+    path('user-change/', views.user_change, name='user-change'),
+    
     
     path("membre", views.membre, name='membre'),
     path("membre/update/<int:id>/", views.UpdateMembre.as_view(), name='update-membre'),

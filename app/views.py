@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 
 from django.http import JsonResponse, FileResponse, HttpResponseForbidden
+
+from auth_app import models as auth_models
 from . import models#, forms, autresfonctions, report
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
@@ -18,7 +20,7 @@ from django.utils.timezone import now
 import pandas as pd
 import numpy as np
 from django.core.paginator import Paginator
-from auth_app.forms import SignupForm
+from auth_app.forms import SignupForm, PassWordChangeForm, UserChangeForm
 from . import forms, models0
 # Create your views here.
 
@@ -44,6 +46,99 @@ def registration(request):
         form = SignupForm()
         form1 = forms.GroupeForm()
         return render(request, 'app/registration.html', locals())
+    
+@login_required
+def users(request):
+    page_name = "Utilisateurs"
+    groupe = request.user.groupe
+    sous_groupes = models.SousGroupe.objects.filter(groupe=groupe).order_by('nom')
+    users = auth_models.User.objects.filter(groupe=groupe)
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        sous_groupe_id = request.POST.get("sous_groupe_id")
+        role = request.POST.get("role", None)
+        if sous_groupe_id:
+            sous_groupe = models.SousGroupe.objects.get(id=sous_groupe_id)
+        else:
+            sous_groupe = None
+        if form.is_valid():
+            user = form.save()
+            user.groupe = groupe
+            user.sous_groupe = sous_groupe
+            user.role = role
+            user.save()
+            messages.success(request, "Un utilisateur ajouté avec succès")
+            return redirect("users")
+        messages.error(request, "L'utilisateur n'a pas été ajouté, vérifier les données entrées et réessayer")
+        return render(request, "app/registration_user.html", locals())
+        
+    form = SignupForm()
+    return render(request, "app/registration_user.html", locals())
+
+class UpdateUser(LoginRequiredMixin, View):
+    def get(self,request, id):
+        user0 = auth_models.User.objects.get(id=id)
+        groupe = request.user.groupe
+        sous_groupes = models.SousGroupe.objects.filter(groupe=groupe).order_by('nom')
+        return render(request, "app/forms/user.html", locals())
+    
+    def post(self, request, id):
+        user0 = auth_models.User.objects.get(id=id)
+        sous_groupe_id = request.POST.get("sous_groupe_id")
+        if sous_groupe_id:
+            sous_groupe = models.SousGroupe.objects.get(id=sous_groupe_id)
+        else:
+            sous_groupe = None
+        username = request.POST.get("username")
+        if username :
+            user0.username = username
+            user0.sous_groupe = sous_groupe
+            user0.save()
+        return redirect("users")
+
+@login_required
+def profile(request):
+    user = request.user
+    page_name = 'Profil'
+    user_change_form = UserChangeForm(instance=user)
+    form = PassWordChangeForm(user=user)
+    return render(request, 'app/profile.html', locals())
+
+
+class PassWordChangeView(View, LoginRequiredMixin):
+    def get(self, request):
+        user = request.user
+        form = PassWordChangeForm(user=user)
+        return render(request, 'app/passwordChange.html', locals())
+        
+    def post(self, request):
+        user = request.user
+        form1 = PassWordChangeForm(user, request.POST)
+        if form1.is_valid():
+            form1.save()
+            update_session_auth_hash(request, user)
+            form = PassWordChangeForm(user=user)
+            messages.success(request, 'Félicitation Mot de passe changé  avec succès')
+        else:
+            messages.warning(request, 'Données entrées invalides')
+            form = form1
+        return render(request, 'app/profile.html', locals())
+
+        
+     
+@login_required   
+def user_change(request):
+    user=request.user
+    if request.method == "POST" :
+        form = forms.UserChangeForm(request.POST)
+        if form.is_valid():
+            user.last_name = form.cleaned_data['last_name']
+            user.first_name = form.cleaned_data['first_name']
+            user.email = form.cleaned_data['email']
+            user.numero = form.cleaned_data['numero']
+            user.poste = form.cleaned_data['poste']
+            user.save()
+    return redirect('profile')
 
 @login_required
 def membre(request):
@@ -394,7 +489,7 @@ def depense(request):
             sous_groupe = models.SousGroupe.objects.get(id=sous_groupe_id)
         else:
             sous_groupe = None
-        if request.user. sous_groupe:
+        if request.user.sous_groupe:
             sous_groupe = request.user.sous_groupe
         if form.is_valid():
             depense = models.Depense(groupe=groupe)
@@ -436,3 +531,6 @@ class UpdateDepense(LoginRequiredMixin, View):
             depense.sous_groupe = sous_groupe
             depense.save()
         return redirect("depense")
+    
+    
+        

@@ -7,7 +7,10 @@ from app.models0 import Groupe, SousGroupe
 
 
 class User(AbstractUser, SoftDeleteModel):
-    
+    sexe_choices = (
+        ('M', 'Masculin'),
+        ('F', 'Féminin')
+    )
     def nom_photo_profil(self, filename):
         #Pour avoir l'extension du fichier chargé
         extension  = filename.split('.')
@@ -23,10 +26,12 @@ class User(AbstractUser, SoftDeleteModel):
     )
     role = models.CharField(max_length=30, choices=choices_role, verbose_name='Rôle', default='reponsable')
     numero = models.PositiveSmallIntegerField(verbose_name="Numéro de téléphone", null=True, blank=True)
+    sexe = models.CharField(max_length=2, choices=sexe_choices, default='M', null=True, blank=True)
     poste = models.CharField(max_length=100, null=True, blank=True, verbose_name="Poste")
     groupe = models.ForeignKey(Groupe, on_delete=models.CASCADE, related_name="user_groupe", null=True)
     sous_groupe = models.ForeignKey(SousGroupe, on_delete=models.CASCADE, verbose_name="Sous groupe", related_name="user_sous_groupe", null=True, blank=True)
     email = models.EmailField(verbose_name='Email', null=True, blank=True, unique=True)
     is_email_verified = models.BooleanField(default=False)
+    date_naissance = models.DateField(verbose_name="Date de naissance", null=True, blank=True)
     photo_profl = models.ImageField(verbose_name="Photo de profil", null=True, blank=True, upload_to=nom_photo_profil)
     

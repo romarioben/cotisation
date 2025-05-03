@@ -43,7 +43,8 @@ Membres
                 <td>{{ membre.profession }}</td>
                 <td> {% if membre.sous_groupe %}{{ membre.sous_groupe.nom }}{% else %}Néant{% endif %}</td>
                 <td><button hx-get="{% url "update-membre" membre.id %}" hx-target="#modal-membre-editer"
-                    hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button></td>
+                    hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button>
+                </td>
                 <td>
                     
                         <a 

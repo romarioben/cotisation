@@ -136,6 +136,15 @@
 									<span class="menu-text">Dépenses</span>
 								</a>
 							</li>
+
+							<li {% if page_name == "Profil" %}class="active"{% endif %}>
+								<a href="{% url "profile" %}" {% if page_name == "Profil" %}class="current-page"{% endif %}>
+									<i class="icon-account_box"></i>
+									<span class="menu-text">Profil</span>
+								</a>
+							</li>
+
+						
 							
 						</ul>
 					</div>
@@ -232,12 +241,16 @@
 												<div class="header-user">
 													<img src="img/user2.png" alt="Admin Template">
 												</div>
-												<h5>Yuki Hayashi</h5>
-												<p>Super User</p>
+												<h5>{{ suer.username }}</h5>
+												<p>{{ user.role }}</p>
 											</div>
-											<a href="user-profile.html"><i class="icon-user1"></i> My Profile</a>
-											<a href="account-settings.html"><i class="icon-settings1"></i> Account Settings</a>
-											<a href="login.html"><i class="icon-log-out1"></i> Sign Out</a>
+											<a href="{% url "profile" %}"><i class="icon-user1"></i> My Profile</a>
+											<a href="#"><i class="icon-settings1"></i>Les paramètres</a>
+											<a><form action="{% url "logout" %}" method="post">
+												{% csrf_token %}
+												<button type="submit"><i class="icon-log-out1"> Se déconnecter</i></button>
+											</form>
+											</a>
 										</div>
 									</div>
 								</li>

@@ -1,0 +1,285 @@
+{% extends "app/base.html" %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block main-content %}
+<div class="row gx-3">
+    <div class="col-xxl-12">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="custom-tabs-container">
+                    <ul class="nav nav-tabs" id="customTab2" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="tab-oneA" data-bs-toggle="tab" href="#oneA" role="tab"
+                                aria-controls="oneA" aria-selected="true">General</a>
+                        </li>
+                        {% comment %} <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="tab-twoA" data-bs-toggle="tab" href="#twoA" role="tab"
+                                aria-controls="twoA" aria-selected="false">Paramètres</a>
+                        </li> {% endcomment %}
+                        {% comment %} <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="tab-threeA" data-bs-toggle="tab" href="#threeA" role="tab"
+                                aria-controls="threeA" aria-selected="false">Changer mot de passe</a>
+                        </li> {% endcomment %}
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="oneA" role="tabpanel">
+                            <!-- Row start -->
+                            {% if not user.is_email_verified %}
+                            
+                            <div class="row gx-3 justify-content-between">
+                                <div class="col-12 alert alert-warning">
+                                    Votre émail n'est pas vérifié. Vous ne serez pas capable de changer votre mot de passe en cas d'oubli. Vérifiez votre email en cliquant <a href="{% url "verify-email-send" %}">ici</a>
+                                </div>
+                            </div>
+                            
+                            {% endif %}
+                            
+                            <div class="row gx-3 justify-content-between">
+                                <div class="col-sm-8 col-12">
+                                    <div class="card mb-3">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Détails personnels</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Row start -->
+                                            <form class="row gx-3" method="post" action="{% url "user-change" %}">
+                                                {% csrf_token %}
+                                                <div class="col-6">
+                                                    <!-- Form Field Start -->
+                                                    <div class="mb-3">
+                                                        <label for="fullName" class="form-label">Nom</label>
+                                                        {{ user_change_form.last_name }}
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="fullName" class="form-label">Prénoms</label>
+                                                        {{ user_change_form.first_name }}
+                                                    </div>
+
+                                                    <!-- Form Field Start -->
+                                                    <div class="mb-3">
+                                                        <label for="contactNumber" class="form-label">Contact</label>
+                                                        {{ user_change_form.numero }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <!-- Form Field Start -->
+                                                    <div class="mb-3">
+                                                        <label for="emailId" class="form-label">Email</label>
+                                                        {{ user_change_form.email }}
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="sexeid" class="form-label">Sexe</label>
+                                                        {{ user_change_form.sexe }}
+                                                    </div>
+
+                                                    <!-- Form Field Start -->
+                                                    <div class="mb-3">
+                                                        <label for="birthDay" class="form-label">Date de naissance</label>
+                                                        <div class="input-group">
+                                                            {{ user_change_form.date_naissance }}
+                                                            {% comment %} <span class="input-group-text">
+                                                                <i class="bi bi-calendar4"></i>
+                                                            </span> {% endcomment %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <!-- Form Field Start -->
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Poste</label>
+                                                        {{ user_change_form.poste }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <input type="submit" value="Submit" class="btn btn-primary col">
+                                                </div>
+                                            </form>
+                                            <!-- Row end -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-12">
+                                    <div class="card mb-3">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Changer mot de passe</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Row start -->
+                                            <form action="{% url "changePass" %}" method="post" class="">
+                                                {% csrf_token %}
+                                                
+                                                {% for fm in form %}
+                                                <div class="form-group row my-2">
+                                                    <div  class="col-12 ">
+                                                        {{ fm.label_tag }}
+                                                    </div>
+                                                    <div class="col-12">
+                                                      {{ fm }} <small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                <div class="row mb-2">
+                                                    <input type="submit" value="Submit" class="btn btn-primary col">
+                                                </div>
+                                                
+                                                {% if form.non_field_errors %}
+                                        
+                                                    {% for error in form.non_field_errors %}
+                                                        <p class="alert alert-danger my-3">{{ error }}</p>
+                                                    {% endfor %}
+                                                        
+                                                {% endif %} 
+                                
+                                                {% if messages %}
+                                                        
+                                                    {% for msg in messages %}
+                                                        <div class="alert alert-{{ msg.tags }}" role="alert"> {{ msg }}</div>
+                                                    {% endfor %}
+                                                        
+                                                {% endif %}
+                                            </form>
+                                            <!-- Row end -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Row end -->
+                            {% comment %} <div class="d-flex gap-2 justify-content-end">
+                                <button type="button" class="btn btn-outline-secondary">
+                                    Reset
+                                </button>
+                                <button type="button" class="btn btn-success">
+                                    Update
+                                </button>
+                            </div> {% endcomment %}
+                        </div>
+                        {% comment %} <div class="tab-pane fade" id="twoA" role="tabpanel">
+                            <!-- Row start -->
+                            <div class="row gx-3">
+                                <div class="col-sm-6 col-12">
+                                    <!-- Card start -->
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Show desktop notifications
+                                                    <div class="form-check form-switch m-0">
+                                                        <input class="form-check-input" type="checkbox" role="switch" id="switchOne" />
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Show email notifications
+                                                    <div class="form-check form-switch m-0">
+                                                        <input class="form-check-input" type="checkbox" role="switch" id="switchTwo"
+                                                            checked />
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Show chat notifications
+                                                    <div class="form-check form-switch m-0">
+                                                        <input class="form-check-input" type="checkbox" role="switch"
+                                                            id="switchThree" />
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Card end -->
+                                </div>
+                                <div class="col-sm-6 col-12">
+                                    <!-- Card start -->
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Show purchase history
+                                                    <div class="form-check form-switch m-0">
+                                                        <input class="form-check-input" type="checkbox" role="switch" id="switchFour" />
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Show orders
+                                                    <div class="form-check form-switch m-0">
+                                                        <input class="form-check-input" type="checkbox" role="switch" id="switchFive" />
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Show alerts
+                                                    <div class="form-check form-switch m-0">
+                                                        <input class="form-check-input" type="checkbox" role="switch" id="switchSix" />
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Card end -->
+                                </div>
+                            </div>
+                            <!-- Row end -->
+                            <div class="d-flex gap-2 mt-4 justify-content-end">
+                                <button type="button" class="btn btn-outline-secondary">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-success">
+                                    Update
+                                </button>
+                            </div>
+                        </div> {% endcomment %}
+                        {% comment %} <div class="tab-pane fade" id="threeA" role="tabpanel">
+                            <!-- Row start -->
+                            <div class="col-12">
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Changer votre mot de passe</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row gx-3">
+                                            <form action="" method="post" class="shadow p-5">
+                                                {% csrf_token %}
+                                                
+                                                {% for fm in form %}
+                                                <div class="form-group row my-2">
+                                                    <div  class="col-sm-2 ">
+                                                        {{ fm.label_tag }}
+                                                    </div>
+                                                    <div class="col-sm-10">
+                                                      {{ fm }} <small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                <div class="row mb-2">
+                                                    <input type="submit" value="Submit" class="btn btn-primary col">
+                                                </div>
+                                                
+                                                {% if form.non_field_errors %}
+                                        
+                                                    {% for error in form.non_field_errors %}
+                                                        <p class="alert alert-danger my-3">{{ error }}</p>
+                                                    {% endfor %}
+                                                        
+                                                {% endif %} 
+                                
+                                                {% if messages %}
+                                                        
+                                                    {% for msg in messages %}
+                                                        <div class="alert alert-{{ msg.tags }}" role="alert"> {{ msg }}</div>
+                                                    {% endfor %}
+                                                        
+                                                {% endif %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}
