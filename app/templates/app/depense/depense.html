@@ -29,6 +29,7 @@ Dépenses
             <th scope="col">Motif</th>
             <th scope="col">Montant</th>
             <th scope="col">Sous-groupe</th>
+            <th scope="col">Fait par</th>
             <th scope="col"> <i class='icon-edit'></i> </th>
         </tr>
     </thead>
@@ -41,6 +42,7 @@ Dépenses
                 <td>{{ depense.motif }}</td>
                 <td>{{ depense.montant }}</td>
                 <td> {% if cotisation.sous_groupe %}<span id="fermer-ouvrir-{{cotisation.id}}">{{ depense.sous_groupe}}</span>{% else %}<span id="fermer-ouvrir-{{cotisation.id}}">Néant</span>{% endif %}</td>
+                <td>{{ depense.cree_par }}</td>
                 <td><button hx-get="{% url "depense-update" depense.id %}" hx-target="#modal-depense-editer"
                     hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button>
                 </td>
@@ -135,4 +137,21 @@ Dépenses
     </div>
 </div>
 
+{% block script %}
+<script>
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            console.log("Changement détecté :", mutation);
+        });
+    
+        var selects = document.querySelectorAll('select');
+        if(selects) {
+            for(let select of selects){
+                const choices = new Choices(select); 
+            }
+            
+        }
+    });
+</script>
+{% endblock script %}
 {% endblock main-content %}

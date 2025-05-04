@@ -120,6 +120,32 @@ def getMembres(user:User):
     if user.role == "admin" or user.role =="responsable":
         return user.groupe.membre_set.all().order_by('nom', 'prenom')
     elif user.role == "sous_responsable":
-        return user.sous_groupe.membre_set.all().order_by('nom', 'prenom')
+        return user.groupe.membre_set.filter(sous_groupe=user.sous_groupe).order_by('nom', 'prenom')
+    else:
+        return []
+    
+def getCotisationItem(user:User):
+    "Une fonction qui permet de recupérer les cotisations items des membres selon l'utilisteur"
+    if user.role == "admin" or user.role =="responsable":
+        return CotisationItem.objects.filter(cotisation__groupe=user.groupe)
+    elif user.role == "sous_responsable":
+        return CotisationItem.objects.filter(cotisation__groupe=user.groupe, membre__sous_groupe=user.sous_groupe)
+    else:
+        return []
+    
+def getPresence(user:User):
+    "Une fonction qui retourne la liste de présence selon l'utilisateur"
+    if user.role == "admin" or user.role =="responsable":
+        return Presence.objects.filter(liste_presence__groupe=user.groupe)
+    elif user.role == "sous_responsable":
+        return Presence.objects.filter(liste_presence__groupe=user.groupe, membre__sous_groupe=user.sous_groupe)
+    else:
+        return []
+    
+def getSousGroupe(user:User):
+    if user.role == "admin" or user.role =="responsable":
+        return SousGroupe.objects.filter(groupe=user.groupe).order_by('nom')
+    elif user.role == "sous_responsable":
+        return SousGroupe.objects.filter(groupe=user.groupe, id=user.sous_groupe.id).order_by('nom')
     else:
         return []

@@ -1,5 +1,10 @@
 <form 
-    hx-post="{% url "presence-gerer" membre.id %}" 
+    {% if membre %}
+    hx-post="{% url "presence-gerer" membre.id  %}" 
+    {% else %}
+    hx-post="{% url "presence-modifier" presence.id  %}" 
+    {% endif %}
+    
     hx-trigger="submit" 
     hx-swap="outerHTML" 
     hx-confirm="Avant de soumettre vérifier les données entrées. Elles ne pourront plus être modifiées." 

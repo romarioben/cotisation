@@ -20,7 +20,8 @@ urlpatterns = [
     path("presence/", views.presence_liste, name='presence-liste'),
     path("presence/gerer/<int:id>/", views.presence_gerer, name='presence-gerer'),
     path("presence/details/", views.presence_details, name='presence-details'),
-    path("presence/ajouter/", views.presence_ajouter, name='presence-ajouter'),
+    path("presence/ajouter-liste/", views.presence_ajouter, name='presence-ajouter'),
+    path("presence/modifier/<int:presence_id>/", views.presence_modifier, name='presence-modifier'),
     
     
     path("cotisation/", views.cotisation, name='cotisation'),
@@ -37,6 +38,7 @@ urlpatterns = [
     path("promesse/", views.promesse_liste, name='promesse-liste'),
     path("promesse/gerer/<int:membre_id>/<int:cotisation_id>", views.promesse_gerer, name='promesse-gerer'),
     path("promesse/details/", views.promesse_details, name='promesse-details'),
+    path("promesse/modifier/<int:promesse_id>", views.promesse_modifier, name='promesse-modifier'),
     
     
     path("sous-groupe/", views.sous_groupe, name='sous-groupe'),
@@ -45,4 +47,6 @@ urlpatterns = [
     path("depense", views.depense, name='depense'),
     path("depense/update/<int:id>/", views.UpdateDepense.as_view(), name='depense-update'),
     
+    
+    path("point/", views.point, name='point'),
 ]

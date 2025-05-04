@@ -51,7 +51,7 @@ def registration(request):
 def users(request):
     page_name = "Utilisateurs"
     groupe = request.user.groupe
-    sous_groupes = models.SousGroupe.objects.filter(groupe=groupe).order_by('nom')
+    sous_groupes = models.getSousGroupe(user=request.user)
     users = auth_models.User.objects.filter(groupe=groupe)
     if request.method == "POST":
         form = SignupForm(request.POST)
@@ -79,7 +79,7 @@ class UpdateUser(LoginRequiredMixin, View):
     def get(self,request, id):
         user0 = auth_models.User.objects.get(id=id)
         groupe = request.user.groupe
-        sous_groupes = models.SousGroupe.objects.filter(groupe=groupe).order_by('nom')
+        sous_groupes = models.getSousGroupe(user=request.user)
         return render(request, "app/forms/user.html", locals())
     
     def post(self, request, id):
@@ -113,12 +113,14 @@ class PassWordChangeView(View, LoginRequiredMixin):
         
     def post(self, request):
         user = request.user
+        user_change_form = UserChangeForm(instance=user)
         form1 = PassWordChangeForm(user, request.POST)
         if form1.is_valid():
             form1.save()
             update_session_auth_hash(request, user)
             form = PassWordChangeForm(user=user)
             messages.success(request, 'Félicitation Mot de passe changé  avec succès')
+            return redirect('profile')
         else:
             messages.warning(request, 'Données entrées invalides')
             form = form1
@@ -144,7 +146,7 @@ def user_change(request):
 def membre(request):
     user = request.user
     groupe = user.groupe
-    sous_groupes = models.SousGroupe.objects.filter(groupe=groupe)
+    sous_groupes = models.getSousGroupe(user=request.user)
     page_name = "Membres"
     form = forms.MembreForm()
     membres = models.getMembres(user)
@@ -171,7 +173,7 @@ class UpdateMembre(View, LoginRequiredMixin):
         user = request.user
         groupe = user.groupe
         membre = get_object_or_404(models.Membre, id=id)
-        sous_groupes = models.SousGroupe.objects.filter(groupe=groupe)
+        sous_groupes = models.getSousGroupe(user=request.user)
         form = forms.MembreForm(instance=membre)
         return render(request, "app/membre/update_membre.html", locals())
     
@@ -236,13 +238,14 @@ def presence_liste(request):
     groupe = user.groupe
     listes_presences = models.ListPresence.objects.filter(groupe=groupe).order_by('-date_presence')
     liste_presence = models.ListPresence.objects.filter(groupe=groupe).order_by('-date_presence')[0]
-    presences = models.Presence.objects.filter(liste_presence=liste_presence).order_by('membre__nom', 'membre__prenom')
+    presences = models.getPresence(user).filter(liste_presence=liste_presence).order_by('membre__nom', 'membre__prenom')
     return render(request, 'app/presence/listes_presence.html', locals())
 
 def presence_details(request):
+    user=request.user
     id = int(request.POST.get('liste_presence'))
     liste_presence = get_object_or_404(models.ListPresence, id=id)
-    presences = models.Presence.objects.filter(liste_presence=liste_presence).order_by('membre__nom', 'membre__prenom')
+    presences = models.getPresence(user).filter(liste_presence=liste_presence).order_by('membre__nom', 'membre__prenom')
     return render(request, 'app/presence/presence_details.html', locals())
 
 @login_required
@@ -251,6 +254,8 @@ def presence_gerer(request, id):
     user = request.user
     groupe = user.groupe
     today = datetime.datetime.today().strftime("%Y-%m-%d")
+    
+    #Créer d'abord une liste de présence si c'est un nouvau jour
     if models.ListPresence.objects.filter(date_presence__date=today, groupe = groupe):
         liste_presence = models.ListPresence.objects.filter(date_presence__date=today, groupe = groupe).order_by('-id')[0]
     else:
@@ -263,6 +268,19 @@ def presence_gerer(request, id):
     presence.save()
     return render(request, 'app/presence/presence.html', locals())
 
+def presence_modifier(request, presence_id):
+    presence = get_object_or_404(models.Presence, id=presence_id)
+    TIME_LIMIT = 2
+    if now().timestamp() - presence.date_presence.timestamp() > 3600*TIME_LIMIT:
+        return HttpResponse(f'''<div class="text-danger">Délai de modification de {TIME_LIMIT} heure(s) dépassé. Impossible de modifier cette présence</div>''')
+    if request.method == "POST":
+        status = request.POST.get('presence')
+        presence.presence = status
+        presence.save()
+        return render(request, 'app/presence/presence.html', locals())
+    else:
+        form = forms.PresenceForm(instance=presence)
+        return render(request, "app/forms/presence.html", locals())
 
 @login_required
 def cotisation(request):
@@ -358,7 +376,7 @@ def cotisation_evolution_sous(request, cotisation_id):
     user = request.user
     groupe = user.groupe
     cotisation  = models.Cotisation.objects.get(id=cotisation_id)
-    sous_groupes = models0.SousGroupe.objects.filter(groupe=groupe)
+    sous_groupes = models.getSousGroupe(user=request.user)
     sous_groupes_dict = {}
     montant_total = 0
     for sous_groupe in sous_groupes:
@@ -443,12 +461,28 @@ def promesse_gerer(request, membre_id, cotisation_id):
     promesse.save()
     return render(request, 'app/promesse/promesse.html', locals())
 
-
+def promesse_modifier(request, promesse_id):
+    promesse = get_object_or_404(models.Promesse, id=promesse_id)
+    TIME_LIMIT = 1
+    if now().timestamp() - promesse.date_promesse.timestamp() > 3600*TIME_LIMIT:
+        return HttpResponse(f'''<div class="text-danger">Délai de modification de {TIME_LIMIT} heure(s) dépassé. Impossible de modifier cette promesse</div>''')
+    if request.method == "POST":
+        form = forms.PromesseForm(request.POST)
+        if form.is_valid():
+            promesse.quantite = form.cleaned_data['quantite']
+            promesse.date_echeance = form.cleaned_data['date_echeance']
+            promesse.save()
+            return render(request, 'app/promesse/promesse.html', locals())
+        else:
+            return render(request, "app/forms/promesse.html", locals())
+    else:
+        form = forms.PromesseForm(instance=promesse)
+        return render(request, "app/forms/promesse.html", locals())
 @login_required
 def sous_groupe(request):
     groupe = request.user.groupe
     page_name = "Sous groupe"
-    sous_groupes = models.SousGroupe.objects.filter(groupe=groupe).order_by('nom')
+    sous_groupes = models.getSousGroupe(user=request.user)
     
     if request.method == "POST":
         form = forms.SousGroupeForm(request.POST)
@@ -480,7 +514,7 @@ class UpdateSousGroupe(LoginRequiredMixin, View):
 def depense(request):
     groupe = request.user.groupe
     page_name = "Dépenses"
-    sous_groupes = models.SousGroupe.objects.filter(groupe=groupe).order_by('nom')
+    sous_groupes = models.getSousGroupe(user=request.user)
     depenses = models.Depense.objects.filter(groupe=groupe)
     if request.method == "POST":
         form = forms.DepenseForm(request.POST)
@@ -531,6 +565,44 @@ class UpdateDepense(LoginRequiredMixin, View):
             depense.sous_groupe = sous_groupe
             depense.save()
         return redirect("depense")
+    
+@login_required 
+def point(request):
+    user = request.user
+    groupe = request.user.groupe
+    cotisations = models.Cotisation.objects.filter(groupe=groupe)
+    cotisation_items = models.getCotisationItem(user).filter(cotisation__groupe=groupe)
+    if request.method == "POST":
+        cotisation = request.POST.get('cotisation', None)
+        if cotisation:
+            cotisation = get_object_or_404(models.Cotisation, id=cotisation)
+        date_debut = request.POST.get('date_debut', None)
+        date_fin = request.POST.get('date_fin', None)
+        
+        if cotisation and date_debut and date_fin:
+            date_debut0 = datetime.date(*list(map(int, date_debut.split("-"))))
+            date_fin0 = datetime.datetime(*list(map(int, date_fin.split("-"))))#, 23, 59, 59, 59)# Ajouter 23:59:59:59 pour prendre les cotisations du dernier jour
+            cotisation_items = models.getCotisationItem(user).filter(cotisation__groupe=groupe, cotisation=cotisation, date_cotisation__date__gte=date_debut0, date_cotisation__date__lte=date_fin0).order_by('-date_cotisation')
+        elif cotisation and date_debut and not date_fin:
+            date_debut0 = datetime.date(*list(map(int, date_debut.split("-"))))
+            cotisation_items = models.getCotisationItem(user).filter(cotisation__groupe=groupe, cotisation=cotisation, date_cotisation__date__gte=date_debut0).order_by('-date_cotisation')
+        elif cotisation and not date_debut and date_fin:
+            date_fin0 = datetime.datetime(*list(map(int, date_fin.split("-"))))#, 23, 59, 59, 59)# Ajouter 23:59:59:59 pour prendre les cotisations du dernier jour
+            cotisation_items = models.getCotisationItem(user).filter(cotisation__groupe=groupe, cotisation=cotisation, date_cotisation__date__lte=date_fin0).order_by('-date_cotisation')
+        elif cotisation and not date_debut and not date_fin:
+            cotisation_items = models.getCotisationItem(user).filter(cotisation__groupe=groupe, cotisation=cotisation).order_by('-date_cotisation')
+        elif not cotisation and date_debut and date_fin:
+            cotisation_items = models.getCotisationItem(user).filter(cotisation__groupe=groupe, date_cotisation__date__gte=date_debut0, date_cotisation__date__lte=date_fin0).order_by('-date_cotisation')
+        elif not cotisation and date_debut and not date_fin:
+            date_debut0 = datetime.date(*list(map(int, date_debut.split("-"))))
+            cotisation_items = models.getCotisationItem(user).filter(cotisation__groupe=groupe, date_cotisation__date__gte=date_debut0).order_by('-date_cotisation')
+        elif not cotisation and not date_debut and date_fin:
+            date_fin0 = datetime.datetime(*list(map(int, date_fin.split("-"))))#, 23, 59, 59, 59)# Ajouter 23:59:59:59 pour prendre les cotisations du dernier jour
+            cotisation_items = models.getCotisationItem(user).filter(cotisation__groupe=groupe, date_cotisation__date__lte=date_fin0).order_by('-date_cotisation')
+        else :
+            cotisation_items = models.getCotisationItem(user).filter(cotisation__groupe=groupe).order_by('-date_cotisation')
+    montant_total = sum([item.montant for item in cotisation_items])
+    return render(request, "app/point.html", locals())
     
     
         

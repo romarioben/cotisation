@@ -1,0 +1,132 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+Les points
+{% endblock title %}
+
+{% block main-content %}
+{% comment %} <div class="row"> {% endcomment %}
+    <form 
+        class="col-sm-12 col-lg-6 m-auto shadow p-1"
+        method="post"
+        {% comment %} hx-post="" {% endcomment %}
+    >
+        {% csrf_token %}
+        
+
+        <div class="form-group row my-2">
+            <div  class="col-6">
+                Cotisation
+            </div>
+            <div class="col-6">
+                <select name="cotisation" class="form-select w-100">
+                    <option value="">Choisir cotisation</option>
+                    {% for cotisation in cotisations %}
+                    <option value="{{cotisation.id}}">{{ cotisation.nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row my-2">
+            <div  class="col-6">
+                La date de début
+            </div>
+            <div class="col-6">
+                <input type="date" name="date_debut" class="form-select w-100">
+            </div>
+        </div>
+
+        <div class="form-group row my-2">
+            <div  class="col-6 ">
+                La date de fin
+            </div>
+            <div class="col-6">
+                <input type="date" name="date_fin" class="form-select w-100">
+            </div>
+        </div>
+        <div class="row form-group mb-2">
+            <input type="submit" value="Submit" class="btn btn-primary col-12">
+        </div>
+        
+        {% if form.non_field_errors %}
+
+            {% for error in form.non_field_errors %}
+                <p class="alert alert-danger my-3">{{ error }}</p>
+            {% endfor %}
+                
+        {% endif %} 
+
+        {% if messages %}
+                
+            {% for msg in messages %}
+                <div class="alert alert-{{ msg.tags }}" role="alert"> {{ msg }}</div>
+            {% endfor %}
+                
+        {% endif %} 
+    </form>
+
+    <div >
+        <table class="table table-striped col-sm-12 col-lg-9 p-2" id="table_cotisation_items">
+            <thead>
+                <tr>
+                    <th scope="col"> # </th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Membre</th>
+                    <th scope="col">Cotisation</th>
+                    <th scope="col">Montant</th>
+                    <th scope="col">Collecté par</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for cotisation_item in cotisation_items %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ cotisation_item.date_cotisation }}</td>
+                        <td>{{ cotisation_item.membre }}</td>
+                        <td>{{ cotisation_item.cotisation }}</td>
+                        <td>{{ cotisation_item.montant }}</td>
+                        <td>{{ cotisation_item.cree_par }}</td>
+                    </tr>
+                {% endfor %}
+                    
+            </tbody>
+        </table>
+    </div>
+{% comment %} </div> {% endcomment %}
+{% endblock main-content %}
+
+{% block script %}
+<script>
+    $(document).ready(function() {
+        $("#table_cotisation_items").DataTable({
+            autoWidth: false,
+            buttons: [
+                {
+                    extend: "pdfHtml5",
+                    exportOptions : {
+                        columns: [0,1,2,3]
+                    },
+                    customize: function(doc){
+                        doc.styles.tableBodyOdd.alignment = 'center';
+                        doc.styles.tableBodyEven.alignment = 'center';
+                    }
+                }
+            ]
+        }); 
+
+
+
+        {% comment %} new DataTable('#table_cotisation_items', {
+            layout : {
+                topStart: {
+                    buttons : ["copy", "csv", "excel", "pdf"]
+                }
+            }
+        }); {% endcomment %}
+    });
+</script>
+
+{% endblock script %}
+

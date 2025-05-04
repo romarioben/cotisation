@@ -1,4 +1,4 @@
-<div  class="shadow p-1">
+<div  class="shadow p-1" id="promesse-{{promesse.id}}">
 
     <div class="form-group row my-2">
         <div  class="col-sm-12">
@@ -34,6 +34,11 @@
         </div>
         <div class="col-12">
             {{ promesse.quantite }}
+        </div>
+    </div>
+    <div class="form-group row my-2">
+        <div class="col-12">
+            <button hx-get="{% url "promesse-modifier" promesse.id %}" hx-target="#promesse-{{promesse.id}}" hx-swap="outerHTML">Modifier</button>
         </div>
     </div>
 

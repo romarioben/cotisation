@@ -106,7 +106,7 @@
 							</li>
 							<li {% if page_name == "Membres" %}class="active"{% endif %}>
 								<a href="{% url "membre" %}" {% if page_name == "Membres" %}class="current-page"{% endif %}>
-									<i class="icon-users"></i>
+									<i class="icon-user-plus"></i>
 									<span class="menu-text">Membres</span>
 								</a>
 							</li>
@@ -137,6 +137,13 @@
 								</a>
 							</li>
 
+							<li {% if page_name == "Point" %}class="active"{% endif %}>
+								<a href="{% url "point" %}" {% if page_name == "Point" %}class="current-page"{% endif %}>
+									<i class="icon-list2"></i>
+									<span class="menu-text">Points</span>
+								</a>
+							</li>
+
 							<li {% if page_name == "Profil" %}class="active"{% endif %}>
 								<a href="{% url "profile" %}" {% if page_name == "Profil" %}class="current-page"{% endif %}>
 									<i class="icon-account_box"></i>
@@ -144,8 +151,13 @@
 								</a>
 							</li>
 
+							<li {% if page_name == "Utilisateurs" %}class="active"{% endif %}>
+								<a href="{% url "users" %}" {% if page_name == "Utilisateurs" %}class="current-page"{% endif %}>
+									<i class="icon-users"></i>
+									<span class="menu-text">Utilisateurs</span>
+								</a>
+							</li>
 						
-							
 						</ul>
 					</div>
 					<!-- sidebar menu end -->
@@ -239,9 +251,9 @@
 										<div class="header-profile-actions">
 											<div class="header-user-profile">
 												<div class="header-user">
-													<img src="img/user2.png" alt="Admin Template">
+													<img src="" alt="Photo de Profil">
 												</div>
-												<h5>{{ suer.username }}</h5>
+												<h5>{{ user.username }}</h5>
 												<p>{{ user.role }}</p>
 											</div>
 											<a href="{% url "profile" %}"><i class="icon-user1"></i> My Profile</a>
@@ -311,6 +323,8 @@
 		<script src="{% static 'app/js/jquery.min.js' %}"></script>
         <script src="{% static 'app/js/bootstrap.bundle.min.js' %}"></script>
         <script src="{% static 'app/js/moment.js' %}"></script>
+		<script src="{% static 'app/js/choices.min.js' %}"></script>
+
 
 
 		<!-- *************

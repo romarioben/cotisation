@@ -29,3 +29,21 @@ Prendre des promesses
     {% endfor %}
 </div>
 {% endblock main-content %}
+
+{% block script %}
+<script>
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            console.log("Changement détecté :", mutation);
+        });
+    
+        var selects = document.querySelectorAll('select');
+        if(selects) {
+            for(let select of selects){
+                const choices = new Choices(select); 
+            }
+            
+        }
+    });
+</script>
+{% endblock script %}

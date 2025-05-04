@@ -1,10 +1,13 @@
-<div  class="shadow row p-1">
+<div  class="shadow row p-1" id="presence-{{presence.id}}">
     
-        <div class="col-6">
+        <div class="col-4">
             {{presence.date_presence}}
         </div>
-        <div class="col-6">
+        <div class="col-4">
             {{ presence.presence }}
+        </div>
+        <div class="col-4">
+            <button hx-get="{% url "presence-modifier" presence.id %}" hx-target="#presence-{{presence.id}}" hx-swap="outerHTML">Modifier</button>
         </div>
     
 </div>

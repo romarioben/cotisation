@@ -1,5 +1,9 @@
 <form 
+    {% if membre %}
     hx-post="{% url "promesse-gerer" membre_id=membre.id cotisation_id=cotisation.id%}"
+    {% else %}
+    hx-post="{% url "promesse-modifier" promesse.id %}"
+    {% endif %}
     hx-trigger="submit" 
     hx-swap="outerHTML" 
     hx-confirm="Avant de soumettre vérifier les données entrées. Elles ne pourront plus être modifiées." 
