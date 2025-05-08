@@ -1,0 +1,29 @@
+<h3>Détails de la cotisation {{cotisation }} de {{ membre }}</h3>
+<table class="table table-striped" id="table_cotisation_details">
+    <thead>
+        <tr>
+            <th scope="col"> # </th>
+            <th scope="col">Date</th>
+            <th scope="col">Montant</th>
+            <th scope="col">Collecté par</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for cotisation_item in cotisation_items %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ cotisation_item.date_cotisation }}</td>
+                <td>{{ cotisation_item.montant }}F</td>
+                <td>{{ cotisation_item.cree_par }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <th scope="row">Total</th>
+            <td></td>
+            <td>{{ montant_total }}F</td>
+        </tr>
+            
+    </tbody>
+</table>

@@ -28,6 +28,7 @@ Cotisations
             <th scope="col">Etat</th>
             <th scope="col">Membre</th>
             <th scope="col">Sous-groupe</th>
+            <th scope="col">Détails</th>
             <th scope="col"> <i class='icon-edit'></i> </th>
             <th scope="col"> <i class="icon-close btn btn-danger"></i> </th>
         </tr>
@@ -42,6 +43,7 @@ Cotisations
                 <td> {% if cotisation.ouverte %}<span id="fermer-ouvrir-{{cotisation.id}}" class="text-success">Ouverte</span>{% else %}<span id="fermer-ouvrir-{{cotisation.id}}" class="text-danger">Fermée</span>{% endif %}</td>
                 <td><a title="Voir l'évolution de {{ cotisation }} par membre" class="btn btn-outline-info" href="{% url "cotisation-evolution" cotisation.id %}"><i class="icon-eye1" type="solid"></i></a></td>
                 <td><a title="Voir l'évolution de {{ cotisation }} par sous-groupe" class="btn btn-outline-info" href="{% url "cotisation-evolution-sous" cotisation.id %}"><i class="icon-eye" type="solid"></i></a></td>
+                <td><a title="Détails de {{ cotisation }}" class="btn btn-outline-info" href="{% url "cotisation-details" cotisation.id %}"><i class="icon-list2" type="solid"></i></a></td>
                 <td><button hx-get="{% url "cotisation-update" cotisation.id %}" hx-target="#modal-cotisation-editer"
                     hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button>
                 </td>

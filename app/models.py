@@ -127,9 +127,9 @@ def getMembres(user:User):
 def getCotisationItem(user:User):
     "Une fonction qui permet de recupérer les cotisations items des membres selon l'utilisteur"
     if user.role == "admin" or user.role =="responsable":
-        return CotisationItem.objects.filter(cotisation__groupe=user.groupe)
+        return CotisationItem.objects.filter(cotisation__groupe=user.groupe).order_by("-date_cotisation")
     elif user.role == "sous_responsable":
-        return CotisationItem.objects.filter(cotisation__groupe=user.groupe, membre__sous_groupe=user.sous_groupe)
+        return CotisationItem.objects.filter(cotisation__groupe=user.groupe, membre__sous_groupe=user.sous_groupe).order_by("-date_cotisation")
     else:
         return []
     

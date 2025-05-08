@@ -1,12 +1,22 @@
-<h3>Détails de la cotisation {{cotisation }} de {{ membre }}</h3>
+{% extends "app/base.html" %}
+
+{% block title %}
+Détails d'une cotisation
+{% endblock title %}
+
+
+{% block main-content %}
+Détails de la cotisation
+
 <table class="table table-striped" id="table_cotisation_details">
     <thead>
         <tr>
             <th scope="col"> # </th>
-            <th scope="col">Date</th>
+            <th scope="col"> Date </th>
+            <th scope="col">Membre</th>
             <th scope="col">Montant</th>
-            <th scope="col">Collecté par</th>
-            
+            <th scope="col"> <i class='icon-edit'></i> </th>
+            <th scope="col"> <i class="icon-close btn btn-danger"></i> </th>
         </tr>
     </thead>
     <tbody>
@@ -15,15 +25,41 @@
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ cotisation_item.date_cotisation }}</td>
-                <td>{{ cotisation_item.montant }}F</td>
-                <td>{{ cotisation_item.cree_par }}</td>
+                <td>{{ cotisation_item.membre }}</td>
+                <td>{{ cotisation_item.montant }} FCFA</td>
+                <td><button hx-get="" hx-target="#modal-membre-editer"
+                    hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button>
+                </td>
+                <td>
+                    
+                        <a 
+                            title="Supprimer"
+                            hx-get="" 
+                            hx-target="closest tr"
+                            hx-swap="outerHTML"
+                            hx-confirm="Voulez vous vraiment supprimer cet examen?"
+
+                        >
+                            <i class="icon-close btn btn-danger"></i>
+                        </a>
+                </td>
             </tr>
         {% endfor %}
-        <tr>
-            <th scope="row">Total</th>
-            <td></td>
-            <td>{{ montant_total }}F</td>
-        </tr>
             
     </tbody>
 </table>
+
+{% endblock main-content %}
+
+{% block script %}
+<script>
+    $(document).ready(function() {
+        $("#table_cotisation_details").DataTable({
+            autoWidth: false,
+            
+        });
+    });
+</script>
+{% endblock script %}
+
+

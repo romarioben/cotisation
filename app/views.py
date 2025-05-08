@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 
+from django import forms as django_forms
+
 from django.http import JsonResponse, FileResponse, HttpResponseForbidden
 
 from auth_app import models as auth_models
@@ -131,16 +133,18 @@ class PassWordChangeView(View, LoginRequiredMixin):
 @login_required   
 def user_change(request):
     user=request.user
+    form = PassWordChangeForm(user=user)
     if request.method == "POST" :
-        form = forms.UserChangeForm(request.POST)
-        if form.is_valid():
-            user.last_name = form.cleaned_data['last_name']
-            user.first_name = form.cleaned_data['first_name']
-            user.email = form.cleaned_data['email']
-            user.numero = form.cleaned_data['numero']
-            user.poste = form.cleaned_data['poste']
+        user_change_form = UserChangeForm(request.POST, instance=user)
+        if user_change_form.is_valid():
+            user.last_name = user_change_form.cleaned_data['last_name']
+            user.sexe = user_change_form.cleaned_data['sexe']
+            user.first_name = user_change_form.cleaned_data['first_name']
+            user.email = user_change_form.cleaned_data['email']
+            user.numero = user_change_form.cleaned_data['numero']
+            user.poste = user_change_form.cleaned_data['poste']
             user.save()
-    return redirect('profile')
+    return render(request, 'app/profile.html', locals())
 
 @login_required
 def membre(request):
@@ -237,8 +241,11 @@ def presence_liste(request):
     user = request.user
     groupe = user.groupe
     listes_presences = models.ListPresence.objects.filter(groupe=groupe).order_by('-date_presence')
-    liste_presence = models.ListPresence.objects.filter(groupe=groupe).order_by('-date_presence')[0]
-    presences = models.getPresence(user).filter(liste_presence=liste_presence).order_by('membre__nom', 'membre__prenom')
+    if listes_presences:
+        liste_presence = models.ListPresence.objects.filter(groupe=groupe).order_by('-date_presence')[0]
+        presences = models.getPresence(user).filter(liste_presence=liste_presence).order_by('membre__nom', 'membre__prenom')
+    else:
+        presence = []
     return render(request, 'app/presence/listes_presence.html', locals())
 
 def presence_details(request):
@@ -397,13 +404,29 @@ def cotisation_evolution_sous(request, cotisation_id):
     page_name = f"Evolution par sous groupe {cotisation}. Montant total = {montant_total}"
     return render(request, 'app/cotisation/cotisation_evoution_sous.html', locals())
 
-def cotisation_details(request, membre_id, cotisation_id):
+def cotisation_details_membre(request, membre_id, cotisation_id):
     membre = get_object_or_404(models.Membre, id=membre_id)
     cotisation = get_object_or_404(models.Cotisation, id=cotisation_id)
     cotisation_items = models.CotisationItem.objects.filter(cotisation=cotisation, membre=membre).order_by('-date_cotisation')
     montant_total = sum([item.montant for item in cotisation_items])
+    return render(request, "app/cotisation/cotisation_details_membre.html", locals())
+
+@login_required
+def cotisation_details(request, cotisation_id):
+    
+    user = request.user
+    cotisation = get_object_or_404(models.Cotisation, id=cotisation_id)
+    cotisation_items = models.getCotisationItem(user)
+    montant_total = sum([item.montant for item in cotisation_items])
+    page_name = f"Détails de la cotisation {cotisation} Montant total : {montant_total} FCFA"
     return render(request, "app/cotisation/cotisation_details.html", locals())
 
+@login_required
+def cotisation_item_modifier(request, id):
+    user = request.user
+    form = forms.CotisationItemForm()
+    form.membre = django_forms.ModelChoiceField(queryset=models.getCotisationItem(user))
+    return render(request, "app/cotisation/item_modifier.html", locals())
 
 
 @login_required  
@@ -434,8 +457,11 @@ def promesse_liste(request):
     user = request.user
     groupe = user.groupe
     cotisations = models.Cotisation.objects.filter(groupe=groupe).order_by('-date_creation')
-    cotisation = models.Cotisation.objects.filter(groupe=groupe, ouverte=True).order_by('-date_creation')[0]
-    promesses = models.Promesse.objects.filter(cotisation=cotisation).order_by('membre__nom', 'membre__prenom')
+    if cotisations:
+        cotisation = models.Cotisation.objects.filter(groupe=groupe, ouverte=True).order_by('-date_creation')[0]
+        promesses = models.Promesse.objects.filter(cotisation=cotisation).order_by('membre__nom', 'membre__prenom')
+    else:
+        promesses = []
     return render(request, 'app/promesse/listes_promesse.html', locals())
 
 def promesse_details(request):

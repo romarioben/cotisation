@@ -30,7 +30,8 @@ urlpatterns = [
     path("cotisation/item/<int:membre_id>/ajouter-form", views.ajouter_cotisation_form, name='cotisation-ajouter-form'),
     path("cotisation/item/<int:membre_id>/gerer", views.cotisation_item_gerer, name='cotisation-item-gerer'),
     path("cotisation/evolution/<int:cotisation_id>/", views.cotisation_evolution, name='cotisation-evolution'),
-    path("cotisation/details/<int:cotisation_id>/<int:membre_id>", views.cotisation_details, name='cotisation-details'),
+    path("cotisation/details/<int:cotisation_id>/", views.cotisation_details, name='cotisation-details'),
+    path("cotisation/details-membre/<int:cotisation_id>/<int:membre_id>", views.cotisation_details_membre, name='cotisation-details-membre'),
     path("cotisation/evolution-sous/<int:cotisation_id>/", views.cotisation_evolution_sous, name='cotisation-evolution-sous'),
     
     

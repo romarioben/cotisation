@@ -49,6 +49,16 @@ class CotisationForm(forms.ModelForm):
             'nom' : forms.TextInput(attrs={'class':'form-control'}),
         }
         
+class CotisationItemForm(forms.ModelForm):
+    
+    class Meta:
+        model = models.CotisationItem
+        fields = ["membre", "montant",]
+        widgets = {
+            'membre' : forms.Select(attrs={'class':'form-select'}),
+            'montant' : forms.NumberInput(attrs={'class':'form-control'}),
+        }
+        
 class PromesseForm(forms.ModelForm):
     
     class Meta:

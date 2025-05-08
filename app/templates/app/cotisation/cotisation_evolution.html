@@ -21,7 +21,7 @@ Evolution cotisation
             </div>
         </div>
         <div class="card-footer text-right">
-            <a hx-get="{% url "cotisation-details" cotisation_id=cotisation.id membre_id=donnee.0.id %}" 
+            <a hx-get="{% url "cotisation-details-membre" cotisation_id=cotisation.id membre_id=donnee.0.id %}" 
                 hx-target="#modal-cotisation-detail" 
                 hx-swap="innerHTML" 
                 class="btn btn-primary btn-sm"
