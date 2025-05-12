@@ -4,6 +4,7 @@ from django import forms as django_forms
 
 from django.http import JsonResponse, FileResponse, HttpResponseForbidden
 
+from app.decorators import permission_role
 from auth_app import models as auth_models
 from . import models#, forms, autresfonctions, report
 from django.views import View
@@ -50,6 +51,7 @@ def registration(request):
         return render(request, 'app/registration.html', locals())
     
 @login_required
+@permission_role(["admin"])
 def users(request):
     page_name = "Utilisateurs"
     groupe = request.user.groupe
@@ -322,7 +324,7 @@ class UpdateCotisation(LoginRequiredMixin, View):
             cotisation.save()
         return redirect('cotisation')
     
-    
+@permission_role(["admin", "responsable"])
 def cotisation_fermer_ouvrir(request, id):
     cotisation = get_object_or_404(models.Cotisation, id=id)
     cotisation.ouverte = not cotisation.ouverte
@@ -380,6 +382,7 @@ def cotisation_evolution(request, cotisation_id):
 
 @login_required
 def cotisation_evolution_sous(request, cotisation_id):
+    "Une vue pour vérifier l'évolution d'une cotisation par sous groupe"
     user = request.user
     groupe = user.groupe
     cotisation  = models.Cotisation.objects.get(id=cotisation_id)
@@ -423,9 +426,23 @@ def cotisation_details(request, cotisation_id):
 
 @login_required
 def cotisation_item_modifier(request, id):
+    TIME_LIMIT = 1
     user = request.user
-    form = forms.CotisationItemForm()
+    groupe = user.groupe
+    cotisation_item = get_object_or_404(models.CotisationItem, id=id)
+    if now().timestamp() - cotisation_item.date_cotisation.timestamp() > 3600*TIME_LIMIT:
+        return HttpResponse(f'''<div class="text-danger">Délai de modification de {TIME_LIMIT} heure(s) dépassé. Impossible de modifier cette entrée</div>''')
+    form = forms.CotisationItemForm(instance=cotisation_item)
     form.membre = django_forms.ModelChoiceField(queryset=models.getCotisationItem(user))
+    form.cotisation = django_forms.ModelChoiceField(queryset=models.Cotisation.objects.filter(groupe=groupe, ouverte=True))
+    if request.method == "POST":
+        form = forms.CotisationItemForm(request.POST)
+        if form.is_valid():
+            cotisation_item.membre = form.cleaned_data['membre']
+            cotisation_item.montant = form.cleaned_data['montant']
+            cotisation_item.cotisation = form.cleaned_data['cotisation']
+            cotisation_item.save()
+            return redirect('cotisation-details', cotisation_id=cotisation_item.cotisation.id)
     return render(request, "app/cotisation/item_modifier.html", locals())
 
 

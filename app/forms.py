@@ -53,10 +53,11 @@ class CotisationItemForm(forms.ModelForm):
     
     class Meta:
         model = models.CotisationItem
-        fields = ["membre", "montant",]
+        fields = ["membre", "montant", "cotisation"]
         widgets = {
             'membre' : forms.Select(attrs={'class':'form-select'}),
             'montant' : forms.NumberInput(attrs={'class':'form-control'}),
+            'cotisation' : forms.Select(attrs={'class':'form-select'}),
         }
         
 class PromesseForm(forms.ModelForm):

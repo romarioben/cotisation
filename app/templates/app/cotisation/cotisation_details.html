@@ -27,7 +27,7 @@ Détails de la cotisation
                 <td>{{ cotisation_item.date_cotisation }}</td>
                 <td>{{ cotisation_item.membre }}</td>
                 <td>{{ cotisation_item.montant }} FCFA</td>
-                <td><button hx-get="" hx-target="#modal-membre-editer"
+                <td><button hx-get="{% url "cotisation-item-modifier" cotisation_item.id %}" hx-target="#modal-item-editer"
                     hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button>
                 </td>
                 <td>
@@ -48,6 +48,24 @@ Détails de la cotisation
             
     </tbody>
 </table>
+
+<div class="modal fade" id="exampleModal-editer" tabindex="-1" aria-labelledby="examleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Modifier une entrée de cotisation</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-item-editer">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                {% comment %} <button type="button" class="btn btn-primary">Save change</button> {% endcomment %}
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock main-content %}
 

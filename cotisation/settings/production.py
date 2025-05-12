@@ -173,3 +173,9 @@ WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_HOST = get_secret("EMAIL_HOST")
+EMAIL_PORT=465
+EMAIL_USE_SSL=True
+EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')

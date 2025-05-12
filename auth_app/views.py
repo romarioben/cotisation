@@ -89,7 +89,7 @@ def verify_email_send(request):
     if request.user.email:
         email = request.user.email
     else:
-        return redirect("home")
+        return redirect("dashboard")
     current_site = get_current_site(request)
     email_subject = 'Verifiez votre adresse email'
     message = render_to_string('auth_app/verify_email.html',

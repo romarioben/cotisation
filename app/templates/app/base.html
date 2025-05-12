@@ -10,7 +10,7 @@
 		<!-- Meta -->
 		<meta name="description" content="Gestion de la présence">
 		<meta name="author" content="Romarioben">
-		<link rel="shortcut icon" href="img/favicon.svg" />
+		<link rel="shortcut icon" href="{% static 'app/img/logo_copy.png' %}" />
 
 		<!-- Title -->
 		<title>GesPres || {% block title %}{% endblock title %}</title>
@@ -54,7 +54,7 @@
 				<!-- Sidebar brand start  -->
 				<div class="sidebar-brand">
 					<a href="{% url "dashboard" %}" class="logo">
-						<img src="{% static 'app/img/logo.svg' %}" alt="logi" />
+						<img src="{% static 'app/img/logo_copy.png' %}" alt="logo" />
 					</a>
 				</div>
 				<!-- Sidebar brand end  -->
@@ -66,18 +66,18 @@
 						<h6 class="profile-name">{{ request.user }}</h6>
 						<ul class="profile-actions">
 							<li>
-								<a href="javascript:void(0)">
+								<a href="#">
 									<i class="icon-gitlab"></i>
 									<span class="count-label green"></span>
 								</a>
 							</li>
 							<li>
-								<a href="javascript:void(0)">
+								<a href="#">
 									<i class="icon-twitter1"></i>
 								</a>
 							</li>
 							<li>
-								<a href="login.html">
+								<a href="#">
 									<i class="icon-exit_to_app"></i>
 								</a>
 							</li>
@@ -151,13 +151,16 @@
 								</a>
 							</li>
 
+							{% if request.user.role == "admin" %}
+
 							<li {% if page_name == "Utilisateurs" %}class="active"{% endif %}>
 								<a href="{% url "users" %}" {% if page_name == "Utilisateurs" %}class="current-page"{% endif %}>
 									<i class="icon-users"></i>
 									<span class="menu-text">Utilisateurs</span>
 								</a>
 							</li>
-						
+							
+							{% endif %}
 						</ul>
 					</div>
 					<!-- sidebar menu end -->
