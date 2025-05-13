@@ -30,6 +30,19 @@ from . import forms, models0
 @login_required
 def app_home(request):
     page_name = "Dashboard"
+    nombre_membre = len(models.getMembres(request.user))
+    nombre_cotisations = len(models.Cotisation.objects.filter(groupe=request.user.groupe))
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    if models.getDepense(request.user):
+        derniere_depense = models.getDepense(request.user)[0].montant
+    else:
+        derniere_depense = 0
+    if models.ListPresence.objects.filter(groupe=request.user.groupe):
+        derniere_presence = models.ListPresence.objects.filter(groupe=request.user.groupe).order_by('-date_presence')[0]
+        # recupérer les cotisations items avec la même date que la dernière présence
+        derniere_collecte = sum([item.montant for item in models.getCotisationItem(request.user) if item.date_cotisation.date() == derniere_presence.date_presence.date()])
     return render(request, "app/home.html", locals())
 
 def registration(request):
@@ -81,12 +94,22 @@ def users(request):
 
 class UpdateUser(LoginRequiredMixin, View):
     def get(self,request, id):
+        montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+        depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+        montant_restant = montant_total - depense_total
+        
+        
         user0 = auth_models.User.objects.get(id=id)
         groupe = request.user.groupe
         sous_groupes = models.getSousGroupe(user=request.user)
         return render(request, "app/forms/user.html", locals())
     
     def post(self, request, id):
+        montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+        depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+        montant_restant = montant_total - depense_total
+        
+        
         user0 = auth_models.User.objects.get(id=id)
         sous_groupe_id = request.POST.get("sous_groupe_id")
         if sous_groupe_id:
@@ -102,6 +125,11 @@ class UpdateUser(LoginRequiredMixin, View):
 
 @login_required
 def profile(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     user = request.user
     page_name = 'Profil'
     user_change_form = UserChangeForm(instance=user)
@@ -111,11 +139,21 @@ def profile(request):
 
 class PassWordChangeView(View, LoginRequiredMixin):
     def get(self, request):
+        montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+        depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+        montant_restant = montant_total - depense_total
+        
+        
         user = request.user
         form = PassWordChangeForm(user=user)
         return render(request, 'app/passwordChange.html', locals())
         
     def post(self, request):
+        montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+        depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+        montant_restant = montant_total - depense_total
+        
+        
         user = request.user
         user_change_form = UserChangeForm(instance=user)
         form1 = PassWordChangeForm(user, request.POST)
@@ -134,6 +172,12 @@ class PassWordChangeView(View, LoginRequiredMixin):
      
 @login_required   
 def user_change(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
+    
     user=request.user
     form = PassWordChangeForm(user=user)
     if request.method == "POST" :
@@ -150,6 +194,11 @@ def user_change(request):
 
 @login_required
 def membre(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     user = request.user
     groupe = user.groupe
     sous_groupes = models.getSousGroupe(user=request.user)
@@ -176,6 +225,11 @@ def membre(request):
 
 class UpdateMembre(View, LoginRequiredMixin):
     def get(self, request, id):
+        montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+        depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+        montant_restant = montant_total - depense_total
+        
+        
         user = request.user
         groupe = user.groupe
         membre = get_object_or_404(models.Membre, id=id)
@@ -184,6 +238,11 @@ class UpdateMembre(View, LoginRequiredMixin):
         return render(request, "app/membre/update_membre.html", locals())
     
     def post(self, request,id):
+        montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+        depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+        montant_restant = montant_total - depense_total
+        
+        
         page_name = "Membres"
         membre = get_object_or_404(models.Membre, id=id)
         form = forms.MembreForm(request.POST)
@@ -209,12 +268,22 @@ class UpdateMembre(View, LoginRequiredMixin):
             
 @login_required
 def presence_ajouter(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     user = request.user
     models.ListPresence.objects.create(groupe=user.groupe)
     return redirect('presence-liste')
 
 @login_required  
 def presence_faire(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     page_name = "Présence"
     groupe = request.user.groupe
     today = datetime.datetime.today().strftime("%Y-%m-%d")
@@ -239,6 +308,12 @@ def presence_faire(request):
 
 @login_required
 def presence_liste(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
+    
     page_name = "Liste de Présences"
     user = request.user
     groupe = user.groupe
@@ -259,6 +334,12 @@ def presence_details(request):
 
 @login_required
 def presence_gerer(request, id):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
+    
     page_name = "Présence"
     user = request.user
     groupe = user.groupe
@@ -278,6 +359,11 @@ def presence_gerer(request, id):
     return render(request, 'app/presence/presence.html', locals())
 
 def presence_modifier(request, presence_id):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     presence = get_object_or_404(models.Presence, id=presence_id)
     TIME_LIMIT = 2
     if now().timestamp() - presence.date_presence.timestamp() > 3600*TIME_LIMIT:
@@ -293,6 +379,12 @@ def presence_modifier(request, presence_id):
 
 @login_required
 def cotisation(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
+    
     user = request.user
     groupe = user.groupe
     page_name = "Cotisations"
@@ -361,6 +453,11 @@ def cotisation_item_gerer(request, membre_id):
     
 @login_required
 def cotisation_evolution(request, cotisation_id):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     cotisation = get_object_or_404(models.Cotisation, id=cotisation_id)
     
     user = request.user
@@ -383,6 +480,12 @@ def cotisation_evolution(request, cotisation_id):
 @login_required
 def cotisation_evolution_sous(request, cotisation_id):
     "Une vue pour vérifier l'évolution d'une cotisation par sous groupe"
+    
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     user = request.user
     groupe = user.groupe
     cotisation  = models.Cotisation.objects.get(id=cotisation_id)
@@ -408,6 +511,11 @@ def cotisation_evolution_sous(request, cotisation_id):
     return render(request, 'app/cotisation/cotisation_evoution_sous.html', locals())
 
 def cotisation_details_membre(request, membre_id, cotisation_id):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     membre = get_object_or_404(models.Membre, id=membre_id)
     cotisation = get_object_or_404(models.Cotisation, id=cotisation_id)
     cotisation_items = models.CotisationItem.objects.filter(cotisation=cotisation, membre=membre).order_by('-date_cotisation')
@@ -448,6 +556,10 @@ def cotisation_item_modifier(request, id):
 
 @login_required  
 def promesse_faire(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
     
     groupe = request.user.groupe
     membres = models.getMembres(request.user)
@@ -470,6 +582,11 @@ def promesse_faire(request):
 
 @login_required
 def promesse_liste(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     page_name = "Liste des Promesses"
     user = request.user
     groupe = user.groupe
@@ -482,6 +599,11 @@ def promesse_liste(request):
     return render(request, 'app/promesse/listes_promesse.html', locals())
 
 def promesse_details(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     cotisation_id = int(request.POST.get('cotisation_id'))
     cotisation = get_object_or_404(models.Cotisation, id=cotisation_id)
     promesses = models.Promesse.objects.filter(cotisation=cotisation).order_by('membre__nom', 'membre__prenom')
@@ -523,6 +645,10 @@ def promesse_modifier(request, promesse_id):
         return render(request, "app/forms/promesse.html", locals())
 @login_required
 def sous_groupe(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
     groupe = request.user.groupe
     page_name = "Sous groupe"
     sous_groupes = models.getSousGroupe(user=request.user)
@@ -555,6 +681,11 @@ class UpdateSousGroupe(LoginRequiredMixin, View):
         return redirect("sous-groupe")
 
 def depense(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     groupe = request.user.groupe
     page_name = "Dépenses"
     sous_groupes = models.getSousGroupe(user=request.user)
@@ -611,6 +742,11 @@ class UpdateDepense(LoginRequiredMixin, View):
     
 @login_required 
 def point(request):
+    montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
+    depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
+    montant_restant = montant_total - depense_total
+    
+    
     user = request.user
     groupe = request.user.groupe
     cotisations = models.Cotisation.objects.filter(groupe=groupe)

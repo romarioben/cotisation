@@ -149,3 +149,11 @@ def getSousGroupe(user:User):
         return SousGroupe.objects.filter(groupe=user.groupe, id=user.sous_groupe.id).order_by('nom')
     else:
         return []
+    
+def getDepense(user:User):
+    if user.role == "admin" or user.role =="responsable":
+        return Depense.objects.filter(groupe=user.groupe).order_by('-date_depense')
+    elif user.role == "sous_responsable":
+        return Depense.objects.filter(groupe=user.groupe, sous_groupe=user.sous_groupe).order_by('-date_depense')
+    else:
+        return []

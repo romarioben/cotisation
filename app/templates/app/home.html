@@ -10,22 +10,22 @@ Dashboard
     <div class="col-xl-3 col-sm-6 col-12">
         <div class="info-stats2">
             <div class="info-icon">
-                <i class="icon-eye1"></i>
+                <i class="icon-user-x"></i>
             </div>
             <div class="sale-num">
-                <h2>5289</h2>
-                <p>Visitors</p>
+                <h2>{{ nombre_membre}}</h2>
+                <p>Membres</p>
             </div>
         </div>
     </div>
     <div class="col-xl-3 col-sm-6 col-12">
         <div class="info-stats2">
             <div class="info-icon">
-                <i class="icon-shopping-cart1"></i>
+                <i class="icon-triangle"></i>
             </div>
             <div class="sale-num">
-                <h2>3765</h2>
-                <p>Orders</p>
+                <h2>{{ nombre_cotisations }}</h2>
+                <p>Cotisations</p>
             </div>
         </div>
     </div>
@@ -35,8 +35,8 @@ Dashboard
                 <i class="icon-shopping-bag1"></i>
             </div>
             <div class="sale-num">
-                <h2>8423</h2>
-                <p>Sales</p>
+                <h2>{{montant_total}}</h2>
+                <p>Montant total </p>
             </div>
         </div>
     </div>
@@ -46,8 +46,8 @@ Dashboard
                 <i class="icon-activity"></i>
             </div>
             <div class="sale-num">
-                <h2>2619</h2>
-                <p>Expenses</p>
+                <h2>{{ depense_total }}</h2>
+                <p>Dépenses</p>
             </div>
         </div>
     </div>
@@ -68,8 +68,8 @@ Dashboard
                             <i class="icon-arrow-down"></i>
                         </div>
                         <div class="status-info">
-                            <div class="status-title">Today's Income</div>
-                            <div class="percentage">$4575.00</div>
+                            <div class="status-title">Dernière dépense</div>
+                            <div class="percentage">{{ derniere_depense }}</div>
                         </div>
                     </div>
                     <div class="graph-status secondary">
@@ -77,8 +77,8 @@ Dashboard
                             <i class="icon-arrow-up"></i>
                         </div>
                         <div class="status-info">
-                            <div class="status-title">Last Week Income</div>
-                            <div class="percentage">+20.50%</div>
+                            <div class="status-title">Collecté dernière fois</div>
+                            <div class="percentage">{{ derniere_collecte }}</div>
                         </div>
                     </div>
                 </div>
