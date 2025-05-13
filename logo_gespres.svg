@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="210mm" height="297mm" version="1.1" viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <rect x="26.26" y="56.959" width="179.01" height="130.19" fill="#1a1a1a" stroke-width=".75009"/>
+  <g stroke-width=".60304">
+   <path d="m81.983 107.94c-6.2745 7.3781-10.063 16.547-10.826 26.202-0.97642 12.349 3.0642 24.571 11.209 33.905l30.532-30.718z" fill="#0f0"/>
+   <path d="m151.84 107.6-29.422 29.602 30.714 29.2c5.6888-7.1691 9.1123-15.871 9.8335-24.994 0.97254-12.305-3.0355-24.485-11.125-33.807z" fill="#06f"/>
+   <path d="m114.55 91.794c-10.316 0.56247-20.143 4.5778-27.902 11.4l30.94 29.414 29.534-29.714c-7.4158-6.3921-16.676-10.254-26.436-11.026-2.0414-0.16139-4.0913-0.18642-6.1361-0.07493z" fill="#f00"/>
+  </g>
+  <g stroke-width=".956">
+   <circle cx="117.06" cy="77.856" r="12.021" fill="#f00"/>
+   <circle cx="57.144" cy="134.82" r="12.021" fill="#0f0"/>
+   <circle cx="177.35" cy="135.92" r="12.021" fill="#06f"/>
+  </g>
+  <text transform="matrix(.18071 0 0 .12883 59.363 65.509)" x="207.25" fill="#ffffff" font-family="'AR PL UMing HK'" font-size="64px" stroke-width="2.835" style="shape-inside:url(#rect6);white-space:pre" xml:space="preserve"><tspan x="86.434265" y="670.94141"><tspan font-family="'Berenis ADF Pro Math'" text-align="center" text-anchor="middle">GESTION DE LA </tspan></tspan><tspan x="158.94604" y="759.19141"><tspan font-family="'Berenis ADF Pro Math'" text-align="center" text-anchor="middle">PRESENCE</tspan></tspan></text>
+ </g>
+</svg>

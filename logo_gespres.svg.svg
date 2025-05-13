@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.1-rc (06eac75fbf, 2025-03-29)"
+   sodipodi:docname="logo_gespres.svg.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.71535494"
+     inkscape:cx="396.30676"
+     inkscape:cy="561.25984"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <rect
+       x="83.874447"
+       y="606.69183"
+       width="459.2627"
+       height="185.27602"
+       id="rect6" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#1a1a1a;fill-opacity:1;stroke-width:0.750094"
+       id="rect9"
+       width="179.0137"
+       height="130.19177"
+       x="26.260273"
+       y="56.9589" />
+    <path
+       style="fill:#00ff00;fill-opacity:1;stroke-width:0.603035"
+       d="m 81.98311,107.94277 c -6.274491,7.37811 -10.062833,16.5468 -10.826213,26.20201 -0.976423,12.34947 3.064174,24.57149 11.209135,33.90543 l 30.531988,-30.71802 z"
+       id="path6"
+       inkscape:export-filename="logo.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:#0066ff;fill-opacity:1;stroke-width:0.603035"
+       d="m 151.84138,107.5955 -29.4225,29.60181 30.71389,29.19977 c 5.68881,-7.16913 9.11231,-15.87081 9.83351,-24.99434 0.97254,-12.30464 -3.03551,-24.4846 -11.1249,-33.80724 z"
+       id="path5" />
+    <path
+       style="fill:#ff0000;fill-opacity:1;stroke-width:0.603035"
+       d="m 114.55425,91.794397 c -10.31611,0.562467 -20.143358,4.577782 -27.901658,11.400333 l 30.940228,29.41423 29.5336,-29.71395 c -7.41585,-6.39214 -16.67603,-10.254275 -26.43611,-11.025682 -2.04141,-0.161386 -4.09132,-0.186419 -6.13606,-0.07493 z"
+       id="rect2" />
+    <circle
+       style="fill:#ff0000;stroke-width:0.956002;fill-opacity:1"
+       id="path3"
+       cx="117.06165"
+       cy="77.856163"
+       r="12.020548" />
+    <circle
+       style="fill:#00ff00;fill-opacity:1;stroke-width:0.956002"
+       id="circle4"
+       cx="57.143845"
+       cy="134.81508"
+       r="12.020548" />
+    <circle
+       style="fill:#0066ff;stroke-width:0.956002;fill-opacity:1"
+       id="circle5"
+       cx="177.34932"
+       cy="135.92465"
+       r="12.020548" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.18070607,0,0,0.12882548,59.36257,65.509479)"
+       id="text6"
+       style="font-size:64px;font-family:'AR PL UMing HK';-inkscape-font-specification:'AR PL UMing HK';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect6);fill:#ffffff;fill-opacity:1;stroke-width:2.835"
+       x="207.25"
+       y="0"><tspan
+         x="86.434265"
+         y="670.94141"
+         id="tspan2"><tspan
+           style="font-family:'Berenis ADF Pro Math';-inkscape-font-specification:'Berenis ADF Pro Math';text-align:center;text-anchor:middle"
+           id="tspan1">GESTION DE LA </tspan></tspan><tspan
+         x="158.94604"
+         y="759.19141"
+         id="tspan4"><tspan
+           style="font-family:'Berenis ADF Pro Math';-inkscape-font-specification:'Berenis ADF Pro Math';text-align:center;text-anchor:middle"
+           id="tspan3">PRESENCE</tspan></tspan></text>
+  </g>
+</svg>

@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>Gestion des regroupements</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'app/img/logo_copy.png' %}" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'presentation/css/bootstrap.min.css' %}" type="text/css" /> 
@@ -90,13 +91,13 @@ https://www.tooplate.com/view/2123-simply-amazed
                         <div class="item col-md-4 two">
                             <div class="tm-work-item-inner">
                                 <div class="icn"><i class="fab fa-2x fa-phoenix-framework"></i></div>
-                                <h3>.03 Execute it</h3>
-                                <p>You are allowed to use this for your personal and commerical projects, you are not allowed to redistribute the template ZIP file on any download site.</p>
+                                <h3>Partager votre groupe en sous groupe</h3>
+                                <p>Avec l'application vous partager votre groupe en des sous-groupes et désigner des responsables pour chaque sous-groupe.</p>
                             </div>
                         </div>
                     </div>
                     <div class="title">
-                        <h2>Our Work</h2>
+                        <h2>Nos travaux</h2>
                     </div>
                 </div>
             </section>
@@ -195,47 +196,45 @@ https://www.tooplate.com/view/2123-simply-amazed
             <section class="contact-section section" id="section-4">
                 <div class="container">
                     <div class="title">
-                        <h3>Contact Us</h3>
+                        <h3>Contactez-nous</h3>
                     </div>
                     <div class="row">
                         <div class="col-lg-5 col-md-6 mb-4 contact-form">
                             <div class="form tm-contact-item-inner">
                                 <form action="#" method="POST">
+                                    {% csrf_token %}
+                                    {% for fm in form %}
                                     <div class="form-group">
-                                        <input name="name" type="text" class="form-control" placeholder="Name">
+                                        {{ fm }}
                                     </div>
-                                    <div class="form-group">
-                                        <input name="email" type="text" class="form-control" placeholder="Email">
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea name="message" class="textarea form-control" placeholder="Message"></textarea>
-                                    </div>
+                                    {% endfor %}
+                                    
                                     <div class="form-group text-right">
-                                        <input type="submit" class="btn btn-primary" value="Send it">
+                                        <input type="submit" class="btn btn-primary" value="Envoyer">
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6 mb-4 contact-details">
                             <div class="tm-contact-item-inner-2">
-                                <p>Nam mollis felis elementum, placerat dolor id, vehicula libero. Etiam dui nisl, mattis ut rhoncus et, cursus ut diam.</p>
+                                <p>Nous sommes disponibles pour toutes vos questions et vos suggestions. N'hésitez pas à nous contacter</p>
                                 <ul class="font-weight-light">
                                     <li>
                                         <span class="icn"><i class="fas fa-mobile-alt"></i></span>
-                                        <span class="lbl">Tel:</span> <a href="#">010-020-0340</a>
+                                        <span class="lbl">Tel:</span> <a href="#">+229 0143616290</a>
                                     </li>
                                     <li>
                                         <span class="icn"><i class="fas fa-at"></i></span>
-                                        <span class="lbl">Email:</span> <a href="#">info@company.com</a>
+                                        <span class="lbl">Email:</span> <a href="#">benoitgandonou@gmail.com</a>
                                     </li>
-                                    <li>
+                                    {% comment %} <li>
                                         <span class="icn"><i class="fas fa-globe-asia"></i></span>
                                         <span class="lbl">URL:</span> <a href="#">www.company.com</a>
-                                    </li>
+                                    </li> {% endcomment %}
                                 </ul>
                             </div>                        
                         </div>
-                        <div class="col-lg-3 col-md-12 map">
+                        {% comment %} <div class="col-lg-3 col-md-12 map">
                             <!-- Map -->
                             <div class="map-outer tm-mb-40">
                                 <div class="gmap-canvas">
@@ -244,7 +243,7 @@ https://www.tooplate.com/view/2123-simply-amazed
                                         frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                     </div>                
                 </div>
                 <footer class="footer container container-2">
