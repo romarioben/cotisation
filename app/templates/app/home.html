@@ -89,7 +89,7 @@ Dashboard
 </div>
 <!-- Row end -->
 
-<!-- Row start -->
+{% comment %} <!-- Row start -->
 <div class="row gutters">
     <div class="col-xl-8 col-sm-12 col-12">
         <div class="card">
@@ -190,9 +190,9 @@ Dashboard
         </div>
     </div>
 </div>
-<!-- Row end -->
+<!-- Row end --> {% endcomment %}
 
-<!-- Row start -->
+{% comment %} <!-- Row start -->
 <div class="row gutters">
     <div class="col-lg-6 col-sm-12 col-12">
         <div class="card">
@@ -328,9 +328,9 @@ Dashboard
         </div>
     </div>
 </div>
-<!-- Row end -->
+<!-- Row end --> {% endcomment %}
 
-<!-- Row start -->
+{% comment %} <!-- Row start -->
 <div class="row gutters">
     <div class="col-lg-6 col-sm-12 col-12">
         <div class="card">
@@ -361,9 +361,9 @@ Dashboard
         </div>
     </div>
 </div>
-<!-- Row end -->
+<!-- Row end --> {% endcomment %}
 
-<!-- Row start -->
+{% comment %} <!-- Row start -->
 <div class="row gutters">
     <div class="col-lg-4 col-sm-12 col-12">
         <div class="card">
@@ -606,6 +606,116 @@ Dashboard
         </div>
     </div>
 </div>
-<!-- Row end -->
+<!-- Row end --> {% endcomment %}
 
 {% endblock main-content %}
+
+{% block script %}
+<script>
+    var options = {
+	chart: {
+		height: 320,
+		type: 'area',
+		toolbar: {
+			show: false,
+		},
+		dropShadow: {
+			enabled: true,
+			opacity: 0.3,
+			blur: 5,
+			left: -10,
+			top: 20
+		},
+	},
+	colors: ['#cd9d63', '#383737'],
+	dataLabels: {
+		enabled: false,
+	},
+	legend: {
+        show: false,
+    },
+        stroke: {
+            show: true,
+            curve: 'smooth',
+            width: 3,
+            lineCap: 'square'
+        },
+        series: [{
+            name: 'Collecte',
+            data: [{% for data in liste_data %}
+            {{ data.1}},
+            {% endfor %}]
+        },{
+        name: 'Dépenses',
+        data: [{% for data in liste_data %}
+            {{ data.2}},
+            {% endfor %}]
+    }],
+        xaxis: {
+            axisBorder: {
+                show: false
+            },
+            categories: [{% for data in liste_data %}
+            "{{ data.0}}",
+            {% endfor %}],
+            axisTicks: {
+                show: true
+            },
+            crosshairs: {
+                show: true
+            },
+            labels: {
+                offsetX: 0,
+                offsetY: 5,
+            }
+        },
+        yaxis: {
+            labels: {
+                formatter: function(value, index) {
+                    return (value / 1000) + 'K'
+                },
+                offsetX: -15,
+                offsetY: 20,
+            }
+        },
+        grid: {
+            borderColor: '#e0e6ed',
+            strokeDashArray: 5,
+            xaxis: {
+                lines: {
+                    show: true
+                }
+            },   
+            yaxis: {
+                lines: {
+                    show: false,
+                }	
+            },
+            padding: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
+            }, 
+        }, 
+        fill: {
+            type:"gradient",
+            gradient: {
+                type: "vertical",
+                shadeIntensity: 1,
+                inverseColors: !1,
+                opacityFrom: .3,
+                opacityTo: .05,
+                stops: [15, 100]
+            }
+        },
+    }
+
+    var chart = new ApexCharts(
+        document.querySelector("#lineRevenueGraph"),
+        options
+    );
+
+    chart.render();
+</script>
+{% endblock script %}

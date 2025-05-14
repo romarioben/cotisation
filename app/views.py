@@ -43,6 +43,18 @@ def app_home(request):
         derniere_presence = models.ListPresence.objects.filter(groupe=request.user.groupe).order_by('-date_presence')[0]
         # recupérer les cotisations items avec la même date que la dernière présence
         derniere_collecte = sum([item.montant for item in models.getCotisationItem(request.user) if item.date_cotisation.date() == derniere_presence.date_presence.date()])
+    else:
+        derniere_collecte = 0
+        
+    sept_liste_presences = models.ListPresence.objects.filter(groupe=request.user.groupe).order_by('-date_presence')[:7]
+    
+    liste_data = []
+    for liste in sept_liste_presences:
+        if liste:
+            collecte = sum([item.montant for item in models.getCotisationItem(request.user) if item.date_cotisation.date() == liste.date_presence.date()])
+            depense = sum([depense.montant for depense in models.getDepense(request.user) if depense.date_depense.date() == liste.date_presence.date()])
+            liste_data.append((liste.date_presence, collecte, depense))
+        
     return render(request, "app/home.html", locals())
 
 def registration(request):
