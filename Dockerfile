@@ -33,7 +33,7 @@ RUN chmod a+x /app/entrypoint.sh
 ENTRYPOINT [ "/app/entrypoint.sh" ]
 
 # Set the command to run our web service using Gunicorn binding it to 0.0.0.0 and the port
-CMD gunicorn printLAB.wsgi:application --bind 0.0.0.0:8000
+CMD gunicorn cotisation.wsgi:application --bind 0.0.0.0:8000
 
 # Inform docker that the container listens on the  specified network port at the  runtime
 
