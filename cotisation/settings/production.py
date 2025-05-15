@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'cotisation.wsgi.application'
 
 #User
 
-AUTH_USER_MODEL = 'app.User'
+AUTH_USER_MODEL = 'auth_app.User'
 
 ##Durée de vie de la session
 
