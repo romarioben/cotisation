@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+
+import dj_database_url
 from cotisation.settings import get_secret
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -95,22 +97,29 @@ LOGIN_URL = '/auth/login'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DB_NAME = get_secret("DB_NAME")
-DB_USER_NM = get_secret('DB_USER_NAME')
-DB_USER_PW = get_secret('DB_USER_PW')
-DB_HOST = get_secret("DB_HOST")
-DB_PORT = get_secret('PORT')
+# DB_NAME = get_secret("DB_NAME")
+# DB_USER_NM = get_secret('DB_USER_NAME')
+# DB_USER_PW = get_secret('DB_USER_PW')
+# DB_HOST = get_secret("DB_HOST")
+# DB_PORT = get_secret('PORT')
 
+# DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql",
+#             'NAME': DB_NAME,
+#             'USER': DB_USER_NM,
+#             'PASSWORD': DB_USER_PW,
+#             'HOST': DB_HOST,
+#             'PORT': DB_PORT,
+#         }
+#     }
+
+DATABASE_URL = get_secret("DATABASE_URL")
 DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            'NAME': DB_NAME,
-            'USER': DB_USER_NM,
-            'PASSWORD': DB_USER_PW,
-            'HOST': DB_HOST,
-            'PORT': DB_PORT,
-        }
+        "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

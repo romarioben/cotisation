@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,16 +94,21 @@ LOGIN_URL = '/auth/login'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql",
+#             'NAME': 'cotisation',
+#             'USER': 'romario',
+#             'PASSWORD': 'changeme',
+#             'HOST': 'localhost',
+#             'PORT': '',
+#         }
+#     }
+
 DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            'NAME': 'cotisation',
-            'USER': 'romario',
-            'PASSWORD': 'changeme',
-            'HOST': 'localhost',
-            'PORT': '',
-        }
+        "default": dj_database_url.parse('postgres://romario:changeme@localhost:5432/cotisation', conn_max_age=600)
     }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
