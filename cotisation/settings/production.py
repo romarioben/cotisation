@@ -119,6 +119,8 @@ DATABASES = {
         "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
 
+print(DATABASES['default'])
+
 
 
 # Password validation
