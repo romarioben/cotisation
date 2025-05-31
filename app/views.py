@@ -278,6 +278,16 @@ class UpdateMembre(View, LoginRequiredMixin):
             membre.save()
         return redirect('membre')
             
+            
+def supprime_membre(request, id):
+    user = request.user
+    groupe = user.groupe
+    membre = get_object_or_404(models.Membre, id=id)
+    membre.delete()
+    return HttpResponse('')
+
+
+
 @login_required
 def presence_ajouter(request):
     montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
@@ -427,6 +437,11 @@ class UpdateCotisation(LoginRequiredMixin, View):
             cotisation.nom = form.cleaned_data["nom"]
             cotisation.save()
         return redirect('cotisation')
+    
+# def cotisation_supprime(request, id):
+#     cotisation = get_object_or_404(models.Cotisation, id=id)
+#     cotisation.delete()
+#     return HttpResponse('')
     
 @permission_role(["admin", "responsable"])
 def cotisation_fermer_ouvrir(request, id):
@@ -691,6 +706,13 @@ class UpdateSousGroupe(LoginRequiredMixin, View):
             sous_groupe.nom = form.cleaned_data['nom']
             sous_groupe.save()
         return redirect("sous-groupe")
+
+
+def supprime_sous_groupe(request, id):
+    sous_groupe = models.SousGroupe.objects.get(id=id)
+    sous_groupe.delete()
+    return HttpResponse('')
+
 
 def depense(request):
     montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])

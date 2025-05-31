@@ -43,7 +43,7 @@ Sous groupes
                     
                         <a 
                             title="Supprimer {{ membre }}"
-                            hx-get="" 
+                            {% comment %} hx-get="{% url "supprime-sous-groupe" sous_groupe.id %}"  {% endcomment %}
                             hx-target="closest tr"
                             hx-swap="outerHTML"
                             hx-confirm="Voulez vous vraiment supprimer cet examen?"

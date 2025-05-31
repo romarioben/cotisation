@@ -49,10 +49,10 @@ Membres
                     
                         <a 
                             title="Supprimer {{ membre }}"
-                            hx-get="" 
+                            hx-get="{% url "supprime-membre" membre.id %}" 
                             hx-target="closest tr"
                             hx-swap="outerHTML"
-                            hx-confirm="Voulez vous vraiment supprimer cet examen?"
+                            hx-confirm="Voulez vous vraiment supprimer ce membre?"
 
                         >
                             <i class="icon-close btn btn-danger"></i>

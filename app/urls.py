@@ -15,6 +15,7 @@ urlpatterns = [
     
     path("membre", views.membre, name='membre'),
     path("membre/update/<int:id>/", views.UpdateMembre.as_view(), name='update-membre'),
+    path("membre/supprime/<int:id>/", views.supprime_membre, name='supprime-membre'),
     
     path("presence/faire/", views.presence_faire, name='presence-faire'),
     path("presence/", views.presence_liste, name='presence-liste'),
@@ -26,6 +27,7 @@ urlpatterns = [
     
     path("cotisation/", views.cotisation, name='cotisation'),
     path("cotisation/update/<int:id>/", views.UpdateCotisation.as_view(), name='cotisation-update'),
+    # path("cotisation/supprime/<int:id>/", views.supprime_cotisation, name='cotisation-supprime'),
     path("cotisation/fermer-ouvrir/<int:id>/", views.cotisation_fermer_ouvrir, name='cotisation-fermer-ouvrir'),
     path("cotisation/item/<int:membre_id>/ajouter-form", views.ajouter_cotisation_form, name='cotisation-ajouter-form'),
     path("cotisation/item/<int:membre_id>/gerer", views.cotisation_item_gerer, name='cotisation-item-gerer'),
@@ -45,6 +47,7 @@ urlpatterns = [
     
     path("sous-groupe/", views.sous_groupe, name='sous-groupe'),
     path("sous-groupe/update/<int:id>/", views.UpdateSousGroupe.as_view(), name='update-sous-groupe'),
+    path("sous-groupe/supprime/<int:id>/", views.supprime_sous_groupe, name='supprime-sous-groupe'),
     
     path("depense", views.depense, name='depense'),
     path("depense/update/<int:id>/", views.UpdateDepense.as_view(), name='depense-update'),
