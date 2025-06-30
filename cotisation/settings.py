@@ -12,22 +12,33 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+
 import dj_database_url
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6)v*s0x9as3$yz-pjduq%v))tady8!7*l&!cp*5^*jh+lk_z7f'
+
+SECRET_KEY = env("SECRET_KEY", default="change_me")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG", default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 
 
 # Application definition
@@ -89,27 +100,42 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
 
 LOGIN_REDIRECT_URL = '/app/'
-LOGOUT_REDIRECT_URL = '/app/'
+LOGOUT_REDIRECT_URL = '/auth_app/login/'
 LOGIN_URL = '/auth/login'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DB_NAME = get_secret("DB_NAME")
+# DB_USER_NM = get_secret('DB_USER_NAME')
+# DB_USER_PW = get_secret('DB_USER_PW')
+# DB_HOST = get_secret("DB_HOST")
+# DB_PORT = get_secret('PORT')
+
 # DATABASES = {
 #         "default": {
 #             "ENGINE": "django.db.backends.postgresql",
-#             'NAME': 'cotisation',
-#             'USER': 'romario',
-#             'PASSWORD': 'changeme',
-#             'HOST': 'localhost',
-#             'PORT': '',
+#             'NAME': DB_NAME,
+#             'USER': DB_USER_NM,
+#             'PASSWORD': DB_USER_PW,
+#             'HOST': DB_HOST,
+#             'PORT': DB_PORT,
 #         }
 #     }
 
 DATABASES = {
-        "default": dj_database_url.parse('postgres://romario:changeme@localhost:5432/cotisation', conn_max_age=600)
-    }
+    "default": env.db(default="sqlite:///db.sqlite3"),
+}
 
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"class": "logging.StreamHandler"}},
+    "loggers": {"": {"handlers": ["console"], "level": "DEBUG"}},
+}
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -146,11 +172,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = env.str("STATIC_URL", default="/static/")
+STATIC_ROOT = env.str("STATIC_ROOT", default=BASE_DIR / "staticfiles")
 
-STATIC_ROOT = BASE_DIR / "STATICFILES"
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_AUTOREFRESH = DEBUG
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'MEDIA/')
+
+MEDIA_ROOT = env("MEDIA_ROOT", default=BASE_DIR / "media")
+MEDIA_URL = env("MEDIA_PATH", default="/media/")
 
 STORAGES = {
 #     # Enable WhiteNoise's GZip and Brotli compression of static assets:
@@ -167,12 +197,18 @@ STORAGES = {
 
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
-EMAIL_HOST_USER="gespres@christ-labo.com"
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT=465
+EMAIL_USE_SSL=True
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')

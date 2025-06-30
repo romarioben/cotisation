@@ -4,6 +4,7 @@ bs4==0.0.2
 chardet==5.2.0
 dj-database-url==2.2.0
 Django==5.0.7
+django-environ==0.12.0
 django-mathfilters==1.0.0
 django-soft-delete==1.0.13
 et-xmlfile==1.1.0
