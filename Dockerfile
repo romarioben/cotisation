@@ -21,6 +21,8 @@ RUN pip install --upgrade pip
 COPY requirements.txt /app/
 
 # Run this command to install all dependencies
+RUN pip install --upgrade pip
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 
