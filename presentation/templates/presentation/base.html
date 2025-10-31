@@ -35,7 +35,7 @@
 <body>
     <!--  preloader start  -->
     <div class="preloader">
-        <img src="{% static 'presentation/assets/images/logo.png' %}" alt="Preloader Logo">
+        <img src="{% static 'presentation/assets/images/logo_gespres0.png' %}" alt="Preloader Logo">
     </div>
     <!--  preloader end  -->
 
@@ -56,15 +56,15 @@
                 <div class="collapse navbar-collapse js-clone-nav justify-content-end">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#home">home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link active" href="#home">Accueil <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#about">about</a>
+                            <a class="nav-link" href="#about">A propos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#service">service</a>
+                            <a class="nav-link" href="#service">Service</a>
                         </li>
-                        <li class="nav-item">
+                        {% comment %} <li class="nav-item">
                             <a class="nav-link" href="#team">team</a>
                         </li>
                         <li class="nav-item">
@@ -75,14 +75,14 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#testimonial">testimonial</a>
-                        </li>
+                        </li> {% endcomment %}
                         <li class="nav-item">
-                            <a href="#contact" class="btn d-block d-lg-none">Get In touch</a>
+                            <a href="#contact" class="nav-link">Contactez-nous</a>
                         </li>
                     </ul>
                 </div>
                 <!-- <a href="#contact" class="btn d-none d-lg-block">Get In touch</a> -->
-                <a href="#contact" class="btn d-none d-lg-block">Get In touch</a>
+                <a href="#contact" class="btn d-none d-lg-block">Connexion/Inscripion</a>
                 <!-- nav item -->
             </nav>
             <!-- navbar -->
@@ -118,7 +118,7 @@
                         <div class="col-lg-6 order-first order-lg-first mb-4 mb-lg-0">
                             <div class="d2c_vector_img_wrapper">
                                 <div class="d2c_shade_bg">
-                                    <img src="{% static 'presentation/assets/images/groupe.png' %}"  class="img-fluid" alt="Hero Image">
+                                    <img src="{% static 'presentation/assets/images/groupe0.png' %}"  class="img-fluid" alt="Hero Image">
                                 </div>
                             </div>
                         </div>
@@ -144,11 +144,17 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <h3 class="d2c_sub_title position-relative">About <span>TechStart Pro</span></h3>
-                        <h2 class="d2c_title position-relative">Empowering YourTech <span>Exploration</span></h2>
-                        <p class="mb-3">At TechStart Pro, we're passionate about all things tech. Our platform is designed to provide you with insightful articles, expert opinions, and resources to fuel your curiosity and drive your tech ambitions forward. Explore the latest advancements in technology with TechStart Pro. Our responsive Bootstrap landing page is designed to keep you updated on cutting-edge trends and solutions that empower your tech journey from the TechStart Pro.</p>
-                        <p class="d2c_last_paragraph">Learn more about TechStart Pro and our mission. Get to know our passionate team of tech enthusiasts and innovators who are dedicated to bringing you the best insights and information from the tech industry.</p>
-                        <a href="#contact" class="btn">Stay Connect</a>
+                        <h3 class="d2c_sub_title position-relative">Au sujet de <span>GESPRES</span></h3>
+                        <h2 class="d2c_title position-relative">Ayez un apercu sur l'evoution <span>D'un groupe</span></h2>
+                        <p class="mb-3">Avec GESPRES, nous promettons une bonne gestion de votre groupe.  révolutionne la gestion de groupe en centralisant tous vos outils en une seule application intuitive..</p>
+                        <p class="mb-3">
+                            GESPRES révolutionne la gestion de groupe en centralisant tous vos outils en une seule application intuitive.
+                        </p>
+                        <p class="mb-3">
+                            Gérez vos membres avec un annuaire interactif, suivez les cotisations et consultez les profils enrichis (compétences, disponibilités, photos).
+                        </p>
+                        <p class="d2c_last_paragraph">Commencer avec GESPRES, enregistrer votre groupe et gagner du temps.</p>
+                        <a href="#contact" class="btn">Inscrivez votre groupe</a>
                     </div>
                 </div>
             </div>
@@ -156,7 +162,7 @@
         <!-- about section end -->
     
         <!-- partner section start -->
-        <div class="d2c_partner_wrapper">
+        {% comment %} <div class="d2c_partner_wrapper">
             <div class="container">
                 <div class="row d2c_partner_slider">
                     <div class="col">
@@ -196,7 +202,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> {% endcomment %}
         <!-- partner section end -->
     
         <div class="d2c_shade_bg_wrapper">
@@ -205,24 +211,24 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xl-6 mb-4 mb-xl-0">
-                            <h3 class="d2c_sub_title position-relative">Our <span>Services</span></h3>
-                            <h2 class="d2c_title position-relative">We have <span>Everything</span> What you Need...</h2>
-                            <p>Discover the range of services we offer at TechStart Pro. From tech consulting to software development, we're here to provide you with expert solutions that cater to your tech-related needs.</p>
+                            <h3 class="d2c_sub_title position-relative">Ce que <span>GESPRES</span> vous apporte</h3>
+                            <h2 class="d2c_title position-relative">Nous avons <span>Tout</span> ce dont vous avez besoin...</h2>
+                            <p>Décrouvrez comment GESPRES vous aide à gérer votre groupe.</p>
                             <div class="row">
                                 <div class="col-md-5">
                                     <ul>
-                                        <li>Tech Consulting</li>
-                                        <li>Product Reviews</li>
+                                        <li>Gérez vos membre</li>
+                                        <li>Organisez vos activités</li>
                                     </ul>
                                 </div>
                                 <div class="col-md-7">
                                     <ul>
-                                        <li>Tech  Trend</li>
-                                        <li>Coding Workshops</li>
+                                        <li>Communiquez efficacement </li>
+                                        <li>Avoir un apercu de l'évolution du groupe</li>
                                     </ul>
                                 </div>
                             </div>
-                            <a href="#contact" class="btn">get in touch</a>
+                            <a href="#contact" class="btn">Contactez-nous</a>
                         </div>
                         <div class="col-xl-6">
                             <div class="row">
@@ -231,8 +237,8 @@
                                         <div class="d2c_icon_wrapper">
                                             <i class="fas fa-object-ungroup"></i>
                                         </div>
-                                        <h3>Web Design</h3>
-                                        <p>I can create minimal & modern web design with lasted web technologies. I can covert any UI.</p>
+                                        <h3>Gérez vos membre</h3>
+                                        <p>avec un annuaire interactif, suivez les cotisations et consultez les profils enrichis (compétences, disponibilités, photos).</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-xl-4 mb-4 mb-lg-0">
@@ -240,8 +246,8 @@
                                         <div class="d2c_icon_wrapper">
                                             <i class="fas fa-laptop-code"></i>
                                         </div>
-                                        <h3>Web Development</h3>
-                                        <p>I worked with React, Node.js AngularJS, and  to create as dynamic & interactive web an applications.</p>
+                                        <h3>Organisez vos activités</h3>
+                                        <p>grâce à un calendrier partagé intelligent, planifiez des événements avec système de confirmation de présence et recevez des rappels automatiques.</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4 mb-md-0">
@@ -249,8 +255,8 @@
                                         <div class="d2c_icon_wrapper">
                                             <i class="fas fa-chart-bar"></i>
                                         </div>
-                                        <h3>SEO specialist </h3>
-                                        <p>I can research key-word on your website that can create healthy traffic to your website.</p>
+                                        <h3>Communiquez efficacement </h3>
+                                        <p>via une messagerie de groupe intégrée, partagez des annonces importantes et échangez documents et fichiers en temps réel.</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-xl-4">
@@ -258,8 +264,8 @@
                                         <div class="d2c_icon_wrapper">
                                             <i class="fas fa-calendar-check"></i>
                                         </div>
-                                        <h3>Security Expert</h3>
-                                        <p>Monitor your website, prevent any unusual activities happing on website & create a system your website.</p>
+                                        <h3>Un aperçu de l'évolution de groupe</h3>
+                                        <p>Sur un dashbord intuitive vous aurez un aperçu de l'évolution de votre groupe, surtout sur la présence et les activités du groupe.</p>
                                     </div>
                                 </div>
                             </div>
@@ -285,10 +291,10 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <h3 class="d2c_sub_title position-relative">Our <span>Features</span></h3>
-                            <h2 class="d2c_title position-relative">Check More About Our <span>Service & Progress</span></h2>
-                            <p class="mb-3">Actual teachings of the great explorer of the truth because it is pleasure, but because those who do not know how to you pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain.</p>
-                            <p>Bring your ideas to life and share your vision with concrete elements. will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth because it is pleasure, but because those who do not know how to you pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself.</p>
+                            <h3 class="d2c_sub_title position-relative">Nos  <span>Services</span></h3>
+                            <h2 class="d2c_title position-relative">Explorer plus au sujet de nos <span>Services & Progrès</span></h2>
+                            <p class="mb-3">Nous concevons, développons et maintenons des solutions digitales sur mesure pour accompagner la transformation numérique des entreprises. De la création de sites web et d'applications au déploiement d'infrastructures cloud sécurisées, en passant par la cybersécurité et le support technique, nous vous offrons une expertise complète pour booster votre productivité et votre croissance.</p>
+                            <p>Nous propulsons l'innovation au cœur de votre entreprise. Spécialiste de la transformation digitale, nous vous aidons à réinventer votre expérience client et à optimiser vos processus grâce à des technologies de pointe. Notre agence allie stratégie, design et ingénierie pour développer des plateformes digitales performantes, des solutions d'IA et d'automatisation, vous permettant de rester compétitif dans un paysage numérique en constante évolution.</p>
                         </div>
                     </div>
                 </div>
@@ -296,7 +302,7 @@
             <!-- features section end -->
         </div>
     
-        <div class="d2c_team_bg_wrapper">
+        {% comment %} <div class="d2c_team_bg_wrapper">
             <!-- team section start -->
             <section class="d2c_team_wrapper" id="team">
                 <div class="container">
@@ -384,9 +390,9 @@
                 </div>
             </section>
             <!-- portfolio section end -->
-        </div>
+        </div> {% endcomment %}
     
-        <div class="d2c_blog_bg_wrapper">
+        {% comment %} <div class="d2c_blog_bg_wrapper">
             <!-- blog section start -->
             <section class="d2c_blog_wrapper" id="blog">
                 <div class="container">
@@ -463,24 +469,24 @@
                 </div>
             </section>
             <!-- testimonial section end -->
-        </div>
+        </div> {% endcomment %}
     
         <!-- newsletter section start -->
         <section class="d2c_newsletter_wrapper">
             <div class="container">
                 <div class="d2c_card_wrapper">
-                    <h2 class="d2c_sub_title text_start text-md-center position-relative">Be the first to know when <span>we launch</span></h2>
-                    <p class="text_start text-md-center">Stay in the loop with everything you need to know.</p>
+                    <h2 class="d2c_sub_title text_start text-md-center position-relative">Soyez au courant des nouveautés de  <span>GESPRES</span></h2>
+                    <p class="text_start text-md-center">Abonnez-vous.</p>
                     <div class="row">
                         <div class="col-12 col-lg-8 col-xl-6 offset-0 offset-lg-2 offset-xl-3">
                             <form class="row needs-validation" novalidate>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input type="email" class="form-control" placeholder="Enter your email address" aria-describedby="newsletter_btn" autocomplete="on" required>
+                                        <input type="email" class="form-control" placeholder="Entrer votre adresse email" aria-describedby="newsletter_btn" autocomplete="on" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn" type="submit" id="newsletter_btn">get in touch</button>
+                                    <button class="btn" type="submit" id="newsletter_btn">Soumettre</button>
                                 </div>
                             </form>
                         </div>
@@ -493,25 +499,25 @@
         <!-- contact section start -->
         <section class="d2c_contact_wrapper" id="contact">
             <div class="container">
-                <h3 class="d2c_sub_title position-relative">Contact <span>us</span></h3>
-                <h2>Have any <span>questions or inquiries?</span></h2>
+                <h3 class="d2c_sub_title position-relative">Contactez <span>Nous</span></h3>
+                <h2>Avez-vous des <span>questions ou suggestions?</span></h2>
                 <form class="row needs-validation" novalidate>
                     <div class="col-md-6">
-                        <label for="validationCustomFirstName" class="form-label">First <span>Name</span></label>
+                        <label for="validationCustomFirstName" class="form-label">Votre <span>Prénom</span></label>
                         <input type="text" class="form-control" id="validationCustomFirstName" autocomplete="off" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="validationCustomLastName" class="form-label">Last <span>Name</span></label>
+                        <label for="validationCustomLastName" class="form-label">Votre <span>Nom</span></label>
                         <input type="text" class="form-control" id="validationCustomLastName" autocomplete="off" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="validationCustomEmail" class="form-label">Email <span>Address</span></label>
+                        <label for="validationCustomEmail" class="form-label">Votre <span>Email</span></label>
                         <div class="input-group has-validation">
                             <input type="email" class="form-control" id="validationCustomEmail" autocomplete="on" required>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="validationCustomPhone" class="form-label">Phone <span>Number</span></label>
+                        <label for="validationCustomPhone" class="form-label">Numéro de <span>Téléphone</span></label>
                         <div class="input-group has-validation">
                             <input type="tel" class="form-control" id="validationCustomPhone" autocomplete="off" required>
                         </div>
@@ -521,7 +527,7 @@
                         <textarea class="form-control" rows="5" id="validationCustomMessage" required></textarea>
                     </div>
                     <div class="col-12">
-                        <button class="btn" type="submit">Send Message</button>
+                        <button class="btn" type="submit">Envoyer</button>
                     </div>
                 </form>
             </div>
@@ -533,30 +539,33 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-                        <img src="{% static 'presentation/assets/images/footer_logo.png' %}" class="d2c_footer_logo img-fluid w-100 mb-4" alt="Footer Logo">
-                        <p>Professionally scale cross functional human capital and extensive technology.</p>
+                        <img src="{% static 'presentation/assets/images/logo_gespres2.png' %}" class="d2c_footer_logo img-fluid w-100 mb-4" alt="Footer Logo">
+                        <p>La simplicité au service de la cohésion de groupe.</p>
                         <ul class="d2c_social_link list-group list-group-horizontal">
                             <li>
-                                <a href="https://www.facebook.com/Designtocodes" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://www.facebook.com/gespres" target="_blank"><i class="fab fa-facebook-f"></i></a>
                             </li>
                             <li>
-                                <a href="https://www.linkedin.com/company/designtocodes/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                             </li>
                             <li>
-                                <a href="https://twitter.com/DesignToCodes" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
                             </li>
                             <li>
-                                <a href="https://www.instagram.com/designtocodes/" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-6 col-lg mb-5 mb-lg-0">
-                        <h3><span>Quick Link</span></h3>
+                        <h3><span>Link rapide</span></h3>
                         <ul class="list-group">
+                            <li class="py-1 py-md-2">
+                                <a href="#about">A propos</a>
+                            </li>
                             <li class="py-1 py-md-2">
                                 <a href="#service">Service</a>
                             </li>
-                            <li class="py-1 py-md-2">
+                            {% comment %} <li class="py-1 py-md-2">
                                 <a href="#team">Team</a>
                             </li>
                             <li class="py-1 py-md-2">
@@ -564,21 +573,24 @@
                             </li>
                             <li class="py-1 py-md-2">
                                 <a href="#blog">Our Blog</a>
-                            </li>
+                            </li> {% endcomment %}
                         </ul>
                     </div>
                     <div class="col-md-6 col-lg mb-5 mb-md-0">
-                        <h3><span>Company</span></h3>
+                        <h3><span>L'entreprise</span></h3>
                         <ul class="list-group">
                             <li class="py-1 py-md-2">
-                                <a href="#about">About us</a>
+                                <a href="#about">A propos</a>
                             </li>
                             <li class="py-1 py-md-2">
+                                <a href="#service">Service</a>
+                            </li>
+                            {% comment %} <li class="py-1 py-md-2">
                                 <a href="https://www.designtocodes.com/terms/" target="_blank">Terms</a>
-                            </li>
-                            <li class="py-1 py-md-2">
+                            </li> {% endcomment %}
+                            {% comment %} <li class="py-1 py-md-2">
                                 <a href="https://www.designtocodes.com/terms/" target="_blank">Privacy Policy</a>
-                            </li>
+                            </li> {% endcomment %}
                         </ul>
                     </div>
                     <div class="col-md-6 col-lg-4">
@@ -587,26 +599,26 @@
                             <li class="py-1 py-md-2">
                                 <a href="tel:+971 5546 963">
                                     <i class="fas fa-phone-alt"></i>
-                                    971 5546 963
+                                    +229 01 43 61 62 90
                                 </a>
                             </li>
                             <li class="py-1 py-md-2">
                                 <a href="mailto:example@gmail.com">
                                     <i class="fas fa-envelope"></i>
-                                    example@gmail.com
+                                    gespres@futurint.com
                                 </a>
                             </li>
-                            <li class="py-1 py-md-2">
+                            {% comment %} <li class="py-1 py-md-2">
                                 <a href="https://www.google.com/maps/@40.0677545,-76.0434136,8z?entry=ttu" target="_blank">
                                     <i class="fas fa-map-marker-alt"></i>
                                     Royal 2464 Mesa, New Jersey
                                 </a>
-                            </li>
+                            </li> {% endcomment %}
                         </ul>
                     </div>
                 </div>
                 <div class="d2c_copy_wrapper">
-                    <h4 class="text-center">© 2023 <a href="https://www.designtocodes.com/" target="_blank">DesignToCodes</a>. All Right Reserved</h4>
+                    <h4 class="text-center">© 2025 <a href="https://gespres.futurint.com/" target="_blank">Futurint</a>. Tout droit réservé</h4>
                 </div>
             </div>
         </footer>
