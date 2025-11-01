@@ -28,7 +28,7 @@ def home(request):
             message1 = render_to_string('presentation/email_contact.html',
                 {
                     'objet': contact_message.objet,
-                    'nom_et_prenom': contact_message.nom,
+                    'nom_et_prenom': f"{contact_message.nom} {contact_message.prenom}",
                 }
             )
 
@@ -44,7 +44,7 @@ def home(request):
                     'objet': contact_message.objet,
                     'email': contact_message.email,
                     'message': contact_message.message,
-                    'nom_et_prenom': contact_message.nom,
+                    'nom_et_prenom': f"{contact_message.nom} {contact_message.prenom}",
                 }
             )
             email_message2 = EmailMessage(

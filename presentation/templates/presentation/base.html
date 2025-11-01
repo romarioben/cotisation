@@ -501,30 +501,49 @@
             <div class="container">
                 <h3 class="d2c_sub_title position-relative">Contactez <span>Nous</span></h3>
                 <h2>Avez-vous des <span>questions ou suggestions?</span></h2>
-                <form class="row needs-validation" novalidate>
+                <form class="row needs-validation" method="post">
+                    {% csrf_token %}
                     <div class="col-md-6">
                         <label for="validationCustomFirstName" class="form-label">Votre <span>Prénom</span></label>
-                        <input type="text" class="form-control" id="validationCustomFirstName" autocomplete="off" required>
+                        {% comment %} <input type="text" class="form-control" id="validationCustomFirstName" autocomplete="off" required> {% endcomment %}
+                        {% comment %} {{ form.prenom.label_tag }} {% endcomment %}
+                        {{ form.prenom }}<small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
                     </div>
                     <div class="col-md-6">
                         <label for="validationCustomLastName" class="form-label">Votre <span>Nom</span></label>
-                        <input type="text" class="form-control" id="validationCustomLastName" autocomplete="off" required>
+                        {% comment %} <input type="text" class="form-control" id="validationCustomLastName" autocomplete="off" required> {% endcomment %}
+                        {% comment %} {{ form.nom.label_tag }} {% endcomment %}
+                        {{ form.nom }}<small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
                     </div>
                     <div class="col-md-6">
                         <label for="validationCustomEmail" class="form-label">Votre <span>Email</span></label>
                         <div class="input-group has-validation">
-                            <input type="email" class="form-control" id="validationCustomEmail" autocomplete="on" required>
+                            {% comment %} <input type="email" class="form-control" id="validationCustomEmail" autocomplete="on" required> {% endcomment %}
+                            {% comment %} {{ form.email.label_tag }} {% endcomment %}
+                            {{ form.email }}<small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label for="validationCustomPhone" class="form-label">Numéro de <span>Téléphone</span></label>
                         <div class="input-group has-validation">
-                            <input type="tel" class="form-control" id="validationCustomPhone" autocomplete="off" required>
+                            {% comment %} <input type="tel" class="form-control" id="validationCustomPhone" autocomplete="off" required> {% endcomment %}
+                            {% comment %} {{ form.telephone.label_tag }} {% endcomment %}
+                            {{ form.telephone }}<small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="mailobject" class="form-label">Objet</label>
+                        <div class="input-group has-validation">
+                            {% comment %} <input type="text" class="form-control" id="mailobject" autocomplete="off" required> {% endcomment %}
+                            {% comment %} {{ form.objet.label_tag }} {% endcomment %}
+                            {{ form.objet }}<small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label for="validationCustomMessage" class="form-label">Messages</label>
-                        <textarea class="form-control" rows="5" id="validationCustomMessage" required></textarea>
+                        {% comment %} <textarea class="form-control" rows="5" id="validationCustomMessage" required></textarea> {% endcomment %}
+                        {% comment %} {{ form.messsage.label_tag }} {% endcomment %}
+                        {{ form.message }}<small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
                     </div>
                     <div class="col-12">
                         <button class="btn" type="submit">Envoyer</button>
