@@ -74,6 +74,7 @@
     <link rel="stylesheet" href="{% static 'app/assets/vendors/simple-line-icons/css/simple-line-icons.css' %}">
     <link rel="stylesheet" href="{% static 'app/assets/vendors/css/vendor.bundle.base.css' %}">
     <link rel="stylesheet" href="{% static 'app/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/bootstrap-show-password/css/show-password-toggle.min.css' %}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -114,10 +115,14 @@
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="{% static 'app/assets/js/off-canvas.js' %}"></script>
+    {% comment %} <script src="{% static 'app/bootstrap-show-password/js/show-password-toggle.min.js' %}"></script> {% endcomment %}
     <script src="{% static 'app/assets/js/template.js' %}"></script>
-    <script src="{% static 'app/assets/js/settings.js' %}" src="../../assets/js/settings.js"></script>
+    <script src="{% static 'app/assets/js/settings.js' %}"></script>
     <script src="{% static 'app/assets/js/hoverable-collapse.js' %}"></script>
     <script src="{% static 'app/assets/js/todolist.js' %}"></script>
     <!-- endinject -->
+    {% block script %}
+    
+    {% endblock script %}
   </body>
 </html>
