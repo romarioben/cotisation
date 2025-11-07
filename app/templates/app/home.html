@@ -6,716 +6,810 @@ Dashboard
 {% endblock title %}
 
 {% block main-content %}
-<div class="row gutters">
-    <div class="col-xl-3 col-sm-6 col-12">
-        <div class="info-stats2">
-            <div class="info-icon">
-                <i class="icon-user-x"></i>
-            </div>
-            <div class="sale-num">
-                <h2>{{ nombre_membre}}</h2>
-                <p>Membres</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 col-12">
-        <div class="info-stats2">
-            <div class="info-icon">
-                <i class="icon-triangle"></i>
-            </div>
-            <div class="sale-num">
-                <h2>{{ nombre_cotisations }}</h2>
-                <p>Cotisations</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 col-12">
-        <div class="info-stats2">
-            <div class="info-icon">
-                <i class="icon-shopping-bag1"></i>
-            </div>
-            <div class="sale-num">
-                <h2>{{montant_total}}</h2>
-                <p>Montant total </p>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 col-12">
-        <div class="info-stats2">
-            <div class="info-icon">
-                <i class="icon-activity"></i>
-            </div>
-            <div class="sale-num">
-                <h2>{{ depense_total }}</h2>
-                <p>Dépenses</p>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Row end -->
-
-<!-- Row start -->
-<div class="row gutters">
+<div class="row">
     <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Revenue</div>
+    <div class="home-tab">
+        <div class="d-sm-flex align-items-center justify-content-between border-bottom">
+        <ul class="nav nav-tabs" role="tablist">
+            {% comment %} <li class="nav-item">
+            <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab" aria-selected="false">Audiences</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="false">Demographics</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="#more" role="tab" aria-selected="false">More</a>
+            </li> {% endcomment %}
+        </ul>
+        <div>
+            <div class="btn-wrapper">
+            <a href="#" class="btn btn-otline-dark align-items-center"><i class="icon-share"></i> Share</a>
+            <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Print</a>
+            <a href="#" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
             </div>
-            <div class="card-body">
-                <div class="graph-status-right">
-                    <div class="graph-status primary">
-                        <div class="status-icon">
-                            <i class="icon-arrow-down"></i>
-                        </div>
-                        <div class="status-info">
-                            <div class="status-title">Dernière dépense</div>
-                            <div class="percentage">{{ derniere_depense }}</div>
-                        </div>
-                    </div>
-                    <div class="graph-status secondary">
-                        <div class="status-icon">
-                            <i class="icon-arrow-up"></i>
-                        </div>
-                        <div class="status-info">
-                            <div class="status-title">Collecté dernière fois</div>
-                            <div class="percentage">{{ derniere_collecte }}</div>
-                        </div>
-                    </div>
+        </div>
+        </div>
+        <div class="tab-content tab-content-basic">
+        <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
+            <div class="row">
+            <div class="col-sm-12">
+                <div class="statistics-details d-flex align-items-center justify-content-between">
+                <div>
+                    <p class="statistics-title">Membres</p>
+                    <h3 class="rate-percentage">{{ nombre_membre }}</h3>
+                    {% comment %} <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p> {% endcomment %}
                 </div>
-                <div id="lineRevenueGraph"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Row end -->
-
-{% comment %} <!-- Row start -->
-<div class="row gutters">
-    <div class="col-xl-8 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Team Activity</div>
-            </div>
-            <div class="card-body">
-                <ul class="team-activity">
-                    <li class="product-list clearfix">
-                        <div class="product-time">
-                            <p class="date center-text">02:30 pm</p>
-                            <span class="badge badge-primary">New</span>
-                        </div>
-                        <div class="product-info">
-                            <div class="activity">
-                                <h6>Unify - Admin Dashboard</h6>
-                                <p>by Luke Etheridge</p>
-                            </div>
-                            <div class="status">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="49"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 49%">
-                                        <span class="sr-only">49% Complete (success)</span>
-                                    </div>
-                                </div>
-                                <p>(225 of 700gb)</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="product-list clearfix">
-                        <div class="product-time">
-                            <p class="date center-text">11:30 am</p>
-                            <span class="badge badge-primary">Task</span>
-                        </div>
-                        <div class="product-info">
-                            <div class="activity">
-                                <h6>User_Profile.php</h6>
-                                <p>by Rovane Durso</p>
-                            </div>
-                            <div class="status">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                        <span class="sr-only">60% Complete (success)</span>
-                                    </div>
-                                </div>
-                                <p>(485 of 850gb)</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="product-list clearfix">
-                        <div class="product-time">
-                            <p class="date center-text">12:50 pm</p>
-                            <span class="badge badge-primary">Closed</span>
-                        </div>
-                        <div class="product-info">
-                            <div class="activity">
-                                <h6>Material Design Kit</h6>
-                                <p>by Cosmin Capitanu</p>
-                            </div>
-                            <div class="status">
-                                <span class="line-seven">5,3,9,6,5,9,7,3,5,7</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-4 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Tasks</div>
-            </div>
-            <div class="card-body pt-0">
-                <div id="radialTasks"></div>
-                <ul class="task-list-container">
-                    <li class="task-list-item primary">
-                        <div class="task-icon">
-                            <i class="icon-clipboard"></i>
-                        </div>
-                        <div class="task-info">
-                            <h6 class="task-title">New</h6>
-                            <p class="amount-spend">12</p>
-                        </div>
-                    </li>
-                    <li class="task-list-item secondary">
-                        <div class="task-icon">
-                            <i class="icon-clipboard"></i>
-                        </div>
-                        <div class="task-info">
-                            <h6 class="task-title">Done</h6>
-                            <p class="amount-spend">15</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Row end --> {% endcomment %}
-
-{% comment %} <!-- Row start -->
-<div class="row gutters">
-    <div class="col-lg-6 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Order History</div>
-            </div>
-            <div class="card-body">
-                <div class="customScroll5">
-                    <ul class="recent-orders">
-                        <li>
-                            <div class="order-img">
-                                <img src="img/orders/order5.png" alt="Smart Dashboards">
-                                <span class="badge badge-success">Delivered</span>
-                            </div>
-                            <div class="order-details">
-                                <h5 class="order-title">The Original Cake</h5>
-                                <p class="order-desc">Wedding cake with macarons.</p>
-                                <span class="order-date">21 mins ago</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="order-img">
-                                <img src="img/orders/order6.png" alt="Smart Dashboards">
-                                <span class="badge badge-danger">On Hold</span>
-                            </div>
-                            <div class="order-details">
-                                <h5 class="order-title">Classic Sandwich</h5>
-                                <p class="order-desc">Creamy Sandwich with pie.</p>
-                                <span class="order-date">32 mins ago</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="order-img">
-                                <img src="img/orders/order3.png" alt="Smart Dashboards">
-                                <span class="badge badge-danger">On Hold</span>
-                            </div>
-                            <div class="order-details">
-                                <h5 class="order-title">Strawberry Pecan</h5>
-                                <p class="order-desc">Homemade cheese Pecan with berries.</p>
-                                <span class="order-date">15 mins ago</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="order-img">
-                                <img src="img/orders/order1.png" alt="Smart Dashboards">
-                                <span class="badge badge-info">Processing</span>
-                            </div>
-                            <div class="order-details">
-                                <h5 class="order-title">Double Stacker</h5>
-                                <p class="order-desc">Homemade cheese cake with berries.</p>
-                                <span class="order-date">10 mins ago</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="order-img">
-                                <img src="img/orders/order4.png" alt="Smart Dashboards">
-                                <span class="badge badge-success">Delivered</span>
-                            </div>
-                            <div class="order-details">
-                                <h5 class="order-title">Veggie Burger</h5>
-                                <p class="order-desc">Homemade cheese cake with berries.</p>
-                                <span class="order-date">17 mins ago</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="order-img">
-                                <img src="img/orders/order2.png" alt="Smart Dashboards">
-                                <span class="badge badge-danger">On Hold</span>
-                            </div>
-                            <div class="order-details">
-                                <h5 class="order-title">Teriyaki Cheese Balls</h5>
-                                <p class="order-desc">Chocolate cake with mascarpone.</p>
-                                <span class="order-date">12 mins ago</span>
-                            </div>
-                        </li>
-                    </ul>
+                <div>
+                    <p class="statistics-title">Cotisations</p>
+                    <h3 class="rate-percentage">{{ nombre_cotisations }}</h3>
+                    {% comment %} <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p> {% endcomment %}
+                </div>
+                <div>
+                    <p class="statistics-title">Montant total</p>
+                    <h3 class="rate-percentage">{{ montant_total }}</h3>
+                    {% comment %} <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p> {% endcomment %}
+                </div>
+                <div class="d-none d-md-block">
+                    <p class="statistics-title">Dépenses</p>
+                    <h3 class="rate-percentage">{{ depense_total }}</h3>
+                    {% comment %} <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p> {% endcomment %}
+                </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-6 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Activity</div>
             </div>
-            <div class="card-body">
-                <div class="customScroll5">
-                    <div class="timeline-activity">
-                        <div class="activity-log">
-                            <p class="log-name">Corey Haggard<small class="log-time">- 9 mins ago</small></p>
-                            <div class="log-details">GoldFinch dashboard has been created<span
-                                    class="text-success ml-1">#New</span></div>
+            <div class="row">
+            <div class="col-lg-8 d-flex flex-column">
+                <div class="row flex-grow">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card card-rounded">
+                    <div class="card-body">
+                        <div class="d-sm-flex justify-content-between align-items-start">
+                        <div>
+                            <h4 class="card-title card-title-dash">Un aperçu de la collecte </h4>
+                            <p class="card-subtitle card-subtitle-dash">Collecte par présence</p>
                         </div>
-                        <div class="activity-log">
-                            <p class="log-name">Gleb Kuznetsov<small class="log-time">- 4 hrs ago</small></p>
-                            <div class="log-details">
-                                Farewell day photos uploaded.
-                                <div class="stacked-images mt-1">
-                                    <img class="sm" src="{% static 'app/img/user.png' %}" alt="Admin Panel Website Templates">
-                                    <img class="sm" src="{% static 'app/img/user2.png' %}" alt="Admin Panel Website Templates">
-                                    <img class="sm" src="{% static 'app/img/user3.png' %}" alt="Admin Panel Website Templates">
-                                    <img class="sm" src="{% static 'app/img/user4.png' %}" alt="Admin Panel Website Templates">
-                                    <span class="plus sm">+5</span>
-                                </div>
+                        <div>
+                            <div class="dropdown">
+                            <button class="btn btn-light dropdown-toggle toggle-dark btn-lg mb-0 me-0" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Faire </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <h6 class="dropdown-header">Effectuer une action</h6> 
+                                <a class="dropdown-item" href="#">Faire une présence</a>
+                                <a class="dropdown-item" href="#">Collecter une cotisation</a>
+                                {% comment %} <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
+                                {% comment %} <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a> {% endcomment %}
+                            </div>
                             </div>
                         </div>
-                        <div class="activity-log">
-                            <p class="log-name">Yuki Hayashi<small class="log-time">- 7 hrs ago</small></p>
-                            <div class="log-details">Developed 30 multipurpose Bootstrap 4 Admin Templates</div>
                         </div>
-                        <div class="activity-log">
-                            <p class="log-name">Nathan James<small class="log-time">- 9 hrs ago</small></p>
-                            <div class="log-details">Best Design Award</div>
+                        <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                        <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                            <h2 class="me-2 fw-bold">{{ montant_restant }}</h2>
+                            <h4 class="me-2">CFA</h4>
+                            {% comment %} <h4 class="text-success">(+1.37%)</h4> {% endcomment %}
                         </div>
-                        <div class="activity-log">
-                            <p class="log-name">Elon Musk<small class="log-time">- 4 hrs ago</small></p>
-                            <div class="log-details">
-                                Farewell day photos uploaded.
-                                <div class="stacked-images mt-1">
-                                    <img class="sm" src="{% static 'app/img/user5.png' %}"  alt="Admin Panel Website Templates">
-                                    <img class="sm" src="{% static 'app/img/user22.png' %}" alt="Admin Panel Website Templates">
-                                    <span class="plus sm">+7</span>
+                        <div class="me-3">
+                            <div id="marketingOverview-legend"></div>
+                        </div>
+                        </div>
+                        <div class="chartjs-bar-wrapper mt-3">
+                        <canvas id="marketingOverview"></canvas>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="row flex-grow">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card card-rounded">
+                    <div class="card-body">
+                        <div class="d-sm-flex justify-content-between align-items-start">
+                        <div>
+                            <h4 class="card-title card-title-dash">Les membres</h4>
+                            <p class="card-subtitle card-subtitle-dash">Les nouveaux membres</p>
+                        </div>
+                        <div>
+                            <a href="{% url "membre" %}" class="btn btn-primary btn-lg text-white mb-0 me-0" type="button"><i class="mdi mdi-account-plus"></i>Les membres</a>
+                        </div>
+                        </div>
+                        <div class="table-responsive  mt-1">
+                        <table class="table select-table">
+                            <thead>
+                            <tr>
+                                <th>
+                                #
+                                </th>
+                                <th>Nom et prénoms</th>
+                                <th>Profession</th>
+                                <th>Numéro</th>
+                                <th>Sous groupe</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for membre in nouveaux_membres %}
+                                <tr>
+                                <td>
+                                {{ forloop.count }}
+                                </td>
+                                <td>
+                                <div class="d-flex ">
+                                    <img src="{% static 'app/assets/images/faces/face1.jpg' %}" alt="photo">
+                                    <div>
+                                    <h6>{{membre.nom}} {{membre.prenom}}</h6>
+                                    {% comment %} <p>Head admin</p> {% endcomment %}
+                                    </div>
                                 </div>
+                                </td>
+                                <td>
+                                <h6>{{membre.profession}}</h6>
+                                {% comment %} <p>company type</p> {% endcomment %}
+                                </td>
+                                <td>
+                                {% if membre.numero %}
+                                {{ membre.numero }}
+                                {% else %}
+                                ---
+                                {% endif %}
+                                
+                                </td>
+                                <td>
+                                {{ membre.sous_groupe }}
+                                </td>
+                            </tr>
+                                {% endfor %}
+                            
+                            
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex flex-column">
+                <div class="row flex-grow">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card card-rounded">
+                    <div class="card-body">
+                        <div class="row">
+                        <div class="col-lg-12">
+                            <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="card-title card-title-dash">Les dernières cotisations</h4>
+                            <div class="add-items d-flex mb-0">
+                                <!-- <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> -->
+                                <a href="{% url "cotisation" %}" class="add btn btn-icons btn-rounded btn-primary todo-list-add-btn text-white me-0 pl-12p"><i class="mdi mdi-plus"></i></a>
+                            </div>
+                            </div>
+                            <div class="list-wrapper">
+                            <ul class="todo-list todo-list-rounded">
+                                {% for cotisation in dernieres_cotisations %}
+                                <li class="d-block">
+                                <div class="form-check w-100">
+                                    <label class="form-check-label">
+                                    <input class="checkbox" type="checkbox">{{ cotisation.nom }}<i class="input-helper rounded"></i>
+                                    </label>
+                                    <div class="d-flex mt-2">
+                                    <div class="ps-4 text-small me-3">{{ cotisation.date_creation }}</div>
+                                    {% if cotisation.ouverte %}
+                                    <div class="badge badge-opacity-success me-3">Ouverte</div>
+                                    </div>
+                                    {% else %}
+                                    <div class="badge badge-opacity-danger me-3">Fermée</div>
+                                    </div>
+                                    {% endif %}
+                                    
+                                </div>
+                                </li>
+                                {% endfor %}
+                                
+                            </ul>
                             </div>
                         </div>
-                        <div class="activity-log">
-                            <p class="log-name">Nkio Toyoda<small class="log-time">- 3 hrs ago</small></p>
-                            <div class="log-details">Developed 30 multipurpose Bootstrap 4 Admin Templates</div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="row flex-grow">
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card card-rounded">
+                        <div class="card-body">
+                            <div class="row">
+                            <div class="col-lg-12">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="card-title card-title-dash">La présence de la dernière fois</h4>
+                                </div>
+                                <div>
+                                <canvas class="my-auto" id="doughnutChart"></canvas>
+                                </div>
+                                <div id="doughnutChart-legend" class="mt-5 text-center"></div>
+                            </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Row end --> {% endcomment %}
-
-{% comment %} <!-- Row start -->
-<div class="row gutters">
-    <div class="col-lg-6 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Sales</div>
-            </div>
-            <div class="card-body">
-                <a href="#" class="graph-notify" data-toggle="tooltip" data-placement="left" title=""
-                    data-original-title="5 new orders placed">
-                    <i class="icon-alert-circle"></i>
-                </a>
-                <div id="lineGraph1"></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Income</div>
-            </div>
-            <div class="card-body">
-                <a href="#" class="graph-notify" data-toggle="tooltip" data-placement="left" title=""
-                    data-original-title="5 payment errors">
-                    <i class="icon-alert-circle"></i>
-                </a>
-                <div id="lineGraph2"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Row end --> {% endcomment %}
-
-{% comment %} <!-- Row start -->
-<div class="row gutters">
-    <div class="col-lg-4 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Stats</div>
-            </div>
-            <div class="card-body">
-                <div class="customScroll5">
-                    <ul class="statistics">
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-eye1"></i>
-                            </span>
-                            A new ticket opened.
-                        </li>
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-thumbs-up1"></i>
-                            </span>
-                            That's A great idea!
-                        </li>
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-star2"></i>
-                            </span>
-                            Tell us what you think.
-                        </li>
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-shopping-bag1"></i>
-                            </span>
-                            A new item sold.
-                        </li>
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-check-circle"></i>
-                            </span>
-                            Design approved.
-                        </li>
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-clipboard"></i>
-                            </span>
-                            Assigned new task to Zyan.
-                        </li>
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-eye1"></i>
-                            </span>
-                            A new ticket opened.
-                        </li>
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-thumbs-up1"></i>
-                            </span>
-                            That's A great idea!
-                        </li>
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-star2"></i>
-                            </span>
-                            Tell us what you think.
-                        </li>
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-shopping-bag1"></i>
-                            </span>
-                            A new item sold.
-                        </li>
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-check-circle"></i>
-                            </span>
-                            Design approved.
-                        </li>
-                        <li>
-                            <span class="stat-icon">
-                                <i class="icon-clipboard"></i>
-                            </span>
-                            Assigned new task to Zyan.
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-sm-6 col-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Top Links</div>
-            </div>
-            <div class="card-body">
-                <div class="customScroll5">
-                    <ul class="recent-links">
-                        <li>
-                            <a href="#">Bootstrap admin template</a>
-                        </li>
-                        <li>
-                            <a href="#">Images resources</a>
-                        </li>
-                        <li>
-                            <a href="#">Best admin templates 2020</a>
-                        </li>
-                        <li>
-                            <a href="#">Javascript libraries</a>
-                        </li>
-                        <li>
-                            <a href="#">Angular widgets</a>
-                        </li>
-                        <li>
-                            <a href="#">UX library</a>
-                        </li>
-                        <li>
-                            <a href="#">Bootstrap admin template</a>
-                        </li>
-                        <li>
-                            <a href="#">Images resources</a>
-                        </li>
-                        <li>
-                            <a href="#">Best admin templates 2020</a>
-                        </li>
-                        <li>
-                            <a href="#">Javascript libraries</a>
-                        </li>
-                        <li>
-                            <a href="#">Angular widgets</a>
-                        </li>
-                        <li>
-                            <a href="#">UX library</a>
-                        </li>
-                        <li>
-                            <a href="#">Bootstrap admin template</a>
-                        </li>
-                        <li>
-                            <a href="#">Images resources</a>
-                        </li>
-                        <li>
-                            <a href="#">Best admin templates 2020</a>
-                        </li>
-                        <li>
-                            <a href="#">Javascript libraries</a>
-                        </li>
-                        <li>
-                            <a href="#">Angular widgets</a>
-                        </li>
-                        <li>
-                            <a href="#">UX library</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-sm-6 col-12">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Top Customers</div>
-            </div>
-            <div class="card-body">
-                <div class="customScroll5">
-                    <div class="top-agents-container">
-                        <div class="top-agent">
-                            <img src="{% static 'app/img/user.png' %}" class="avatar" alt="Agent" />
-                            <div class="agent-details">
-                                <h6>Amy Diaz</h6>
-                                <div class="agent-score">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 87%"
-                                            aria-valuenow="87" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="points">
-                                        <div class="left">Rank #1</div>
-                                    </div>
+                <div class="row flex-grow">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card card-rounded">
+                    <div class="card-body">
+                        <div class="row">
+                        <div class="col-lg-12">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h4 class="card-title card-title-dash">L'évolution des membres</h4>
+                            </div>
+                            <div>
+                                <div class="dropdown">
+                                <button class="btn btn-light dropdown-toggle toggle-dark btn-lg mb-0 me-0" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Par mois </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                    <h6 class="dropdown-header">Par mois</h6>
+                                    <a class="dropdown-item" href="#"> Dans une année</a>
                                 </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="mt-3">
+                            <canvas id="leaveReport"></canvas>
                             </div>
                         </div>
-                        <div class="top-agent">
-                            <img src="{% static 'app/img/user22.png' %}"  class="avatar" alt="Agent" />
-                            <div class="agent-details">
-                                <h6>Lily Jordan</h6>
-                                <div class="agent-score">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 76%"
-                                            aria-valuenow="76" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="points">
-                                        <div class="left">Rank #2</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="top-agent">
-                            <img src="{% static 'app/img/user6.png' %}"  class="avatar" alt="Agent" />
-                            <div class="agent-details">
-                                <h6>Shawn Mark</h6>
-                                <div class="agent-score">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 65%"
-                                            aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="points">
-                                        <div class="left">Rank #3</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="top-agent">
-                            <img src="{% static 'app/img/user20.png' %}"  class="avatar" alt="Agent" />
-                            <div class="agent-details">
-                                <h6>Ryan Collins</h6>
-                                <div class="agent-score">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 58%"
-                                            aria-valuenow="58" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="points">
-                                        <div class="left">Rank #4</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="top-agent">
-                            <img src="{% static 'app/img/user13.png' %}" class="avatar" alt="Agent" />
-                            <div class="agent-details">
-                                <h6>Joyce Roy</h6>
-                                <div class="agent-score">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="points">
-                                        <div class="left">Rank #5</div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
+                    </div>
+                </div>
+                </div>
+                <div class="row flex-grow">
                 </div>
             </div>
+            </div>
+        </div>
         </div>
     </div>
+    </div>
 </div>
-<!-- Row end --> {% endcomment %}
-
 {% endblock main-content %}
 
 {% block script %}
 <script>
-    var options = {
-	chart: {
-		height: 320,
-		type: 'area',
-		toolbar: {
-			show: false,
-		},
-		dropShadow: {
-			enabled: true,
-			opacity: 0.3,
-			blur: 5,
-			left: -10,
-			top: 20
-		},
-	},
-	colors: ['#cd9d63', '#383737'],
-	dataLabels: {
-		enabled: false,
-	},
-	legend: {
-        show: false,
-    },
-        stroke: {
-            show: true,
-            curve: 'smooth',
-            width: 3,
-            lineCap: 'square'
-        },
-        series: [{
-            name: 'Collecte',
-            data: [{% for data in liste_data %}
-            {{ data.1}},
-            {% endfor %}]
+    (function($) {
+  'use strict';
+  $(function() {
+    if ($("#performanceLine").length) { 
+      const ctx = document.getElementById('performanceLine');
+      var graphGradient = document.getElementById("performanceLine").getContext('2d');
+      var graphGradient2 = document.getElementById("performanceLine").getContext('2d');
+      var saleGradientBg = graphGradient.createLinearGradient(5, 0, 5, 100);
+      saleGradientBg.addColorStop(0, 'rgba(26, 115, 232, 0.18)');
+      saleGradientBg.addColorStop(1, 'rgba(26, 115, 232, 0.02)');
+      var saleGradientBg2 = graphGradient2.createLinearGradient(100, 0, 50, 150);
+      saleGradientBg2.addColorStop(0, 'rgba(0, 208, 255, 0.19)');
+      saleGradientBg2.addColorStop(1, 'rgba(0, 208, 255, 0.03)');
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["SUN","sun", "MON", "mon", "TUE","tue", "WED", "wed", "THU", "thu", "FRI", "fri", "SAT"],
+          datasets: [{
+            label: 'This week',
+            data: [50, 110, 60, 290, 200, 115, 130, 170, 90, 210, 240, 280, 200],
+            backgroundColor: saleGradientBg,
+            borderColor: [
+                '#1F3BB3',
+            ],
+            borderWidth: 1.5,
+            fill: true, // 3: no fill
+            pointBorderWidth: 1,
+            pointRadius: [4, 4, 4, 4, 4,4, 4, 4, 4, 4,4, 4, 4],
+            pointHoverRadius: [2, 2, 2, 2, 2,2, 2, 2, 2, 2,2, 2, 2],
+            pointBackgroundColor: ['#1F3BB3)', '#1F3BB3', '#1F3BB3', '#1F3BB3','#1F3BB3)', '#1F3BB3', '#1F3BB3', '#1F3BB3','#1F3BB3)', '#1F3BB3', '#1F3BB3', '#1F3BB3','#1F3BB3)'],
+            pointBorderColor: ['#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff',],
         },{
-        name: 'Dépenses',
-        data: [{% for data in liste_data %}
-            {{ data.2}},
-            {% endfor %}]
-    }],
-        xaxis: {
-            axisBorder: {
-                show: false
-            },
-            categories: [{% for data in liste_data %}
-            "{{ data.0}}",
-            {% endfor %}],
-            axisTicks: {
-                show: true
-            },
-            crosshairs: {
-                show: true
-            },
-            labels: {
-                offsetX: 0,
-                offsetY: 5,
-            }
+          label: 'Last week',
+          data: [30, 150, 190, 250, 120, 150, 130, 20, 30, 15, 40, 95, 180],
+          backgroundColor: saleGradientBg2,
+          borderColor: [
+              '#52CDFF',
+          ],
+          borderWidth: 1.5,
+          fill: true, // 3: no fill
+          pointBorderWidth: 1,
+          pointRadius: [0, 0, 0, 4, 0],
+          pointHoverRadius: [0, 0, 0, 2, 0],
+          pointBackgroundColor: ['#52CDFF)', '#52CDFF', '#52CDFF', '#52CDFF','#52CDFF)', '#52CDFF', '#52CDFF', '#52CDFF','#52CDFF)', '#52CDFF', '#52CDFF', '#52CDFF','#52CDFF)'],
+            pointBorderColor: ['#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff',],
+      }]
         },
-        yaxis: {
-            labels: {
-                formatter: function(value, index) {
-                    return (value / 1000) + 'K'
-                },
-                offsetX: -15,
-                offsetY: 20,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          elements: {
+            line: {
+                tension: 0.4,
             }
-        },
-        grid: {
-            borderColor: '#e0e6ed',
-            strokeDashArray: 5,
-            xaxis: {
-                lines: {
-                    show: true
+          },
+        
+          scales: {
+            y: {
+              border: {
+                display: false
+              },
+              grid: {
+                display: true,
+                color:"#F0F0F0",
+                drawBorder: false,
+              },
+              ticks: {
+                beginAtZero: false,
+                autoSkip: true,
+                maxTicksLimit: 4,
+                color:"#6B778C",
+                font: {
+                  size: 10,
                 }
-            },   
-            yaxis: {
-                lines: {
-                    show: false,
-                }	
+              }
             },
-            padding: {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0
-            }, 
-        }, 
-        fill: {
-            type:"gradient",
-            gradient: {
-                type: "vertical",
-                shadeIntensity: 1,
-                inverseColors: !1,
-                opacityFrom: .3,
-                opacityTo: .05,
-                stops: [15, 100]
+            x: {
+              border: {
+                display: false
+              },
+              grid: {
+                display: false,
+                drawBorder: false,
+              },
+              ticks: {
+                beginAtZero: false,
+                autoSkip: true,
+                maxTicksLimit: 7,
+                color:"#6B778C",
+                font: {
+                  size: 10,
+                }
+              }
             }
+          },
+          plugins: {
+            legend: {
+                display: false,
+            }
+          }
         },
+        plugins: [{
+          afterDatasetUpdate: function (chart, args, options) {
+              const chartId = chart.canvas.id;
+              var i;
+              const legendId = `${chartId}-legend`;
+              const ul = document.createElement('ul');
+              for(i=0;i<chart.data.datasets.length; i++) {
+                  ul.innerHTML += `
+                  <li>
+                    <span style="background-color: ${chart.data.datasets[i].borderColor}"></span>
+                    ${chart.data.datasets[i].label}
+                  </li>
+                `;
+              }
+              return document.getElementById(legendId).appendChild(ul);
+            }
+        }]
+      });
     }
 
-    var chart = new ApexCharts(
-        document.querySelector("#lineRevenueGraph"),
-        options
-    );
+    if ($("#status-summary").length) { 
+      const statusSummaryChartCanvas = document.getElementById('status-summary');
+      new Chart(statusSummaryChartCanvas, {
+        type: 'line',
+        data: {
+          labels: ["SUN", "MON", "TUE", "WED", "THU", "FRI"],
+          datasets: [{
+              label: '# of Votes',
+              data: [50, 68, 70, 10, 12, 80],
+              backgroundColor: "#ffcc00",
+              borderColor: [
+                  '#01B6A0',
+              ],
+              borderWidth: 2,
+              fill: false, // 3: no fill
+              pointBorderWidth: 0,
+              pointRadius: [0, 0, 0, 0, 0, 0],
+              pointHoverRadius: [0, 0, 0, 0, 0, 0],
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          elements: {
+            line: {
+                tension: 0.4,
+            }
+        },
+          scales: {
+            y: {
+              border: {
+                display: false
+              },
+              display: false,
+              grid: {
+                display: false,
+              },
+            },
+            x: {
+              border: {
+                display: false
+              },
+              display: false,
+              grid: {
+                display: false,
+              }
+            }
+          },
+          plugins: {
+            legend: {
+                display: false,
+            }
+          }
+        }
+      });
+    }
 
-    chart.render();
+    if ($("#marketingOverview").length) { 
+      const marketingOverviewCanvas = document.getElementById('marketingOverview');
+      new Chart(marketingOverviewCanvas, {
+        type: 'bar',
+        data: {
+          labels: [{% for data in liste_data %} "{{ data.0.month }}-{{ data.0.year }}", {% endfor %}],//["JAN","FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+          datasets: [{
+            label: 'Collectes',
+            data: [{% for data in liste_data %} "{{ data.1 }}", {% endfor %}],
+            backgroundColor: "#52CDFF",
+            borderColor: [
+                '#52CDFF',
+            ],
+              borderWidth: 0,
+              barPercentage: 0.35,
+              fill: true, // 3: no fill
+              
+          },{
+            label: 'Dépenses',
+            data: [{% for data in liste_data %} "{{ data.2 }}", {% endfor %}],
+            backgroundColor: "#1F3BB3",
+            borderColor: [
+                '#1F3BB3',
+            ],
+            borderWidth: 0,
+              barPercentage: 0.35,
+              fill: true, // 3: no fill
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          elements: {
+            line: {
+                tension: 0.4,
+            }
+        },
+        
+          scales: {
+            y: {
+              border: {
+                display: false
+              },
+              grid: {
+                display: true,
+                drawTicks: false,
+                color:"#F0F0F0",
+                zeroLineColor: '#F0F0F0',
+              },
+              ticks: {
+                beginAtZero: false,
+                autoSkip: true,
+                maxTicksLimit: 4,
+                color:"#6B778C",
+                font: {
+                  size: 10,
+                }
+              }
+            },
+            x: {
+              border: {
+                display: false
+              },
+              stacked: true,
+              grid: {
+                display: false,
+                drawTicks: false,
+              },
+              ticks: {
+                beginAtZero: false,
+                autoSkip: true,
+                maxTicksLimit: 7,
+                color:"#6B778C",
+                font: {
+                  size: 10,
+                }
+              }
+            }
+          },
+          plugins: {
+            legend: {
+                display: false,
+            }
+          }
+        },
+        plugins: [{
+          afterDatasetUpdate: function (chart, args, options) {
+              const chartId = chart.canvas.id;
+              var i;
+              const legendId = `${chartId}-legend`;
+              const ul = document.createElement('ul');
+              for(i=0;i<chart.data.datasets.length; i++) {
+                  ul.innerHTML += `
+                  <li>
+                    <span style="background-color: ${chart.data.datasets[i].borderColor}"></span>
+                    ${chart.data.datasets[i].label}
+                  </li>
+                `;
+              }
+              return document.getElementById(legendId).appendChild(ul);
+            }
+        }]
+      });
+    }
+
+    if ($('#totalVisitors').length) {
+      var bar = new ProgressBar.Circle(totalVisitors, {
+        color: '#fff',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 15,
+        trailWidth: 15, 
+        easing: 'easeInOut',
+        duration: 1400,
+        text: {
+          autoStyleContainer: false
+        },
+        from: {
+          color: '#52CDFF',
+          width: 15
+        },
+        to: {
+          color: '#677ae4',
+          width: 15
+        },
+        // Set default step function for all animate calls
+        step: function(state, circle) {
+          circle.path.setAttribute('stroke', state.color);
+          circle.path.setAttribute('stroke-width', state.width);
+  
+          var value = Math.round(circle.value() * 100);
+          if (value === 0) {
+            circle.setText('');
+          } else {
+            circle.setText(value);
+          }
+  
+        }
+      });
+  
+      bar.text.style.fontSize = '0rem';
+      bar.animate(.64); // Number from 0.0 to 1.0
+    }
+
+    if ($('#visitperday').length) {
+      var bar = new ProgressBar.Circle(visitperday, {
+        color: '#fff',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 15,
+        trailWidth: 15,
+        easing: 'easeInOut',
+        duration: 1400,
+        text: {
+          autoStyleContainer: false
+        },
+        from: {
+          color: '#34B1AA',
+          width: 15
+        },
+        to: {
+          color: '#677ae4',
+          width: 15
+        },
+        // Set default step function for all animate calls
+        step: function(state, circle) {
+          circle.path.setAttribute('stroke', state.color);
+          circle.path.setAttribute('stroke-width', state.width);
+  
+          var value = Math.round(circle.value() * 100);
+          if (value === 0) {
+            circle.setText('');
+          } else {
+            circle.setText(value);
+          }
+  
+        }
+      });
+  
+      bar.text.style.fontSize = '0rem';
+      bar.animate(.34); // Number from 0.0 to 1.0
+    }
+
+    if ($("#doughnutChart").length) { 
+      const doughnutChartCanvas = document.getElementById('doughnutChart');
+      new Chart(doughnutChartCanvas, {
+        type: 'doughnut',
+        data: {
+          labels: ['Présents','Absents','Retardataire','Permissionaires'],
+          datasets: [{
+            data: [{{ stats_derniere_presence.present }}, {{ stats_derniere_presence.absent }}, {{ stats_derniere_presence.permission }}, {{ stats_derniere_presence.retard }}],
+            backgroundColor: [
+              "#1F3BB3",
+              "#FDD0C7",
+              "#52CDFF",
+              "#81DADA"
+            ],
+            borderColor: [
+              "#1F3BB3",
+              "#FDD0C7",
+              "#52CDFF",
+              "#81DADA"
+            ],
+          }]
+        },
+        options: {
+          cutout: 90,
+          animationEasing: "easeOutBounce",
+          animateRotate: true,
+          animateScale: false,
+          responsive: true,
+          maintainAspectRatio: true,
+          showScale: true,
+          legend: false,
+          plugins: {
+            legend: {
+                display: false,
+            }
+          }
+        },
+        plugins: [{
+          afterDatasetUpdate: function (chart, args, options) {
+              const chartId = chart.canvas.id;
+              var i;
+              const legendId = `${chartId}-legend`;
+              const ul = document.createElement('ul');
+              for(i=0;i<chart.data.datasets[0].data.length; i++) {
+                  ul.innerHTML += `
+                  <li>
+                    <span style="background-color: ${chart.data.datasets[0].backgroundColor[i]}"></span>
+                    ${chart.data.labels[i]}
+                  </li>
+                `;
+              }
+              return document.getElementById(legendId).appendChild(ul);
+            }
+        }]
+      });
+    }
+
+    if ($("#leaveReport").length) { 
+      const leaveReportCanvas = document.getElementById('leaveReport');
+      new Chart(leaveReportCanvas, {
+        type: 'bar',
+        data: {
+          labels: [{% for data in liste_nouveau_membre %} "{{ data.0.month }}-{{ data.0.year }}", {% endfor %}],
+          datasets: [{
+              label: 'Last week',
+              data: [{% for data in liste_nouveau_membre %} "{{ data.1  }}", {% endfor %}],
+              backgroundColor: "#52CDFF",
+              borderColor: [
+                  '#52CDFF',
+              ],
+              borderWidth: 0,
+              fill: true, // 3: no fill
+              barPercentage: 0.5,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          elements: {
+            line: {
+                tension: 0.4,
+            }
+        },
+          scales: {
+            y: {
+              border: {
+                display: false
+              },
+              display: true,
+              grid: {
+                display: false,
+                drawBorder: false,
+                color:"rgba(255,255,255,.05)",
+                zeroLineColor: "rgba(255,255,255,.05)",
+              },
+              ticks: {
+                beginAtZero: true,
+                autoSkip: true,
+                maxTicksLimit: 5,
+                fontSize: 10,
+                color:"#6B778C",
+                font: {
+                  size: 10,
+                }
+              }
+            },
+            x: {
+              border: {
+                display: false
+              },
+              display: true,
+              grid: {
+                display: false,
+              },
+              ticks: {
+                beginAtZero: false,
+                autoSkip: true,
+                maxTicksLimit: 7,
+                fontSize: 10,
+                color:"#6B778C",
+                font: {
+                  size: 10,
+                }
+              }
+            }
+          },
+          plugins: {
+            legend: {
+                display: false,
+            }
+          }
+        }
+      });
+    }
+
+
+    if ($.cookie('staradmin2-pro-banner')!="true") {
+      document.querySelector('#proBanner').classList.add('d-flex');
+      document.querySelector('.navbar').classList.remove('fixed-top');
+    }
+    else {
+      document.querySelector('#proBanner').classList.add('d-none');
+      document.querySelector('.navbar').classList.add('fixed-top');
+    }
+    
+    if ($( ".navbar" ).hasClass( "fixed-top" )) {
+      document.querySelector('.page-body-wrapper').classList.remove('pt-0');
+      document.querySelector('.navbar').classList.remove('pt-5');
+    }
+    else {
+      document.querySelector('.page-body-wrapper').classList.add('pt-0');
+      document.querySelector('.navbar').classList.add('pt-5');
+      document.querySelector('.navbar').classList.add('mt-3');
+      
+    }
+    document.querySelector('#bannerClose').addEventListener('click',function() {
+      document.querySelector('#proBanner').classList.add('d-none');
+      document.querySelector('#proBanner').classList.remove('d-flex');
+      document.querySelector('.navbar').classList.remove('pt-5');
+      document.querySelector('.navbar').classList.add('fixed-top');
+      document.querySelector('.page-body-wrapper').classList.add('proBanner-padding-top');
+      document.querySelector('.navbar').classList.remove('mt-3');
+      var date = new Date();
+      date.setTime(date.getTime() + 24 * 60 * 60 * 1000); 
+      $.cookie('staradmin2-pro-banner', "true", { expires: date });
+    });
+    
+  });
+  // iconify.load('icons.svg').then(function() {
+  //   iconify(document.querySelector('.my-cool.icon'));
+  // });
+
+  
+})(jQuery);
 </script>
 {% endblock script %}

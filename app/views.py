@@ -46,15 +46,45 @@ def app_home(request):
     else:
         derniere_collecte = 0
         
-    sept_liste_presences = models.ListPresence.objects.filter(groupe=request.user.groupe).order_by('-date_presence')[:7]
+    # sept_liste_presences = models.ListPresence.objects.filter(groupe=request.user.groupe).order_by('-date_presence')[:7]
+    
+    ### Détermner les douzes derniers mois
+    douze_derniers_mois = []
+    for i in range(11, -1, -1):
+        date_calculated = now() - relativedelta(months=i)
+        douze_derniers_mois.append(date_calculated)
+        
+    #### sept nouveaux membres
+    nouveaux_membres = models.Membre.objects.all().order_by("-date_enregistrement")[:8]
     
     liste_data = []
-    for liste in sept_liste_presences:
-        if liste:
-            collecte = sum([item.montant for item in models.getCotisationItem(request.user) if item.date_cotisation.date() == liste.date_presence.date()])
-            depense = sum([depense.montant for depense in models.getDepense(request.user) if depense.date_depense.date() == liste.date_presence.date()])
-            liste_data.append((liste.date_presence, collecte, depense))
+    liste_nouveau_membre = []
+    for mois in douze_derniers_mois:
+        collecte = sum([item.montant for item in models.getCotisationItem(request.user) if (item.date_cotisation.year == mois.year and item.date_cotisation.month == mois.month)])
+        depense = sum([depense.montant for depense in models.getDepense(request.user) if (depense.date_depense.year == mois.year and depense.date_depense.month == mois.month)])
+        liste_data.append((mois, collecte, depense))
         
+        #donner le nombre de nouveaux membres enregistrés dans un mois
+        nouveau_membres = len([membre for membre in models.getMembres(user=request.user) if (membre.date_enregistrement.year==mois.year and membre.date_enregistrement.month==mois.month)])
+        liste_nouveau_membre.append((mois, nouveau_membres))
+    #print(liste_nouveau_membre)
+    
+    dernieres_cotisations = models.Cotisation.objects.all().order_by('-date_creation')[:4]
+    
+    stats_derniere_presence = {}
+    if models.ListPresence.objects.filter(groupe=request.user.groupe):
+        derniere_presence = models.ListPresence.objects.filter(groupe=request.user.groupe).order_by('-date_presence')[0]
+        presents = models.Presence.objects.filter(liste_presence=derniere_presence, presence="présent").count()
+        absents = models.Presence.objects.filter(liste_presence=derniere_presence, presence="absent").count()
+        retards = models.Presence.objects.filter(liste_presence=derniere_presence, presence="retard").count()
+        permissions = models.Presence.objects.filter(liste_presence=derniere_presence, presence="permissionnaire").count()
+        stats_derniere_presence["present"] = presents
+        stats_derniere_presence["absent"] = absents
+        stats_derniere_presence["retard"] = retards
+        stats_derniere_presence["permission"] = permissions
+        
+        
+    
     return render(request, "app/home.html", locals())
 
 def registration(request):
