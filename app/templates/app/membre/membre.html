@@ -27,8 +27,8 @@ Membres
             <th scope="col">Numéro</th>
             <th scope="col">Profession</th>
             <th scope="col">Sous groupe</th>
-            <th scope="col"> <i class='icon-edit'></i> </th>
-            <th scope="col"> <i class="icon-close btn btn-danger"></i> </th>
+            <th scope="col"> <i class='fa fa-edit'></i> </th>
+            <th scope="col"> <i class="fa fa-close btn btn-danger"></i> </th>
         </tr>
     </thead>
     <tbody>
@@ -39,11 +39,17 @@ Membres
                 <td>{{ membre.nom }}</td>
                 <td>{{ membre.prenom }}</td>
                 <td>{{ membre.sexe }}</td>
-                <td>{{ membre.numero }}</td>
+                <td>
+                    {% if membre.numero %}
+                   {{ membre.numero }}
+                    {% else %}
+                    ---
+                    {% endif %}
+                </td>
                 <td>{{ membre.profession }}</td>
                 <td> {% if membre.sous_groupe %}{{ membre.sous_groupe.nom }}{% else %}Néant{% endif %}</td>
                 <td><button hx-get="{% url "update-membre" membre.id %}" hx-target="#modal-membre-editer"
-                    hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button>
+                    hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="fa fa-edit" type="solid"></i></button>
                 </td>
                 <td>
                     
@@ -55,7 +61,7 @@ Membres
                             hx-confirm="Voulez vous vraiment supprimer ce membre?"
 
                         >
-                            <i class="icon-close btn btn-danger"></i>
+                            <i class="fa fa-close btn btn-danger"></i>
                         </a>
                 </td>
             </tr>

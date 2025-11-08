@@ -14,7 +14,7 @@ class User(AbstractUser, SoftDeleteModel):
     def nom_photo_profil(self, filename):
         #Pour avoir l'extension du fichier chargé
         extension  = filename.split('.')
-        return self.laboratoire + '/' + 'PROFIL' + '/' + '.' + extension[-1]
+        return str(self.groupe) + '/' + 'PROFIL' + '/' + '.' + extension[-1]
     
     RESPONSABLE = 'responsable'
     SOUS_RESPONSABLE = 'sous_responsable'

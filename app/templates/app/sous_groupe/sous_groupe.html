@@ -26,8 +26,8 @@ Sous groupes
             <th scope="col"> # </th>
             <th scope="col">Date</th>
             <th scope="col">Nom</th>
-            <th scope="col"> <i class='icon-edit'></i> </th>
-            <th scope="col"> <i class="icon-close btn btn-danger"></i> </th>
+            <th scope="col"> <i class='fa fa-edit'></i> </th>
+            <th scope="col"> <i class="fa fa-close btn btn-danger"></i> </th>
         </tr>
     </thead>
     <tbody>
@@ -38,7 +38,7 @@ Sous groupes
                 <td>{{ sous_groupe.date_inscription }}</td>
                 <td>{{ sous_groupe.nom }}</td>
                 <td><button hx-get="{% url "update-sous-groupe" sous_groupe.id %}" hx-target="#modal-sous-groupe-editer"
-                    hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button></td>
+                    hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="fa fa-edit" type="solid"></i></button></td>
                 <td>
                     
                         <a 
@@ -46,10 +46,10 @@ Sous groupes
                             {% comment %} hx-get="{% url "supprime-sous-groupe" sous_groupe.id %}"  {% endcomment %}
                             hx-target="closest tr"
                             hx-swap="outerHTML"
-                            hx-confirm="Voulez vous vraiment supprimer cet examen?"
+                            hx-confirm="Voulez vous vraiment supprimer ce sous-groupe?"
 
                         >
-                            <i class="icon-close btn btn-danger"></i>
+                            <i class="fa fa-close btn btn-danger"></i>
                         </a>
                 </td>
             </tr>

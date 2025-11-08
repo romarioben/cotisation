@@ -11,6 +11,10 @@ from .models0 import Groupe, SousGroupe
 
 
 class Membre(SoftDeleteModel):
+    def photo_upload(self, filename):
+        #Pour avoir l'extension du fichier chargé
+        extension  = filename.split('.')
+        return str(self.groupe) + '/' + 'PROFIL' + '/' + '.' + extension[-1]
     sexe_choices = (
         ('M', 'Masculin'),
         ('F', 'Féminin')
@@ -24,6 +28,7 @@ class Membre(SoftDeleteModel):
     date_naissance = models.DateField(verbose_name="Date de naissance", null=True, blank=True)
     nationalite = models.CharField(max_length=70, null=True, blank=True, verbose_name="Nationalité")
     numero = models.CharField(max_length=21, verbose_name='Numéro de téléphone', null=True, blank=True)
+    photo = models.ImageField(verbose_name="Photo", upload_to=photo_upload, null=True, blank=True)
     profession = models.CharField(max_length=100)
     sous_groupe = models.ForeignKey(SousGroupe, on_delete=models.SET_NULL, verbose_name='Sous groupe', null=True, blank=True, related_name='sousgroupe')
     groupe = models.ForeignKey(Groupe, on_delete=models.CASCADE, verbose_name='Groupe', null=True)
@@ -39,10 +44,12 @@ class Membre(SoftDeleteModel):
     
 class ListPresence(SoftDeleteModel):
     date_presence = models.DateTimeField("Date de la présence", default=now)
+    nom = models.CharField(max_length=255, verbose_name='Titre', null=True)
     groupe = models.ForeignKey(Groupe, on_delete=models.CASCADE, )
+    sous_groupe = models.ForeignKey(SousGroupe, on_delete=models.CASCADE, related_name="liste_presence_sous_groupe", null=True, blank=True)
     
     def __str__(self):
-        return f'La liste de présence du {self.date_presence}'
+        return f'La liste de présence {self.nom} du {self.date_presence}'
     
 class Presence(SoftDeleteModel):
     presencechoices = (

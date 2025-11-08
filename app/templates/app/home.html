@@ -24,13 +24,13 @@ Dashboard
             <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="#more" role="tab" aria-selected="false">More</a>
             </li> {% endcomment %}
         </ul>
-        <div>
+        {% comment %} <div>
             <div class="btn-wrapper">
             <a href="#" class="btn btn-otline-dark align-items-center"><i class="icon-share"></i> Share</a>
             <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Print</a>
             <a href="#" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
             </div>
-        </div>
+        </div> {% endcomment %}
         </div>
         <div class="tab-content tab-content-basic">
         <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
@@ -76,8 +76,8 @@ Dashboard
                             <button class="btn btn-light dropdown-toggle toggle-dark btn-lg mb-0 me-0" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Faire </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                 <h6 class="dropdown-header">Effectuer une action</h6> 
-                                <a class="dropdown-item" href="#">Faire une présence</a>
-                                <a class="dropdown-item" href="#">Collecter une cotisation</a>
+                                <a class="dropdown-item" href="{% url "presence-liste" %}">Faire une présence</a>
+                                <a class="dropdown-item" href="{% url "cotisation" %}">Collecter une cotisation</a>
                                 {% comment %} <a class="dropdown-item" href="#">Something else here</a> {% endcomment %}
                                 {% comment %} <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated link</a> {% endcomment %}
