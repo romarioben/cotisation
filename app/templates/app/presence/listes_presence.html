@@ -6,49 +6,51 @@ Liste de présence
 
 {% block main-content %}
 <div class="row">
-    <div class="col" >
-        <a href="{% url "presence-ajouter" %}" class="button dt-button p-2 m-2" >Ajouter une nouvelle liste de présence</a>
+    <div class="row col-sm-12 col-md-3"> 
+        <div class="col-sm-12 col-lg-7" >
+            <a href="{% url "presence-ajouter" %}" class="btn btn-outline-primary p-2 m-2" >Ajouter une nouvelle liste de présence</a>
+        </div>
+        <div class="col-sm-12 col-lg-4" >
+            <a href="{% url "presence-faire" %}" class="btn btn-outline-primary p-2 m-2" >Faire une présence</a>
+        </div>
     </div>
-    <div class="col" >
-        <a href="{% url "presence-faire" %}" class="button dt-button p-2 m-2" >Faire une présence</a>
-    </div>
-</div>
-<form class="row shadow p-2"hx-post="{% url "presence-details"  %}" hx-target="#table-body">
-    {% csrf_token %}
-    <div class="col-xl-2 col-sm-12 my-2 ">
-        <p>Choississez une liste </p>
-    </div>
-    <div class="col-xl-6 col-sm-12 my-2 ">
-        <select name="liste_presence" class="form-select" required>
-            <option value="">Séléctionner une liste</option>
-            {% for liste in listes_presences %}
-            <option value="{{liste.id}}">{{liste}}</option>
-            {% endfor %}
-        <select>
-    </div>
-    <div class="col-xl-4 col-sm-12 my-2 ">
-        <input type="submit" value="Submit" class="btn btn-primary col">
-    </div>
-</form>
+    <form class="row col-sm-12 col-md-9 m-2 shadow p-2" hx-post="{% url "presence-details"  %}" hx-target="#table-body">
+        {% csrf_token %}
+        <div class="col-md-2 col-sm-12 my-2">
+            <p>Choississez une liste </p>
+        </div>
+        <div class="col-md-6 col-sm-12 my-2">
+            <select name="liste_presence" class="form-select" required>
+                <option value="">Séléctionner une liste</option>
+                {% for liste in listes_presences %}
+                <option value="{{liste.id}}">{{liste}}</option>
+                {% endfor %}
+            <select>
+        </div>
+        <div class="col-md-4 col-sm-12 my-2 ">
+            <input type="submit" value="Submit" class="btn btn-primary w-100">
+        </div>
+    </form>
 
 
-<table class="table table-striped my-2" id="table_presence_details">
-    <thead>
-        <tr>
-            <th scope="col"> # </th>
-            <th scope="col">Date</th>
-            <th scope="col">Membre</th>
-            <th scope="col">Status</th>
-            <th scope="col">Fait par</th>
+    <table class="table table-striped my-2" id="table_presence_details">
+        <thead>
+            <tr>
+                <th scope="col"> # </th>
+                <th scope="col">Date</th>
+                <th scope="col">Membre</th>
+                <th scope="col">Status</th>
+                <th scope="col">Fait par</th>
+                
+            </tr>
+        </thead>
+        <tbody id="table-body">
+
+            {% include "app/presence/presence_details.html" %}
             
-        </tr>
-    </thead>
-    <tbody id="table-body">
-
-        {% include "app/presence/presence_details.html" %}
-        
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
 {% endblock main-content %}
 
 {% block script %}

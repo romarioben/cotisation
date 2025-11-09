@@ -6,7 +6,7 @@ Membres
 
 {% block main-content %}
 <div>
-    <button class="button dt-button p-2 m-2" data-bs-toggle="modal" data-bs-target="#exampleModal-enreg">Enregistrer un nouveau membre</button>
+    <button class="btn btn-primary p-2 m-2" data-bs-toggle="modal" data-bs-target="#exampleModal-enreg">Enregistrer un nouveau membre</button>
 <div>
 
 {% if messages %}
@@ -105,7 +105,7 @@ Membres
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <input type="submit" value="Submit" class="btn btn-primary col">
+                        <input type="submit" value="Submit" class="btn btn-primary">
                     </div>
                     
                     {% if form.non_field_errors %}

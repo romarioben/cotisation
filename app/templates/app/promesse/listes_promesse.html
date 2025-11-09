@@ -6,7 +6,7 @@ Liste des promesses
 
 {% block main-content %}
 
-<form class="row shadow py-2" method="get" action="{% url "promesse-prendre" %}" hx-target="#table-body">
+<form class="row shadow mx-2 mb-5" method="get" action="{% url "promesse-prendre" %}" hx-target="#table-body">
     {% csrf_token %}
     <div class="col-xl-4 col-sm-12 my-2 ">
         <p>Choississez une cotisation </p>
@@ -20,11 +20,11 @@ Liste des promesses
         <select>
     </div>
     <div class="col-xl-4 col-sm-12 my-2 ">
-        <input type="submit" value="Prendre les promesses" class="btn btn-primary col">
+        <input type="submit" value="Prendre les promesses" class="btn btn-primary w-100">
     </div>
 </form>
 
-<form class="row shadow py-2"hx-post="{% url "promesse-details"  %}" hx-target="#table-body">
+<form class="row shadow mx-2 mb-5"hx-post="{% url "promesse-details"  %}" hx-target="#table-body">
     {% csrf_token %}
     <div class="col-xl-4 col-sm-12 my-2 ">
         <p>Choississez une cotisation </p>
@@ -38,7 +38,7 @@ Liste des promesses
         <select>
     </div>
     <div class="col-xl-4 col-sm-12 my-2 ">
-        <input type="submit" value="Submit" class="btn btn-primary col">
+        <input type="submit" value="Submit" class="btn btn-primary w-100">
     </div>
 </form>
 

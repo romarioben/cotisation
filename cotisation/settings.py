@@ -100,7 +100,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
 
 LOGIN_REDIRECT_URL = '/app/'
-LOGOUT_REDIRECT_URL = '/auth_app/login/'
+LOGOUT_REDIRECT_URL = '/auth/login/'
 LOGIN_URL = '/auth/login'
 
 # Database

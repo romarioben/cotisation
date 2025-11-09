@@ -55,7 +55,7 @@ def app_home(request):
         douze_derniers_mois.append(date_calculated)
         
     #### sept nouveaux membres
-    nouveaux_membres = models.Membre.objects.all().order_by("-date_enregistrement")[:8]
+    nouveaux_membres = models.getMembres(request.user)[:8] 
     
     liste_data = []
     liste_nouveau_membre = []
@@ -267,11 +267,6 @@ def membre(request):
 
 class UpdateMembre(View, LoginRequiredMixin):
     def get(self, request, id):
-        montant_total = sum([item.montant for item in models.getCotisationItem(request.user)])
-        depense_total = sum([depense.montant for depense in models.getDepense(request.user)])
-        montant_restant = montant_total - depense_total
-        
-        
         user = request.user
         groupe = user.groupe
         membre = get_object_or_404(models.Membre, id=id)
