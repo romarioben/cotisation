@@ -163,4 +163,4 @@ def getDepense(user:User):
     elif user.role == "sous_responsable":
         return Depense.objects.filter(groupe=user.groupe, sous_groupe=user.sous_groupe).order_by('-date_depense')
     else:
-        return []
+        return [] 
