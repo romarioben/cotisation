@@ -9,10 +9,48 @@ Login
 {% block main-content %}
 <div class="login-box">
     {% csrf_token %}
-    <a href="#" class="login-logo">
-        <img src="{% static 'app/img/logo.svg' %}" alt="Admin Dashboards" />
-    </a>
-    <h5>Bienvenu(e)<br />Enregistrer votre groupe.</h5>
+    <h4>Salut! Commencez avec GESPRES</h4>
+    <h6 class="fw-light">Enregistrer votre groupe pour continuer.</h6>
+    <form class="pt-3" method="post">
+        {% csrf_token %}
+        {% for fm  in form %}
+        <div class="form-group">
+            {{ fm }} <small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
+        </div>
+        {% endfor %}
+
+        {% for fm  in form1 %}
+        <div class="form-group">
+            {{ fm }} <small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
+        </div>
+        {% endfor %}
+        
+        {% if form.non_field_errors %}
+
+            {% for error in form.non_field_errors %}
+                <p class="alert alert-danger my-3">{{ error }}</p>
+            {% endfor %}
+                
+        {% endif %} 
+
+        {% if messages %}
+                
+            {% for msg in messages %}
+                <div class="alert alert-{{ msg.tags }}" role="alert"> {{ msg }}</div>
+            {% endfor %}
+                
+        {% endif %}
+        <div class="my-2 d-flex justify-content-between align-items-center">
+            <a href="#" class="auth-link text-black">Mot de passe oublié?</a>
+        </div>
+        {% comment %} <div class="mb-2 d-grid gap-2">
+        <button type="button" class="btn btn-block btn-facebook auth-form-btn">
+            <i class="ti-facebook me-2"></i>Connect using facebook </button>
+        </div> {% endcomment %}
+        <div class="text-center mt-4 fw-light"> Vous avez un  compte? <a href="{% url "login" %}" class="text-primary">Connectez-vous</a>
+        </div>
+
+    </form>
 
     {% for fm  in form %}
         <div class="form-group">
@@ -26,12 +64,7 @@ Login
         </div>
     {% endfor %}
 
-    {% comment %} <div class="form-group">
-        {{ form.username }} <small class="text-danger"> {{ form.username.errors|striptags }}</small> <br>
-    </div>
-    <div class="form-group">
-        {{ form.password }}<a id='togglePassword' class="m-1"><i id='icone' class='bx bx-lock-alt'></i> </a> <small class="text-danger"> {{ form.password.errors|striptags }}</small> <br>
-    </div> {% endcomment %}
+
     <div class="actions mb-4">
         <button type="submit" class="btn btn-primary">Soumettre</button>
     </div>
@@ -62,4 +95,5 @@ Login
     
 </div>
 {% endblock main-content %}
+
 
