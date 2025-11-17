@@ -11,7 +11,7 @@
     <meta property="og:description " content="TechStart Pro landing page is the definitive solution for businesses and individuals seeking a top-tier online presence. This responsive Bootstrap landing page is not just good-looking, it's also simple.">
     <meta property="og:image" content="https://www.designtocodes.com/wp-content/uploads/2023/08/TechStart-Pro-Responsive-Bootstrap-Landing-Page.jpg/"> {% endcomment %}
     <!-- title -->
-    <title>Présentatation || {% block title %}{% endblock title %}</title>
+    <title>Présentatation || {% block title %}Accueil{% endblock title %}</title>
     <!-- favicon -->
     <link rel="icon" id="favicon" href="{% static 'presentation/assets/images/logo_gespres000.png' %}"  type="image/gif" sizes="16x16">
     <!-- font -->
@@ -154,7 +154,7 @@
                             Gérez vos membres avec un annuaire interactif, suivez les cotisations et consultez les profils enrichis (compétences, disponibilités, photos).
                         </p>
                         <p class="d2c_last_paragraph">Commencer avec GESPRES, enregistrer votre groupe et gagner du temps.</p>
-                        <a href="#contact" class="btn">Inscrivez votre groupe</a>
+                        <a href="{% url "login" %}" class="btn">Inscrivez votre groupe</a>
                     </div>
                 </div>
             </div>
