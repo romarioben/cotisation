@@ -19,6 +19,10 @@ Login
         </div>
         {% endfor %}
 
+        <div class="actions mb-4">
+            <button type="submit" class="btn btn-primary">Soumettre</button>
+        </div>
+
         {% for fm  in form1 %}
         <div class="form-group">
             {{ fm }} <small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
@@ -43,55 +47,11 @@ Login
         <div class="my-2 d-flex justify-content-between align-items-center">
             <a href="#" class="auth-link text-black">Mot de passe oublié?</a>
         </div>
-        {% comment %} <div class="mb-2 d-grid gap-2">
-        <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-            <i class="ti-facebook me-2"></i>Connect using facebook </button>
-        </div> {% endcomment %}
+        
         <div class="text-center mt-4 fw-light"> Vous avez un  compte? <a href="{% url "login" %}" class="text-primary">Connectez-vous</a>
         </div>
 
     </form>
-
-    {% for fm  in form %}
-        <div class="form-group">
-            {{ fm }} <small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
-        </div>
-    {% endfor %}
-
-    {% for fm  in form1 %}
-        <div class="form-group">
-            {{ fm }} <small class="text-danger"> {{ fm.errors|striptags }}</small> <br>
-        </div>
-    {% endfor %}
-
-
-    <div class="actions mb-4">
-        <button type="submit" class="btn btn-primary">Soumettre</button>
-    </div>
-
-    {% if form.non_field_errors %}
-
-        {% for error in form.non_field_errors %}
-            <p class="alert alert-danger my-3">{{ error }}</p>
-        {% endfor %}
-            
-    {% endif %} 
-
-    {% if messages %}
-            
-        {% for msg in messages %}
-            <div class="alert alert-{{ msg.tags }}" role="alert"> {{ msg }}</div>
-        {% endfor %}
-            
-    {% endif %}
-    <div class="forgot-pwd">
-        <a class="link" href="{% url "password_reset" %}">Mot de passe oublié?</a>
-    </div>
-    <hr>
-    <div class="actions align-left">
-        <span class="additional-link">Avez-vous un compte?</span>
-        <a href="{% url "login" %}" class="btn btn-secondary">Connectez-vous</a>
-    </div>
     
 </div>
 {% endblock main-content %}
