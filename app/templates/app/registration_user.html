@@ -28,8 +28,8 @@ La liste des utilisateurs
             <th scope="col">Sous groupe</th>
             <th scope="col">Role</th>
             <th scope="col">Activé?</th>
-            <th scope="col"> <i class='icon-edit'></i> </th>
-            <th scope="col"> <i class='icon-delete1'></i> </th>
+            <th scope="col"> <i class='fa fa-edit'></i> </th>
+            <th scope="col"> <i class='fa fa-trash-o'></i> </th>
         </tr>
     </thead>
     <tbody>
@@ -44,11 +44,11 @@ La liste des utilisateurs
                 <td>{{ user0.role}}</td>
                 <td> {% if user0.is_ative %}<span class="text-success"><i class="icon-thumb_up" type="solid"></span>{% else %}<span class="text-danger"><i class="icon-thumb_down" type="solid"></span>{% endif %}</td>
                 <td><button hx-get="{% url "user-update" user0.id %}" hx-target="#modal-user-editer"
-                        hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="icon-edit" type="solid"></i></button>
+                        hx-swap="innerHTML" title="Editer" data-bs-toggle="modal" data-bs-target="#exampleModal-editer"><i class="fa fa-edit" type="solid"></i></button>
                     </td>
-                <td><button hx-get="" hx-target=""
-                    hx-swap="innerHTML" title="Editer" ><i class="icon-delete1" type="solid"></i></button>
-                </td>
+                {% comment %} <td><button hx-get="" hx-target=""
+                    hx-swap="innerHTML" title="Editer" ><i class="fa fa-trash-o" type="solid"></i></button>
+                </td> {% endcomment %}
             </tr>
             
         {% endfor %}
