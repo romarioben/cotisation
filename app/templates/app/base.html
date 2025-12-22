@@ -250,49 +250,49 @@
                 <span class="menu-title">Dashboard</span>
               </a>
             </li>
-			<li class="nav-item {% if page_name == "Sous groupe" %}active{% endif %}">
+			      <li class="nav-item {% if page_name == "Sous groupe" %}active{% endif %}">
               <a class="nav-link" href="{% url "sous-groupe" %}">
                 <i class="fa fa-user-plus menu-icon"></i>
                 <span class="menu-title">Sous groupe</span>
               </a>
             </li>
-			<li class="nav-item {% if page_name == "Membres" %}active{% endif %}">
+			      <li class="nav-item {% if page_name == "Membres" %}active{% endif %}">
               <a class="nav-link" href="{% url "membre" %}">
                 <i class="fa fa-users menu-icon"></i>
                 <span class="menu-title">Membre</span>
               </a>
             </li>
-			<li class="nav-item {% if page_name == "Liste de Présences" %}active{% endif %}">
+			      <li class="nav-item {% if page_name == "Liste de Présences" %}active{% endif %}">
               <a class="nav-link" href="{% url "presence-liste" %}">
                 <i class="fa fa-user-secret menu-icon"></i>
                 <span class="menu-title">Présences</span>
               </a>
             </li>
-			<li class="nav-item {% if page_name == "Cotisations" %}active{% endif %}">
+			      <li class="nav-item {% if page_name == "Cotisations" %}active{% endif %}">
               <a class="nav-link" href="{% url "cotisation" %}">
                 <i class="fa fa-money menu-icon"></i>
                 <span class="menu-title">Cotisation</span>
               </a>
             </li>
-			<li class="nav-item {% if page_name == "Liste des Promesses" %}active{% endif %}">
+			      <li class="nav-item {% if page_name == "Liste des Promesses" %}active{% endif %}">
               <a class="nav-link" href="{% url "promesse-liste" %}">
                 <i class="fa fa-tasks menu-icon"></i>
                 <span class="menu-title">Promesses</span>
               </a>
             </li>
-			<li class="nav-item {% if page_name == "Dépenses" %}active{% endif %}">
+			      <li class="nav-item {% if page_name == "Dépenses" %}active{% endif %}">
               <a class="nav-link" href="{% url "depense" %}">
                 <i class="fa fa-money menu-icon"></i>
                 <span class="menu-title">Dépenses</span>
               </a>
             </li>
-			<li class="nav-item {% if page_name == "Point" %}active{% endif %}">
+			      <li class="nav-item {% if page_name == "Point" %}active{% endif %}">
               <a class="nav-link" href="{% url "point" %}">
                 <i class="fa fa-book menu-icon"></i>
                 <span class="menu-title">Point</span>
               </a>
             </li>
-			<li class="nav-item {% if page_name == "Profil" %}active{% endif %}">
+			      <li class="nav-item {% if page_name == "Profil" %}active{% endif %}">
               <a class="nav-link" href="{% url "profile" %}">
                 <i class="fa fa-user-circle-o menu-icon"></i>
                 <span class="menu-title">Mon Profil</span>
@@ -300,7 +300,7 @@
             </li>
 			{% if request.user.role == "admin" %}
 
-			<li class="nav-item {% if page_name == "Utilisateurs" %}active{% endif %}">
+			      <li class="nav-item {% if page_name == "Utilisateurs" %}active{% endif %}">
               <a class="nav-link" href="{% url "users" %}">
                 <i class="fa fa-users menu-icon"></i>
                 <span class="menu-title">Utilisateurs</span>
