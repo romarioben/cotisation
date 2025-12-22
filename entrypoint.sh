@@ -1,4 +1,4 @@
 #!/bin/sh
-python manage.py collectstatic --noinput
-python manage.py migrate --noinput
+python3 manage.py collectstatic --noinput
+python3 manage.py migrate --noinput
 exec "$@"

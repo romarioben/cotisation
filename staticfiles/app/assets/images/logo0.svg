@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="135.71416mm"
+   height="22.112879mm"
+   viewBox="0 0 135.71416 22.112879"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (2aeb623e1d, 2025-05-12)"
+   sodipodi:docname="logo_gespres.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.35767747"
+     inkscape:cx="289.36684"
+     inkscape:cy="566.15252"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="135.71416"
+       height="22.112879"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <rect
+       x="-468.29901"
+       y="559.16296"
+       width="286.57104"
+       height="138.39284"
+       id="rect4" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-254.29534,-206.21679)">
+    <g
+       id="g4"
+       transform="matrix(2.1525414,0,0,2.1525414,95.04621,-184.09448)"
+       inkscape:export-filename="../2d600996/logo0.svg"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       style="fill:#e6e6e6;fill-opacity:1">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,191.49928,39.194591)"
+         id="text4"
+         style="font-weight:bold;font-size:53.3333px;line-height:0;font-family:'Berenis ADF Pro';-inkscape-font-specification:'Berenis ADF Pro Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect4);display:inline;opacity:1;fill:#e6e6e6;fill-opacity:1;stroke-width:4.1726"><tspan
+           x="-445.49344"
+           y="575.1621"
+           id="tspan3"><tspan
+             style="font-weight:normal;font-family:'Baekmuk Headline';-inkscape-font-specification:'Baekmuk Headline';fill:#000000"
+             id="tspan1">GES</tspan><tspan
+             style="font-weight:normal;font-family:'Baekmuk Headline';-inkscape-font-specification:'Baekmuk Headline';fill:#0000ff"
+             id="tspan2">PRES</tspan></tspan></text>
+    </g>
+  </g>
+</svg>
