@@ -34,7 +34,7 @@ Suivez ces étapes pour exécuter l’application en local à l’aide d’un en
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/your-org/cotisation-manager.git
+git clone https://github.com/romarioben/cotisation-manager.git
 cd cotisation-manager
 ```
 
