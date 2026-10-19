@@ -67,10 +67,10 @@
             </button>
           </div>
           <div>
-            <a class="navbar-brand brand-logo" href="index.html">
+            <a class="navbar-brand brand-logo" href="{% url 'dashboard' %}">
               <img src="{% static 'app/assets/images/logo0.svg' %}" alt="logo" />
             </a>
-            <a class="navbar-brand brand-logo-mini" href="{% static 'dashboard' %}">
+            <a class="navbar-brand brand-logo-mini" href="{% url 'dashboard' %}">
               <img src="{% static 'app/assets/images/logo_gespres000.png' %}" alt="logo" />
             </a>
           </div>
@@ -274,12 +274,35 @@
                 <span class="menu-title">Cotisation</span>
               </a>
             </li>
-			      <li class="nav-item {% if page_name == "Liste des Promesses" %}active{% endif %}">
-              <a class="nav-link" href="{% url "promesse-liste" %}">
+
+            <!-- Promesses : liste + création de fiche -->
+            <li class="nav-item {% if page_name == "Liste des Promesses" or "fiche-promesse" in request.resolver_match.url_name %}active{% endif %}">
+              <a class="nav-link" data-bs-toggle="collapse" href="#menu-promesse"
+                 aria-expanded="{% if page_name == "Liste des Promesses" or "fiche-promesse" in request.resolver_match.url_name %}true{% else %}false{% endif %}"
+                 aria-controls="menu-promesse">
                 <i class="fa fa-tasks menu-icon"></i>
                 <span class="menu-title">Promesses</span>
+                <i class="menu-arrow"></i>
               </a>
+              <div class="collapse {% if page_name == "Liste des Promesses" or "fiche-promesse" in request.resolver_match.url_name %}show{% endif %}" id="menu-promesse">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link {% if page_name == "Liste des Promesses" %}active{% endif %}" href="{% url "promesse-liste" %}">Liste des promesses</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link {% if "fiche-promesse" in request.resolver_match.url_name %}active{% endif %}" href="{% url "fiche-promesse" %}">Créer une fiche de promesse</a>
+                  </li>
+                </ul>
+              </div>
             </li>
+
+            <li class="nav-item {% if page_name == "Cartes" %}active{% endif %}">
+               <a class="nav-link" href="{% url "carte" %}">
+          <i class="fa fa-id-card-o menu-icon"></i>
+           <span class="menu-title">Cartes</span>
+         </a>
+           </li>
+
 			      <li class="nav-item {% if page_name == "Dépenses" %}active{% endif %}">
               <a class="nav-link" href="{% url "depense" %}">
                 <i class="fa fa-money menu-icon"></i>
@@ -298,7 +321,7 @@
                 <span class="menu-title">Mon Profil</span>
               </a>
             </li>
-			{% if request.user.role == "admin" %}
+			{% if request.user.role == "admin" or request.user.is_staff or request.user.is_superuser %}
 
 			      <li class="nav-item {% if page_name == "Utilisateurs" %}active{% endif %}">
               <a class="nav-link" href="{% url "users" %}">
@@ -441,5 +464,3 @@
 	{% block script %}{% endblock script %}
   </body>
 </html>
-
-			

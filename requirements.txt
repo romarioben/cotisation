@@ -9,13 +9,13 @@ django-mathfilters==1.0.0
 django-soft-delete==1.0.13
 et-xmlfile==1.1.0
 gunicorn==23.0.0
-numpy==2.0.1
+numpy
 openpyxl==3.1.5
 packaging==24.1
 pandas==2.2.2
-pillow==10.4.0
+pillow
 psycopg==3.2.3
-psycopg2-binary==2.9.10
+psycopg2-binary
 python-dateutil==2.9.0.post0
 pytz==2024.1
 reportlab==4.2.2

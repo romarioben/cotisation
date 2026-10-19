@@ -15,6 +15,7 @@ import os
 
 import dj_database_url
 import environ
+from django.contrib.messages import constants as message_constants
 
 env = environ.Env(
     # set casting, default value
@@ -212,3 +213,9 @@ EMAIL_PORT=465
 EMAIL_USE_SSL=True
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+
+
+
+MESSAGE_TAGS = {
+    message_constants.ERROR: 'danger',
+}

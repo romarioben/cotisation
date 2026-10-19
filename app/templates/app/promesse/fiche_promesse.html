@@ -1,0 +1,36 @@
+{% extends "app/base.html" %}
+{% block title %}Fiches de promesse{% endblock title %}
+
+{% block main-content %}
+<div class="card mb-4">
+  <div class="card-body">
+    <h5>Créer une nouvelle fiche de promesse</h5>
+    {% if peut_gerer %}
+   <form method="post" action="{% url 'fiche-promesse-creer' %}" class="d-flex flex-wrap gap-2">
+  {% csrf_token %}
+  <input type="text" name="nom" class="form-control w-auto" placeholder="Nom de la fiche" required>
+  <button class="btn btn-primary">Créer la fiche</button>
+</form>
+    <small class="text-muted">Le tableau est créé avec tous les membres du groupe.</small>
+    {% else %}
+    <p class="mb-0">Seuls les administrateurs et responsables peuvent créer une fiche.</p>
+    {% endif %}
+  </div>
+</div>
+
+<table class="table">
+  <thead><tr><th>Titre</th><th>Groupe</th><th>Date</th><th></th></tr></thead>
+  <tbody>
+    {% for f in fiches %}
+    <tr>
+      <td>{{ f.nom }}</td>
+      <td>{{ f.groupe|default:"Tous les groupes" }}</td>
+      <td>{{ f.date_creation|date:"d/m/Y" }}</td>
+      <td><a class="btn btn-sm btn-outline-primary" href="{% url 'fiche-promesse-detail' f.id %}">Ouvrir</a></td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4" class="text-center">Aucune fiche pour le moment.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock main-content %}

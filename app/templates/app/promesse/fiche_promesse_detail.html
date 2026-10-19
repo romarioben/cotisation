@@ -1,0 +1,154 @@
+{% extends "app/base.html" %}
+{% block title %}Fiche de promesse{% endblock title %}
+
+{% block main-content %}
+<style>
+  .fiche-table td, .fiche-table th { border: 1px solid #444 !important; vertical-align: middle; }
+</style>
+
+<div class="mb-3 d-flex flex-wrap gap-2">
+  <a class="btn btn-outline-secondary" href="{% url 'fiche-promesse' %}">← Toutes les fiches</a>
+  <a class="btn btn-primary" href="{% url 'fiche-promesse-pdf' fiche.id %}">Télécharger (PDF)</a>
+  <a class="btn btn-success" href="{% url 'fiche-promesse-export' fiche.id %}">Télécharger (Excel)</a>
+  {% if peut_gerer %}
+ 
+  <form method="post" action="{% url 'fiche-promesse-supprimer' fiche.id %}"
+        onsubmit="return confirm('Supprimer cette fiche ?')">
+    {% csrf_token %}<button class="btn btn-outline-danger">Supprimer la fiche</button>
+  </form>
+  {% endif %}
+</div>
+
+<h4 class="text-center">{{ fiche.nom }}{% if fiche.groupe %} ({{ fiche.groupe }}){% endif %}</h4>
+
+{% if peut_gerer %}
+<form id="form-promis" method="post" action="{% url 'fiche-promesse-enregistrer' fiche.id %}">{% csrf_token %}</form>
+<form id="form-ajout" method="post" action="{% url 'fiche-promesse-ajouter-ligne' fiche.id %}">{% csrf_token %}</form>
+{% endif %}
+
+<table class="table fiche-table">
+  <thead>
+    <tr>
+      <th>Nom et Prénom</th>
+      <th>Montant Promis</th>
+      <th>Montant Payé</th>
+      <th>Montant Total payé</th>
+      {% if peut_gerer %}<th>Solde</th>{% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for l in lignes %}
+    <tr>
+      <td>
+        {{ l.nom_affiche }}
+        {% if not l.membre_id %}
+          <small class="text-muted">(hors liste)</small>
+          {% if peut_gerer %}
+          <form class="d-inline" method="post" action="{% url 'fiche-promesse-ligne-supprimer' l.id %}"
+                onsubmit="return confirm('Retirer cette personne de la fiche ?')">
+            {% csrf_token %}<button class="btn btn-link btn-sm text-danger p-0" title="Retirer de la fiche">×</button>
+          </form>
+          {% endif %}
+        {% endif %}
+      </td>
+
+      <td>
+        {% if peut_gerer %}
+        <input type="number" min="0" name="promis_{{ l.id }}" form="form-promis"
+               value="{% if l.montant_promis %}{{ l.montant_promis }}{% endif %}"
+               class="form-control form-control-sm" placeholder="0">
+        {% else %}{% if l.montant_promis %}{{ l.montant_promis }}{% endif %}{% endif %}
+      </td>
+
+      <td>
+        {% for p in l.paiements.all %}
+          {{ p.montant }}f{% if not forloop.last %}+{% endif %}
+          {% if peut_gerer %}
+          <form class="d-inline" method="post" action="{% url 'fiche-promesse-paiement-supprimer' p.id %}"
+                onsubmit="return confirm('Supprimer ce paiement ?')">
+            {% csrf_token %}<button class="btn btn-link btn-sm text-danger p-0" title="Supprimer ce paiement">×</button>
+          </form>
+          {% endif %}
+        {% endfor %}
+        {% if peut_gerer %}
+        <form class="d-flex gap-1 mt-1" method="post" action="{% url 'fiche-promesse-payer' l.id %}">
+          {% csrf_token %}
+          <input type="number" min="1" name="montant" class="form-control form-control-sm" placeholder="Montant" required>
+          <button class="btn btn-sm btn-success">+</button>
+        </form>
+        {% endif %}
+      </td>
+
+      <td>
+        {% if l.total_paye %}{{ l.total_paye }}f{% endif %}
+        {% if l.solde %}<span class="badge bg-success">Soldé</span>{% endif %}
+      </td>
+
+      {% if peut_gerer %}
+      <td>
+        <form method="post" action="{% url 'fiche-promesse-solder' l.id %}">
+          {% csrf_token %}
+          {% if l.solde %}
+            <button class="btn btn-sm btn-outline-secondary">Annuler le solde</button>
+          {% else %}
+            <button class="btn btn-sm btn-outline-success">Solder</button>
+          {% endif %}
+        </form>
+      </td>
+      {% endif %}
+    </tr>
+    {% empty %}
+    <tr><td colspan="5" class="text-center">Aucun membre dans cette fiche.</td></tr>
+    {% endfor %}
+
+    {% if peut_gerer %}
+    <!-- Ligne d'ajout d'une personne hors liste (cachée tant qu'on n'a pas cliqué sur +) -->
+    <tr id="ligne-ajout" class="d-none">
+      <td>
+        <div class="d-flex gap-1">
+          <input type="text" id="ajout-nom" name="nom" form="form-ajout" class="form-control form-control-sm" placeholder="Nom">
+          <input type="text" name="prenom" form="form-ajout" class="form-control form-control-sm" placeholder="Prénom">
+        </div>
+      </td>
+      <td>
+        <input type="number" min="0" name="montant_promis" form="form-ajout" class="form-control form-control-sm" placeholder="Montant promis">
+      </td>
+      <td colspan="3">
+        <button type="submit" form="form-ajout" class="btn btn-sm btn-primary">Enregistrer</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="masquerLigneAjout()">Annuler</button>
+      </td>
+    </tr>
+    {% endif %}
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>TOTAL</th>
+      <th>{{ total_promis }}</th>
+      <th></th>
+      <th>{{ total_paye }}f</th>
+      {% if peut_gerer %}<th></th>{% endif %}
+    </tr>
+  </tfoot>
+</table>
+
+{% if peut_gerer %}
+<div class="d-flex flex-wrap gap-2 align-items-center">
+  <button type="button" id="btn-plus" class="btn btn-primary btn-sm rounded-circle" title="Ajouter une personne" onclick="afficherLigneAjout()">+</button>
+  <button form="form-promis" class="btn btn-primary">Enregistrer les montants promis</button>
+</div>
+{% endif %}
+{% endblock main-content %}
+
+{% block script %}
+<script>
+  function afficherLigneAjout() {
+    document.getElementById('ligne-ajout').classList.remove('d-none');
+    document.getElementById('btn-plus').classList.add('d-none');
+    document.getElementById('ajout-nom').focus();
+  }
+  function masquerLigneAjout() {
+    document.getElementById('ligne-ajout').classList.add('d-none');
+    document.getElementById('btn-plus').classList.remove('d-none');
+  }
+</script>
+{% endblock script %}

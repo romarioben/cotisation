@@ -37,7 +37,7 @@ class MyLogoutView(LogoutView):
     pass
 
 class MyPasswordChangeView(PasswordChangeView):
-       pass
+    pass
 
 class MyPasswordChangeDoneView(PasswordChangeDoneView):
     pass
@@ -66,7 +66,6 @@ class MyPasswordResetView(PasswordResetView):
 class MyRegistrationView(View):
     def get(self, request):
         form = forms.SignupForm()
-        print(form)
         return render(request, "auth_app/registration.html", locals())
     
     def post(self, request):
@@ -126,4 +125,3 @@ def verify_email(request, uidb64, token):
             messages.add_message(request, messages.SUCCESS, 'email verified successfully')
             return render(request, "auth_app/verify_email_complete.html")
         return render(request, 'auth/email_verify_failed.html', status=401)
-
