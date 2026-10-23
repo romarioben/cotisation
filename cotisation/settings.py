@@ -219,3 +219,42 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 MESSAGE_TAGS = {
     message_constants.ERROR: 'danger',
 }
+
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',   
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # paquets tiers
+    'django_softdelete',            
+    'pwa',
+
+    # les applications
+    'auth_app',
+    'app',
+    'presentation',
+]
+
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Configuration PWA
+PWA_APP_NAME = 'GESPRES'
+PWA_APP_SHORT_NAME = 'MaPlateforme'
+PWA_APP_DESCRIPTION = "Plateforme de gestion des cotisations GESPRES"
+PWA_APP_THEME_COLOR = '#0d6efd'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_START_URL = '/'
+PWA_APP_LANG = 'fr'
+PWA_APP_ICONS = [
+    {'src': '/static/icons/icon-192.png', 'sizes': '192x192', 'type': 'image/png'},
+    {'src': '/static/icons/icon-512.png', 'sizes': '512x512', 'type': 'image/png'},
+    {'src': '/static/icons/icon-512.png', 'sizes': '512x512', 'type': 'image/png', 'purpose': 'maskable'},
+]
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')

@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} {% load static pwa %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +33,8 @@
     <link rel="stylesheet"  href="{% static 'presentation/assets/css/style.css' %}">
     <!-- responsive css -->
     <link rel="stylesheet" href="{% static 'presentation/assets/css/responsive.css' %}">
+
+{% progressive_web_app_meta %}
 </head>
 <body>
     <!--  preloader start  -->

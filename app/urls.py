@@ -76,4 +76,5 @@ urlpatterns = [
 
 
     path("point/", views.point, name='point'),
+    path('offline/', views.offline, name='offline'), 
 ]

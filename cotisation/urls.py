@@ -25,4 +25,7 @@ urlpatterns = [
     path('presentation/', include('presentation.urls')),
     path('auth/', include('auth_app.urls')),
     path('admin/', admin.site.urls),
+
+    path('auth/', include('auth_app.urls')),
+    path('', include('pwa.urls')),
     ]

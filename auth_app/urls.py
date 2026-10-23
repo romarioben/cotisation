@@ -16,8 +16,8 @@ urlpatterns = [
     #path('registration/', views.MyRegistrationView.as_view(), name="registration"),
     path('verify-email-send/', views.verify_email_send, name="verify-email-send"),
     path('verify-email/<uidb64>/<token>/', views.verify_email, name="verify-email"),
-    
-    
+
+   
     
 ]
 

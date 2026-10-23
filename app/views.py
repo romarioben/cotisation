@@ -24,6 +24,8 @@ from django.utils.html import escape
 # Fonctions utilitaires
 # ---------------------------------------------------------------------------
 
+def offline(request):
+    return render(request, 'offline.html')
 def calcul_finances(user):
     "Retourne (montant_total, depense_total, montant_restant) pour l'utilisateur"
     montant_total = sum(item.montant for item in models.getCotisationItem(user))
